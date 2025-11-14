@@ -1,13 +1,1578 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>christmasit</title>
+    <title>Christmas Advent Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("./bg.png");
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+        background-repeat: no-repeat;
+      }
+      body {
+        position: relative;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      .delay-500 {
+        animation-delay: 0.5s;
+      }
+      .delay-1000 {
+        animation-delay: 1s;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(-25%);
+          animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+        }
+        50% {
+          transform: translateY(0);
+          animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+      }
+      .animate-bounce {
+        animation: bounce 1s infinite;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes zoomIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .animate-in {
+        animation: fadeIn 0.3s ease-out;
+      }
+      .zoom-in-95 {
+        animation: zoomIn 0.3s ease-out;
+      }
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Snow Animation */
+      @keyframes snow {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) translateX(var(--snow-x, 0))
+            rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .snowflake {
+        position: absolute;
+        top: -10px;
+        color: white;
+        font-size: 1em;
+        font-family: Arial, sans-serif;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        animation: snow linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.1);
+        }
+      }
+
+      .twinkle {
+        animation: twinkle 2s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* 3D Panorama Slider Styles */
+      .panorama-container {
+        perspective: 1200px;
+        perspective-origin: center center;
+        width: 100%;
+        height: auto;
+        position: relative;
+        overflow: visible;
+      }
+
+      .panorama-slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .panorama-card {
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+      }
+
+      .panorama-card:nth-child(1) {
+        transform: translateX(20px) translateZ(20px) rotateY(30deg) scale(0.9);
+        opacity: 0.85;
+        z-index: 1;
+      }
+
+      .panorama-card:nth-child(2) {
+        transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
+        opacity: 1;
+        z-index: 3;
+      }
+
+      .panorama-card:nth-child(3) {
+        transform: translateX(-20px) translateZ(20px) rotateY(-30deg) scale(0.9);
+        opacity: 0.85;
+        z-index: 1;
+      }
+
+      .panorama-card:hover {
+        transform: translateX(var(--panorama-x, 0)) translateZ(50px)
+          rotateY(var(--panorama-rotate, 0deg)) scale(1.05) !important;
+        z-index: 5 !important;
+      }
+
+      .panorama-card-content {
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+      }
+
+      @keyframes panoramaRotate {
+        0% {
+          transform: rotateY(0deg);
+        }
+        100% {
+          transform: rotateY(360deg);
+        }
+      }
+
+      /* Modern Card Animations */
+      @keyframes glow {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(235, 39, 67, 0.4),
+            0 0 40px rgba(235, 39, 67, 0.3), 0 0 60px rgba(235, 39, 67, 0.2);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(235, 39, 67, 0.6),
+            0 0 60px rgba(235, 39, 67, 0.5), 0 0 80px rgba(235, 39, 67, 0.3);
+        }
+      }
+
+      .card-glow {
+        animation: glow 2s ease-in-out infinite;
+      }
+
+      @keyframes cardLift {
+        0% {
+          transform: translateY(0) scale(1) rotateY(0deg);
+        }
+        100% {
+          transform: translateY(-12px) scale(1.03) rotateY(2deg);
+        }
+      }
+
+      .card-hover-lift {
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform-style: preserve-3d;
+        position: relative;
+        z-index: 1;
+      }
+
+      .card-hover-lift:hover {
+        transform: translateY(-12px) scale(1.03) rotateY(2deg);
+        box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        z-index: 2;
+      }
+
+      .card-hover-lift:not(:hover) {
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      @keyframes hoverGlow {
+        0%,
+        100% {
+          box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.5);
+        }
+        50% {
+          box-shadow: 0 35px 70px -12px rgba(235, 39, 67, 0.7),
+            0 0 40px rgba(235, 39, 67, 0.4);
+        }
+      }
+
+      .card-hover-lift:hover .card-glow {
+        animation: hoverGlow 1.5s ease-in-out infinite;
+      }
+
+      /* Ensure card content stays above shadow */
+      .card-hover-lift > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Past cards hover effect */
+      .card-hover-lift:hover {
+        opacity: 0.95 !important;
+      }
+
+      .card-hover-lift:hover[style*="border-white/20"] {
+        border-color: rgba(255, 255, 255, 0.4) !important;
+      }
+
+      /* Smooth content transitions - exclude text elements */
+      .card-hover-lift
+        *:not(p):not(h3):not(span):not(div[class*="text"]):not(.font-mono) {
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          opacity 0.4s ease;
+      }
+
+      /* Prevent text animations */
+      .card-hover-lift p,
+      .card-hover-lift h3,
+      .card-hover-lift span:not([class*="absolute"]):not([class*="badge"]),
+      .card-hover-lift .font-mono {
+        transition: none !important;
+        animation: none !important;
+      }
+
+      .card-hover-lift:hover .relative {
+        transform: translateY(-2px);
+      }
+
+      /* Neumorphism Styles */
+      .neu-number {
+        /* border-radius: 20px; */
+        /* background: linear-gradient(225deg, #bc1b34, #e0203e); */
+        /* box-shadow: -14px 14px 27px #b21a31, 14px -14px 27px #f02343; */
+        color: white;
+      }
+
+      .neu-bonus-badge {
+        /* border-radius: 20px;
+            background: linear-gradient(225deg, #bc1b34, #e0203e);
+            box-shadow: -14px 14px 27px #b21a31, 14px -14px 27px #f02343; */
+      }
+
+      .neu-promo-code {
+        border-radius: 10px;
+        background: linear-gradient(145deg, #e0203e, #bc1b34);
+        box-shadow: 20px 20px 60px #831326, -20px -20px 60px #da203f;
+        color: white;
+      }
+
+      .group-hover\:text-red-200 {
+        &:is(:where(.group):hover *) {
+          @media (hover: hover) {
+            color: crimson !important /* oklch(88.5% 0.062 18.334) */;
+          }
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div
+      id="app"
+      class="min-h-screen relative overflow-hidden"
+      style="
+        background: linear-gradient(
+          135deg,
+          #080f1f 0%,
+          #0a1628 20%,
+          #0d1b35 40%,
+          #0a1628 60%,
+          #080f1f 80%,
+          #080f1f 100%
+        );
+      "
+    >
+      <!-- Snow Container -->
+      <div
+        id="snow-container"
+        class="absolute inset-0 overflow-hidden pointer-events-none z-20"
+      ></div>
+
+      <!-- Christmas Background Elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <!-- Stars -->
+        <div class="absolute top-10 left-10 text-white text-2xl twinkle">
+          ⭐
+        </div>
+        <div
+          class="absolute top-20 right-20 text-white text-xl twinkle delay-500"
+        >
+          ✨
+        </div>
+        <div
+          class="absolute top-32 left-1/4 text-white text-lg twinkle delay-1000"
+        >
+          ⭐
+        </div>
+        <div class="absolute top-16 right-1/3 text-white text-xl twinkle">
+          ✨
+        </div>
+        <div
+          class="absolute top-40 left-3/4 text-white text-lg twinkle delay-500"
+        >
+          ⭐
+        </div>
+
+        <!-- Christmas Ornaments - Red only -->
+        <div class="absolute bottom-20 left-10 text-red-600 text-3xl float">
+          🔴
+        </div>
+        <div
+          class="absolute bottom-32 right-16 text-red-500 text-3xl float delay-500"
+        >
+          🔴
+        </div>
+        <div
+          class="absolute bottom-24 left-1/4 text-red-600 text-2xl float delay-1000"
+        >
+          🔴
+        </div>
+        <div class="absolute bottom-40 right-1/3 text-red-500 text-2xl float">
+          🔴
+        </div>
+
+        <!-- Animated background glow - Blue Christmas -->
+        <div
+          class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
+        ></div>
+        <div
+          class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl animate-pulse delay-1000"
+        ></div>
+        <div
+          class="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-500"
+        ></div>
+      </div>
+
+      <div class="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <div class="inline-block mb-6">
+            <div class="flex items-center justify-center gap-2 sm:gap-3 mb-4">
+              <span class="text-4xl sm:text-5xl animate-bounce">🎄</span>
+              <h1
+                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 relative text-white"
+                style="
+                  font-family: 'Inter', sans-serif;
+                  letter-spacing: -0.02em;
+                  font-weight: 800;
+                "
+              >
+                #Promo Christmas
+              </h1>
+              <span class="text-4xl sm:text-5xl animate-bounce delay-500"
+                >🎁</span
+              >
+            </div>
+            <div class="relative">
+              <div
+                class="h-1.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent rounded-full mb-2"
+              ></div>
+              <div
+                class="h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full"
+              ></div>
+              <div class="absolute left-1/2 -translate-x-1/2 -top-1 flex gap-2">
+                <span class="text-xs opacity-60">✨</span>
+                <span class="text-xs opacity-80">❄</span>
+                <span class="text-xs opacity-60">✨</span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-6">
+            <div class="inline-flex items-center gap-2 mb-3">
+              <span class="text-sm sm:text-base animate-pulse">✨</span>
+              <p
+                class="text-lg sm:text-xl md:text-2xl font-bold text-white/90 uppercase tracking-widest"
+                style="text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5)"
+              >
+                Daily Casino Bonuses
+              </p>
+              <span class="text-sm sm:text-base animate-pulse delay-500"
+                >✨</span
+              >
+            </div>
+            <p
+              id="subtitle"
+              class="text-sm sm:text-base text-white/70 font-medium mb-4"
+            >
+              Claim your exclusive promo code every day! 🎁
+            </p>
+          </div>
+          <div
+            id="dateInfo"
+            class="inline-flex items-center gap-3 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border-2 shadow-xl relative overflow-hidden"
+            style="
+              background: linear-gradient(
+                135deg,
+                rgba(235, 39, 67, 0.9) 0%,
+                rgba(209, 30, 58, 0.9) 100%
+              );
+              border-color: rgba(255, 255, 255, 0.3);
+              box-shadow: 0 8px 25px rgba(235, 39, 67, 0.4),
+                inset 0 2px 10px rgba(255, 255, 255, 0.1);
+            "
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-pulse"
+            ></div>
+            <div class="relative flex items-center gap-2 sm:gap-3">
+              <span class="text-lg sm:text-xl">🎄</span>
+              <span
+                class="text-white text-sm sm:text-base font-bold uppercase tracking-wider"
+                >Today:</span
+              >
+              <span
+                id="currentDate"
+                class="text-white font-black text-base sm:text-lg md:text-xl"
+                style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3)"
+              ></span>
+              <span class="text-lg sm:text-xl">🎁</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Panorama Slider Container -->
+        <div class="panorama-container">
+          <div id="calendarGrid" class="panorama-slider">
+            <!-- Cards will be generated here -->
+          </div>
+        </div>
+
+        <!-- Steps Section -->
+        <div
+          class="w-full max-w-6xl mx-auto mt-20 sm:mt-24 mb-16 sm:mb-20 px-4 sm:px-6"
+        >
+          <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-3 mb-6">
+              <span class="text-3xl animate-pulse">✨</span>
+              <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-black text-white"
+                style="
+                  font-family: 'Inter', sans-serif;
+                  letter-spacing: -0.02em;
+                  font-weight: 800;
+                  text-shadow: 0 4px 20px rgba(235, 39, 67, 0.4);
+                "
+              >
+                How It Works
+              </h2>
+              <span class="text-3xl animate-pulse delay-500">✨</span>
+            </div>
+            <div class="relative inline-block">
+              <div
+                class="h-1.5 bg-gradient-to-r from-transparent via-red-400/80 to-transparent rounded-full w-40 mx-auto mb-2"
+              ></div>
+              <div
+                class="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full w-32 mx-auto"
+              ></div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <!-- Connecting Line (Desktop Only) -->
+            <div
+              class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 z-0"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-red-500/30 via-red-400/50 to-red-500/30 rounded-full"
+              ></div>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent animate-pulse"
+              ></div>
+            </div>
+
+            <div
+              class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10"
+            >
+              <!-- Step 1 -->
+              <div class="relative group">
+                <div
+                  class="relative bg-gradient-to-br from-red-600/30 via-red-500/25 to-red-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-red-400/40 shadow-2xl hover:shadow-red-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      rgba(235, 39, 67, 0.25) 0%,
+                      rgba(209, 30, 58, 0.2) 50%,
+                      rgba(235, 39, 67, 0.25) 100%
+                    );
+                    box-shadow: 0 20px 40px -12px rgba(235, 39, 67, 0.4),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+                    max-height: 300px;
+                  "
+                >
+                  <!-- Animated Background Glow -->
+                  <!-- <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> -->
+
+                  <!-- Step Number Badge -->
+                  <div
+                    class="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500"
+                    style="
+                      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.8);
+                    "
+                  >
+                    <span class="relative z-10">1</span>
+                    <div
+                      class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl"
+                    ></div>
+                  </div>
+
+                  <div class="text-center mt-6 relative z-10">
+                    <div class="relative inline-block mb-6">
+                      <div
+                        class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
+                      >
+                        🎁
+                      </div>
+                      <div
+                        class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
+                      >
+                        ✨
+                      </div>
+                    </div>
+                    <h3
+                      class="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-red-200 transition-colors duration-300"
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                      "
+                    >
+                      Open Daily Card
+                    </h3>
+                    <p
+                      class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
+                      style="font-family: 'Inter', sans-serif"
+                    >
+                      Click on today's card to reveal your exclusive bonus offer
+                    </p>
+                  </div>
+
+                  <!-- Decorative Elements -->
+                  <div
+                    class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                  >
+                    🎄
+                  </div>
+                  <div
+                    class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                  >
+                    ❄
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="relative group">
+                <div
+                  class="relative bg-gradient-to-br from-red-600/30 via-red-500/25 to-red-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-red-400/40 shadow-2xl hover:shadow-red-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      rgba(235, 39, 67, 0.25) 0%,
+                      rgba(209, 30, 58, 0.2) 50%,
+                      rgba(235, 39, 67, 0.25) 100%
+                    );
+                    box-shadow: 0 20px 40px -12px rgba(235, 39, 67, 0.4),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+                    max-height: 300px;
+                  "
+                >
+                  <!-- Animated Background Glow -->
+                  <div
+                    class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  ></div>
+
+                  <!-- Step Number Badge -->
+                  <div
+                    class="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500"
+                    style="
+                      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.8);
+                    "
+                  >
+                    <span class="relative z-10">2</span>
+                    <div
+                      class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl"
+                    ></div>
+                  </div>
+
+                  <div class="text-center mt-6 relative z-10">
+                    <div class="relative inline-block mb-6">
+                      <div
+                        class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
+                      >
+                        🎴
+                      </div>
+                      <div
+                        class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
+                      >
+                        ✨
+                      </div>
+                    </div>
+                    <h3
+                      class="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-yellow-200 transition-colors duration-300"
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                      "
+                    >
+                      Get Promo Code
+                    </h3>
+                    <p
+                      class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
+                      style="font-family: 'Inter', sans-serif"
+                    >
+                      Receive your unique promo code for exclusive casino
+                      bonuses
+                    </p>
+                  </div>
+
+                  <!-- Decorative Elements -->
+                  <div
+                    class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                  >
+                    🎄
+                  </div>
+                  <div
+                    class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                  >
+                    ❄
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="relative group">
+                <div
+                  class="relative bg-gradient-to-br from-red-600/30 via-red-500/25 to-red-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-red-400/40 shadow-2xl hover:shadow-red-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      rgba(235, 39, 67, 0.25) 0%,
+                      rgba(209, 30, 58, 0.2) 50%,
+                      rgba(235, 39, 67, 0.25) 100%
+                    );
+                    box-shadow: 0 20px 40px -12px rgba(235, 39, 67, 0.4),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+                    max-height: 300px;
+                  "
+                >
+                  <!-- Animated Background Glow -->
+                  <div
+                    class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  ></div>
+
+                  <!-- Step Number Badge -->
+                  <div
+                    class="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500"
+                    style="
+                      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.8);
+                    "
+                  >
+                    <span class="relative z-10">3</span>
+                    <div
+                      class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl"
+                    ></div>
+                  </div>
+
+                  <div class="text-center mt-6 relative z-10">
+                    <div class="relative inline-block mb-6">
+                      <div
+                        class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
+                      >
+                        🎰
+                      </div>
+                      <div
+                        class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
+                      >
+                        ✨
+                      </div>
+                    </div>
+                    <h3
+                      class="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-yellow-200 transition-colors duration-300"
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                      "
+                    >
+                      Claim Bonus
+                    </h3>
+                    <p
+                      class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
+                      style="font-family: 'Inter', sans-serif"
+                    >
+                      Click "Claim Bonus" to use your code and enjoy the rewards
+                    </p>
+                  </div>
+
+                  <!-- Decorative Elements -->
+                  <div
+                    class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                  >
+                    🎄
+                  </div>
+                  <div
+                    class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                  >
+                    ❄
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer
+        class="relative z-10 w-full bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900/80 backdrop-blur-sm"
+      >
+        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-6">
+          <!-- Terms & Conditions with Integrated Payment Methods -->
+          <div class="space-y-10">
+            <!-- Terms & Conditions - Simple Clean Design -->
+            <div class="relative">
+              <!-- Header -->
+              <div class="text-center mb-12">
+                <h3
+                  class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
+                  style="
+                    font-family: 'Inter', sans-serif;
+                    letter-spacing: -0.01em;
+                    text-shadow: 0 2px 10px rgba(235, 39, 67, 0.3);
+                  "
+                >
+                  Terms & Conditions
+                </h3>
+              </div>
+
+              <!-- Terms Content -->
+              <div class="space-y-8 max-w-4xl mx-auto">
+                <!-- Eligibility -->
+                <div>
+                  <h4
+                    class="text-2xl sm:text-3xl font-black text-white mb-4"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Eligibility
+                  </h4>
+                  <p
+                    class="text-base sm:text-lg text-white/90 leading-relaxed"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Available to players 18+ (or legal age). One bonus per day
+                    per account.
+                  </p>
+                </div>
+
+                <!-- Bonus Terms -->
+                <div>
+                  <h4
+                    class="text-2xl sm:text-3xl font-black text-white mb-4"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Bonus Terms
+                  </h4>
+                  <p
+                    class="text-base sm:text-lg text-white/90 leading-relaxed"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Each promo code valid only on its designated day. Subject to
+                    wagering requirements.
+                  </p>
+                </div>
+
+                <!-- Usage -->
+                <div>
+                  <h4
+                    class="text-2xl sm:text-3xl font-black text-white mb-4"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Usage
+                  </h4>
+                  <p
+                    class="text-base sm:text-lg text-white/90 leading-relaxed"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Codes must be used at registration or deposit. Cannot be
+                    transferred or combined.
+                  </p>
+                </div>
+
+                <!-- Responsible Gaming -->
+                <div>
+                  <h4
+                    class="text-2xl sm:text-3xl font-black text-white mb-4"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Responsible Gaming
+                  </h4>
+                  <p
+                    class="text-base sm:text-lg text-white/90 leading-relaxed"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Gamble responsibly. Seek help if needed from responsible
+                    gaming organizations.
+                  </p>
+                </div>
+
+                <!-- Changes -->
+                <div>
+                  <h4
+                    class="text-2xl sm:text-3xl font-black text-white mb-4"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Changes
+                  </h4>
+                  <p
+                    class="text-base sm:text-lg text-white/90 leading-relaxed"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    We reserve the right to modify or cancel this promotion. All
+                    decisions are final.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Methods - Small and Modern -->
+            <div class="pt-4">
+              <p
+                class="text-center text-white/60 text-xs sm:text-sm mb-4 font-medium"
+                style="font-family: 'Inter', sans-serif"
+              >
+                Accepted Payment Methods
+              </p>
+              <div
+                class="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+              >
+                <!-- Small Payment Icons -->
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Visa"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-bold text-blue-600"
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      letter-spacing: 0.05em;
+                    "
+                  >
+                    VISA
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Mastercard"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-bold"
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      letter-spacing: 0.05em;
+                      background: linear-gradient(
+                        135deg,
+                        #eb001b 0%,
+                        #f79e1b 100%
+                      );
+                      -webkit-background-clip: text;
+                      -webkit-text-fill-color: transparent;
+                      background-clip: text;
+                    "
+                  >
+                    MC
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="PayPal"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-semibold text-blue-500"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    PP
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Skrill"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-semibold text-orange-500"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    SK
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Neteller"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-semibold text-green-500"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    NT
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Bitcoin"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-semibold text-orange-400"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    ₿
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Ethereum"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-semibold text-blue-400"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    Ξ
+                  </div>
+                </div>
+                <div
+                  class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                  title="Bank Transfer"
+                >
+                  <div
+                    class="text-[10px] sm:text-xs font-semibold text-white/70"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    🏦
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Copyright - Minimal -->
+            <div class="pt-6 text-center">
+              <p
+                class="text-white/50 text-[10px] sm:text-xs"
+                style="font-family: 'Inter', sans-serif"
+              >
+                © 2024 Christmas Promo Calendar. All rights reserved. | 18+ Only
+                | Play Responsibly
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Modal -->
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300"
+    >
+      <div
+        class="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-2xl max-w-lg w-full p-8 sm:p-10 relative zoom-in-95 border border-white/20"
+      >
+        <button
+          id="closeModal"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-full"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div id="modalContent" class="text-center">
+          <!-- Modal content will be generated here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Configuration - You can customize promotions here
+      // Each day should have: day, title, description, discount, code, and link
+      const promotions = [
+        {
+          day: 1,
+          title: "Winter Sale",
+          description: "Get cozy with our winter collection",
+          discount: "20% OFF",
+          code: "WINTER20",
+          link: "https://example.com/day1",
+        },
+        {
+          day: 2,
+          title: "Holiday Special",
+          description: "Perfect gifts for everyone",
+          discount: "15% OFF",
+          code: "HOLIDAY15",
+          link: "https://example.com/day2",
+        },
+        {
+          day: 3,
+          title: "Flash Deal",
+          description: "Limited time offer",
+          discount: "30% OFF",
+          code: "FLASH30",
+          link: "https://example.com/day3",
+        },
+        {
+          day: 4,
+          title: "Mega Bonus",
+          description: "Exclusive casino bonus",
+          discount: "50% OFF",
+          code: "MEGA50",
+          link: "https://example.com/day4",
+        },
+        {
+          day: 5,
+          title: "Weekend Special",
+          description: "Weekend exclusive offer",
+          discount: "25% OFF",
+          code: "WEEKEND25",
+          link: "https://example.com/day5",
+        },
+        // Add more promotions for each day of the month
+        // Each promotion must have a unique link for that day
+      ];
+
+      // State
+      let openedDays = new Set();
+      let selectedDay = null;
+
+      // Initialize
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const currentYear = today.getFullYear();
+      const currentMonth = today.getMonth();
+      const currentDay = today.getDate();
+
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const currentMonthName = monthNames[currentMonth];
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      function loadOpenedDays() {
+        const saved = localStorage.getItem("adventOpenedDays");
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            openedDays = new Set(parsed);
+          } catch (e) {
+            console.error("Error loading opened days:", e);
+          }
+        }
+      }
+      function saveOpenedDays() {
+        localStorage.setItem(
+          "adventOpenedDays",
+          JSON.stringify(Array.from(openedDays))
+        );
+      }
+
+      // Get day state
+      function getDayState(day) {
+        if (day < currentDay) return "past";
+        if (day === currentDay) return "current";
+        return "future";
+      }
+
+      function getPromotion(day) {
+        const monthAbbr = currentMonthName.substring(0, 3).toUpperCase();
+        return (
+          promotions.find((p) => p.day === day) || {
+            day,
+            title: `Day ${day} Special`,
+            description: `Exclusive offer for ${currentMonthName} ${day}`,
+            discount: "15% OFF",
+            code: `${monthAbbr}${String(day).padStart(2, "0")}${currentYear}`,
+            link: `https://example.com/day${day}`,
+          }
+        );
+      }
+      function handleCardClick(day) {
+        const state = getDayState(day);
+
+        if (state === "future") return;
+
+        if (state === "past") {
+          selectedDay = day;
+          showModal();
+          return;
+        }
+
+        const todayKey = `${today.getFullYear()}-${
+          today.getMonth() + 1
+        }-${today.getDate()}`;
+        const dayKey = `day-${day}-${todayKey}`;
+        if (!openedDays.has(dayKey)) {
+          openedDays.add(dayKey);
+          saveOpenedDays();
+        }
+        selectedDay = day;
+        showModal();
+      }
+      function showModal() {
+        const modal = document.getElementById("modal");
+        const modalContent = document.getElementById("modalContent");
+        const promotion = getPromotion(selectedDay);
+        const state = getDayState(selectedDay);
+        const isPast = state === "past";
+
+        if (isPast) {
+          modalContent.innerHTML = `
+                    <div class="text-4xl mb-4">✅</div>
+                    <div class="mb-6">
+                        <div class="inline-block px-6 py-3 rounded-xl border-2 shadow-lg" style="background-color: #eb2743; border-color: rgba(255, 255, 255, 0.3);">
+                            <span class="text-xl font-bold text-white">Bonus Claimed</span>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-red-50 to-white rounded-2xl p-6 mb-6 border-2 border-red-300/50 shadow-lg">
+                        <p class="text-sm text-gray-600 mb-2 font-medium uppercase tracking-wider">This bonus was already claimed</p>
+                        <p class="text-xs text-gray-500">You can only claim bonuses on their respective days</p>
+                    </div>
+                    <button onclick="closeModal()" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-white/30">
+                        Close
+                    </button>
+                `;
+        } else {
+          modalContent.innerHTML = `
+                    <div class="relative mb-6">
+                        <div class="flex items-center justify-center gap-3 mb-4">
+                            <span class="text-5xl animate-pulse">🎰</span>
+                            <span class="text-6xl animate-bounce">🎁</span>
+                            <span class="text-5xl animate-pulse delay-500">💎</span>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 mb-2">
+                            <span class="text-sm">✨</span>
+                            <span class="text-xs font-black text-gray-700 uppercase tracking-widest">Casino Christmas Bonus</span>
+                            <span class="text-sm">✨</span>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="inline-block w-full px-6 py-4 rounded-2xl border-2 shadow-xl text-center" style="background: linear-gradient(135deg, #eb2743 0%, #d11e3a 100%); border-color: rgba(255, 255, 255, 0.3);">
+                            <div class="text-3xl sm:text-4xl font-black text-white mb-1" style="text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);">
+                                ${promotion.discount || "Special Offer"}
+                            </div>
+                            <div class="text-xs text-white/90 font-semibold uppercase tracking-wider">Exclusive Bonus</div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">${
+                          promotion.title
+                        }</h3>
+                        <p class="text-gray-600 leading-relaxed text-center text-sm">${
+                          promotion.description
+                        }</p>
+                    </div>
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-white/10 to-yellow-400/20 rounded-2xl blur-md"></div>
+                        <div class="relative bg-gradient-to-br from-yellow-50/90 via-white to-yellow-50/90 rounded-2xl p-6 border-2 border-yellow-300/60 shadow-2xl">
+                            <div class="flex items-center justify-center gap-2 mb-4">
+                                <span class="text-lg">🎴</span>
+                                <p class="text-sm text-gray-700 font-bold uppercase tracking-widest">Your Promo Code</p>
+                                <span class="text-lg">🎴</span>
+                            </div>
+                            <div class="relative">
+                                <div class="text-5xl sm:text-6xl font-black text-center mb-3">
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-red-600 to-yellow-600 font-mono tracking-wider" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.4); letter-spacing: 0.1em;">
+                                        ${promotion.code}
+                                    </span>
+                                </div>
+                                <div class="absolute -top-2 -right-2 text-xl animate-pulse">🎁</div>
+                                <div class="absolute -bottom-2 -left-2 text-xl animate-pulse delay-500">💎</div>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center mt-2">Click the button below to claim your exclusive bonus</p>
+                        </div>
+                    </div>
+                    <a href="${
+                      promotion.link || "#"
+                    }" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-white/30 flex items-center justify-center gap-2 no-underline">
+                        <span class="text-xl">🎰</span>
+                        <span>Claim Bonus</span>
+                        <span class="text-xl">🎁</span>
+                    </a>
+                `;
+        }
+
+        modal.classList.remove("hidden");
+      }
+
+      // Close modal
+      function closeModal() {
+        const modal = document.getElementById("modal");
+        modal.classList.add("hidden");
+        selectedDay = null;
+      }
+
+      function renderCalendar() {
+        const grid = document.getElementById("calendarGrid");
+        grid.innerHTML = "";
+
+        // Calculate the 3 days to show: previous, current, next
+        const previousDay = currentDay > 1 ? currentDay - 1 : null;
+        const nextDay = currentDay < daysInMonth ? currentDay + 1 : null;
+        const daysToShow = [previousDay, currentDay, nextDay].filter(
+          (day) => day !== null
+        );
+
+        daysToShow.forEach((day) => {
+          const state = getDayState(day);
+          const promotion = getPromotion(day);
+          const isPast = state === "past";
+          const isCurrent = state === "current";
+          const isFuture = state === "future";
+
+          const todayKey = `${today.getFullYear()}-${
+            today.getMonth() + 1
+          }-${today.getDate()}`;
+          const dayKey = `day-${day}-${todayKey}`;
+          const hasBeenOpened = openedDays.has(dayKey);
+
+          let cardClasses = "panorama-card ";
+          let cardStyle = "";
+          let cardIndex = daysToShow.indexOf(day);
+
+          if (isCurrent) {
+            cardClasses += "cursor-pointer";
+            cardStyle =
+              "background: linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%); box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.6), 0 0 60px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2);";
+          } else if (isPast) {
+            cardClasses += "cursor-pointer";
+            cardStyle =
+              "background: linear-gradient(135deg, #2a2d3a 0%, #1f2230 50%, #252836 100%); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(100, 120, 140, 0.1); border-color: rgba(150, 150, 170, 0.2);";
+          } else {
+            cardClasses += "cursor-not-allowed";
+            cardStyle =
+              "background: linear-gradient(135deg, #1f2230 0%, #252836 50%, #1a1d28 100%); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(60, 60, 80, 0.1); border-color: rgba(100, 100, 120, 0.15);";
+          }
+
+          let badgeClasses = "absolute top-4 right-4 z-10";
+          let badgeStyle = "";
+          if (isCurrent) {
+            badgeStyle =
+              "background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%); color: #d11e3a; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.2); border: 2px solid rgba(255, 255, 255, 0.6);";
+          } else if (isPast) {
+            badgeStyle =
+              "background: linear-gradient(135deg, rgba(100, 120, 140, 0.8) 0%, rgba(80, 100, 120, 0.8) 100%); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.2); border: 1.5px solid rgba(150, 150, 170, 0.4);";
+          } else {
+            badgeStyle =
+              "background: linear-gradient(135deg, rgba(60, 60, 80, 0.7) 0%, rgba(40, 40, 60, 0.7) 100%); color: rgba(255, 255, 255, 0.5); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.1); border: 1.5px solid rgba(80, 80, 100, 0.3);";
+          }
+
+          let content = "";
+          if (isFuture) {
+            content = `
+                        <div class="text-center flex flex-col items-center justify-center h-full">
+                            <div class="relative mb-4">
+                                <div class="w-20 h-20 mx-auto rounded-full backdrop-blur-sm flex items-center justify-center border-2" style="background: linear-gradient(135deg, rgba(100, 100, 120, 0.6) 0%, rgba(60, 60, 80, 0.6) 100%); border-color: rgba(150, 150, 170, 0.5); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.1);">
+                                    <div class="text-4xl sm:text-5xl">🔒</div>
+                                </div>
+                                <div class="absolute -top-1 -right-1 flex gap-1">
+                                    <span class="text-xs opacity-50">🔐</span>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <p class="text-sm sm:text-base text-white/60 font-black uppercase tracking-widest mb-1">Coming Soon</p>
+                                <p class="text-xs text-white/40 font-semibold">${currentMonthName} ${day}</p>
+                            </div>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xs opacity-40">🎰</span>
+                                <span class="text-xs text-white/50 font-bold">Locked</span>
+                                <span class="text-xs opacity-40">💎</span>
+                            </div>
+                        </div>
+                    `;
+          } else if (isPast) {
+            const pastPromotion = getPromotion(day);
+            content = `
+                        <div class="flex-1 flex flex-col justify-center">
+                            <div class="text-center mb-4">
+                                <div class="relative inline-block mb-3">
+                                    <div class="w-16 h-16 mx-auto rounded-full backdrop-blur-sm flex items-center justify-center border-2 border-white/20" style="background: linear-gradient(135deg, rgba(100, 120, 140, 0.4) 0%, rgba(60, 80, 100, 0.4) 100%); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.1);">
+                                        <svg class="w-8 h-8 text-white/80" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="absolute -top-1 -right-1 text-sm opacity-60">✅</div>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="text-sm sm:text-base text-white/90 font-black uppercase tracking-widest mb-1">Bonus Claimed</p>
+                                    <p class="text-xs text-white/60 font-semibold">${currentMonthName} ${day}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-white/10">
+                                <div class="text-center">
+                                    <p class="text-[9px] uppercase tracking-widest mb-2 text-white/50 font-semibold flex items-center gap-1 justify-center">
+                                        <span class="opacity-50">🎴</span>
+                                        <span>Was: ${
+                                          pastPromotion.discount || "Bonus"
+                                        }</span>
+                                        <span class="opacity-50">🎴</span>
+                                    </p>
+                                    <div class="relative">
+                                        <div class="bg-gradient-to-br from-gray-700/30 via-gray-600/20 to-gray-700/30 backdrop-blur-sm rounded-lg p-2 border border-white/10">
+                                            <div class="font-mono text-sm font-bold tracking-widest text-center text-white/60 line-through">
+                                                ${pastPromotion.code}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+          } else {
+            content = `
+                        <div class="flex-1">
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-2xl animate-pulse">🎰</span>
+                                        <span class="text-xs font-black text-white/90 uppercase tracking-widest">Casino Bonus</span>
+                                    </div>
+                                    <div class="flex gap-1">
+                                        <span class="text-sm">✨</span>
+                                        <span class="text-sm">💎</span>
+                                        <span class="text-sm">✨</span>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <div class="text-3xl sm:text-4xl font-black text-white mb-2">
+                                        ${promotion.discount || "Special"}
+                                    </div>
+                                    <div class="absolute -top-1 -right-1 text-lg">🎄</div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h3 class="text-base sm:text-lg font-bold mb-2 line-clamp-2 text-white leading-tight">${
+                                  promotion.title
+                                }</h3>
+                                <p class="text-xs text-white/80 leading-relaxed">${
+                                  promotion.description
+                                }</p>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-4 border-t-2 border-white/20">
+                            <div class="relative">
+                                <p class="text-[9px] uppercase tracking-widest mb-2 text-white/70 font-semibold flex items-center gap-1 justify-center">
+                                    <span>🎴</span>
+                                    <span>Promo Code</span>
+                                    <span>🎴</span>
+                                </p>
+                                <div class="relative group">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-white/20 to-yellow-400/30 rounded-xl blur-sm"></div>
+                                    <div class="relative bg-gradient-to-br from-yellow-50/10 via-white/5 to-yellow-50/10 backdrop-blur-sm rounded-xl p-3 border-2 border-yellow-300/40 shadow-lg">
+                                        <div class="font-mono text-xl sm:text-2xl font-black tracking-widest text-center">
+                                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-yellow-200">
+                                                ${promotion.code}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="absolute -top-1 -right-1 text-xs">🎁</div>
+                                    <div class="absolute -bottom-1 -left-1 text-xs">💎</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+          }
+
+          const card = document.createElement("div");
+          card.className = cardClasses;
+          card.style.cssText =
+            cardStyle +
+            " border-radius: 24px; overflow: hidden; position: relative;";
+          card.onclick = () => handleCardClick(day);
+
+          // Set panorama positioning based on card index
+          if (cardIndex === 0) {
+            card.style.setProperty("--panorama-x", "-0px");
+            card.style.setProperty("--panorama-rotate", "30deg");
+          } else if (cardIndex === 1) {
+            card.style.setProperty("--panorama-x", "0px");
+            card.style.setProperty("--panorama-rotate", "0deg");
+          } else if (cardIndex === 2) {
+            card.style.setProperty("--panorama-x", "20px");
+            card.style.setProperty("--panorama-rotate", "-30deg");
+          }
+
+          card.innerHTML = `
+                    <div class="panorama-card-content group relative rounded-3xl overflow-hidden h-full">
+                        ${
+                          isCurrent
+                            ? '<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400" style="background: rgba(245, 77, 95, 0.25); transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);"></div>'
+                            : ""
+                        }
+                        <div class="${badgeClasses}" style="${badgeStyle}">
+                            <span class="relative z-10">${day}</span>
+                        </div>
+                        <div class="relative z-10 p-6 sm:p-7 pt-16 h-full flex flex-col justify-between">
+                            ${content}
+                        </div>
+                        ${
+                          isCurrent
+                            ? '<div class="absolute bottom-0 left-0 w-full h-1" style="background: rgba(235, 39, 67, 0.5);"></div>'
+                            : ""
+                        }
+                    </div>
+                `;
+
+          grid.appendChild(card);
+        });
+      }
+
+      function updateHeader() {
+        document.getElementById(
+          "subtitle"
+        ).textContent = `Discover exclusive casino bonuses every day in ${currentMonthName}! 🎁`;
+        document.getElementById(
+          "currentDate"
+        ).textContent = `${currentMonthName} ${currentDay}, ${currentYear}`;
+      }
+
+      // Create snowflakes
+      function createSnowflakes() {
+        const snowContainer = document.getElementById("snow-container");
+        const snowflakeSymbols = ["❄", "❅", "❆", "*"];
+
+        for (let i = 0; i < 50; i++) {
+          const snowflake = document.createElement("div");
+          snowflake.className = "snowflake";
+          snowflake.textContent =
+            snowflakeSymbols[
+              Math.floor(Math.random() * snowflakeSymbols.length)
+            ];
+          snowflake.style.left = Math.random() * 100 + "%";
+          snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
+          snowflake.style.animationDelay = Math.random() * 2 + "s";
+          snowflake.style.opacity = Math.random() * 0.5 + 0.5;
+          snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+          snowflake.style.setProperty(
+            "--snow-x",
+            Math.random() * 200 - 100 + "px"
+          );
+          snowContainer.appendChild(snowflake);
+        }
+      }
+
+      function init() {
+        loadOpenedDays();
+        updateHeader();
+        renderCalendar();
+        // createSnowflakes();
+
+        document.getElementById("modal").addEventListener("click", (e) => {
+          if (e.target.id === "modal") {
+            closeModal();
+          }
+        });
+
+        // Close modal on close button
+        document
+          .getElementById("closeModal")
+          .addEventListener("click", closeModal);
+      }
+
+      // Start the app
+      init();
+    </script>
   </body>
 </html>
