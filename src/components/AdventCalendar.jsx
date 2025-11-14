@@ -36,14 +36,18 @@ const AdventCalendar = ({ promotions = [] }) => {
     }
   }, []);
 
-  // Generate all days in current month
+  // Generate only 3 days: previous, current, next
   const allDays = useMemo(() => {
     const days = [];
-    for (let day = 1; day <= daysInMonth; day++) {
-      days.push(day);
-    }
+    const previousDay = currentDay > 1 ? currentDay - 1 : null;
+    const nextDay = currentDay < daysInMonth ? currentDay + 1 : null;
+    
+    if (previousDay !== null) days.push(previousDay);
+    days.push(currentDay);
+    if (nextDay !== null) days.push(nextDay);
+    
     return days;
-  }, [daysInMonth]);
+  }, [currentDay, daysInMonth]);
 
   const getDayState = (day) => {
     if (day < currentDay) return 'past';
@@ -130,8 +134,8 @@ const AdventCalendar = ({ promotions = [] }) => {
             </div>
           </div>
           
-          {/* Calendar Grid - Full Width with wider cards */}
-          <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-5 lg:gap-6">
+          {/* Calendar Grid - Only 3 days (previous, current, next) */}
+          <div className="w-full max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 justify-items-center">
             {allDays.map((day) => {
               const state = getDayState(day);
               const promotion = getPromotion(day);
@@ -148,7 +152,7 @@ const AdventCalendar = ({ promotions = [] }) => {
                   key={day}
                   onClick={() => handleCardClick(day)}
                   className={`
-                    group relative rounded-2xl overflow-hidden transition-all duration-500
+                    group relative rounded-2xl overflow-hidden transition-all duration-500 w-full max-w-[280px]
                     ${isCurrent 
                       ? 'bg-gradient-to-br from-red-500 via-pink-500 to-red-600 shadow-2xl shadow-red-500/50 scale-105 cursor-pointer hover:scale-110 ring-4 ring-red-300/50 hover:ring-red-400/70' 
                       : isPast
