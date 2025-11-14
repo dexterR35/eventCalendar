@@ -65,10 +65,16 @@ const AdventCalendar = ({ promotions = [] }) => {
   const handleCardClick = (day) => {
     const state = getDayState(day);
     
-    // Only allow clicking on current day (not past days)
-    if (state === 'future' || state === 'past') return;
+    // Don't allow clicking on future days
+    if (state === 'future') return;
     
-    // Check if already opened today
+    // For past days, just show the modal with "Bonus Claimed"
+    if (state === 'past') {
+      setSelectedDay(day);
+      return;
+    }
+    
+    // For current day, check if already opened today
     const todayKey = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const dayKey = `day-${day}-${todayKey}`;
     
@@ -92,6 +98,9 @@ const AdventCalendar = ({ promotions = [] }) => {
   };
 
   const selectedPromotion = selectedDay ? getPromotion(selectedDay) : null;
+  const selectedDayState = selectedDay ? getDayState(selectedDay) : null;
+  const isSelectedDayPast = selectedDayState === 'past';
+  const isSelectedDayCurrent = selectedDayState === 'current';
 
   return (
     <>
@@ -143,7 +152,7 @@ const AdventCalendar = ({ promotions = [] }) => {
                     ${isCurrent 
                       ? 'bg-gradient-to-br from-red-500 via-pink-500 to-red-600 shadow-2xl shadow-red-500/50 scale-105 cursor-pointer hover:scale-110 ring-4 ring-red-300/50 hover:ring-red-400/70' 
                       : isPast
-                      ? 'bg-gradient-to-br from-slate-700/80 to-slate-800/80 backdrop-blur-sm shadow-lg shadow-slate-900/50 cursor-not-allowed border border-slate-600/50 opacity-75'
+                      ? 'bg-gradient-to-br from-slate-700/80 to-slate-800/80 backdrop-blur-sm shadow-lg shadow-slate-900/50 cursor-pointer hover:scale-105 border border-slate-600/50 opacity-75'
                       : 'bg-slate-800/40 backdrop-blur-sm shadow-md opacity-60 cursor-not-allowed border border-slate-700/50'
                     }
                   `}
@@ -260,52 +269,83 @@ const AdventCalendar = ({ promotions = [] }) => {
             </button>
 
             <div className="text-center">
-              <div className="text-7xl mb-6 animate-bounce">🎁</div>
-              
-              <div className="mb-6">
-                <h2 className="text-3xl sm:text-4xl font-black text-gray-800 mb-3">
-                  {currentMonthName} {selectedDay}
-                </h2>
-                <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full">
-                  <span className="text-xl font-bold text-white">
-                    {selectedPromotion.discount || 'Special Offer'}
-                  </span>
-                </div>
-              </div>
+              {isSelectedDayPast ? (
+                <>
+                  <div className="text-7xl mb-6">✅</div>
+                  
+                  <div className="mb-6">
+                    <h2 className="text-3xl sm:text-4xl font-black text-gray-800 mb-3">
+                      {currentMonthName} {selectedDay}
+                    </h2>
+                    <div className="inline-block px-6 py-3 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full">
+                      <span className="text-xl font-bold text-white">
+                        Bonus Claimed
+                      </span>
+                    </div>
+                  </div>
 
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                  {selectedPromotion.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {selectedPromotion.description}
-                </p>
-              </div>
-              
-              <div className="bg-gradient-to-r from-red-50 via-pink-50 to-purple-50 rounded-2xl p-6 mb-6 border-2 border-red-200/50 shadow-lg">
-                <p className="text-sm text-gray-600 mb-3 font-medium uppercase tracking-wider">Your Promo Code</p>
-                <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 font-mono tracking-wider mb-2">
-                  {selectedPromotion.code}
-                </div>
-                <p className="text-xs text-gray-500">Use this code at checkout</p>
-              </div>
+                  <div className="bg-gradient-to-r from-slate-100 to-slate-200 rounded-2xl p-6 mb-6 border-2 border-slate-300 shadow-lg">
+                    <p className="text-sm text-gray-600 mb-2 font-medium uppercase tracking-wider">This bonus was already claimed</p>
+                    <p className="text-xs text-gray-500">You can only claim bonuses on their respective days</p>
+                  </div>
 
-              <button
-                onClick={(e) => {
-                  navigator.clipboard.writeText(selectedPromotion.code);
-                  const btn = e.currentTarget;
-                  const originalText = btn.textContent;
-                  btn.textContent = '✓ Copied!';
-                  btn.classList.add('bg-green-600', 'hover:bg-green-700');
-                  setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
-                  }, 2000);
-                }}
-                className="w-full bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                Copy Code
-              </button>
+                  <button
+                    onClick={closeModal}
+                    className="w-full bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Close
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="text-7xl mb-6 animate-bounce">🎁</div>
+                  
+                  <div className="mb-6">
+                    <h2 className="text-3xl sm:text-4xl font-black text-gray-800 mb-3">
+                      {currentMonthName} {selectedDay}
+                    </h2>
+                    <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full">
+                      <span className="text-xl font-bold text-white">
+                        {selectedPromotion.discount || 'Special Offer'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                      {selectedPromotion.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {selectedPromotion.description}
+                    </p>
+                  </div>
+                  
+                  <div className="bg-gradient-to-r from-red-50 via-pink-50 to-purple-50 rounded-2xl p-6 mb-6 border-2 border-red-200/50 shadow-lg">
+                    <p className="text-sm text-gray-600 mb-3 font-medium uppercase tracking-wider">Your Promo Code</p>
+                    <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 font-mono tracking-wider mb-2">
+                      {selectedPromotion.code}
+                    </div>
+                    <p className="text-xs text-gray-500">Use this code at checkout</p>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      navigator.clipboard.writeText(selectedPromotion.code);
+                      const btn = e.currentTarget;
+                      const originalText = btn.textContent;
+                      btn.textContent = '✓ Copied!';
+                      btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                      setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                      }, 2000);
+                    }}
+                    className="w-full bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Copy Code
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
