@@ -11,30 +11,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Snow Animation */
-@keyframes snow {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) translateX(var(--snow-x, 0)) rotate(var(--snow-rotate, 360deg));
-    opacity: 0;
-  }
-}
-
-.snowflake {
-  position: absolute;
-  top: -20px;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-  animation: snow linear infinite;
-  pointer-events: none;
-  user-select: none;
-  will-change: transform;
-}
-
 /* 3D Panorama Slider Styles */
 .panorama-container {
   perspective: 1200px;
