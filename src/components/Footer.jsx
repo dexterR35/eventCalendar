@@ -11,8 +11,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative z-10 w-full bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900/80 backdrop-blur-sm">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-6">
+    <footer className="w-full">
+      <div className="w-full max-w-6xl mx-auto py-6 sm:py-6">
         <div className="space-y-10">
           {/* Terms & Conditions */}
           <div className="relative">

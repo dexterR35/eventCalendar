@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
       body::after {
         content: "";
@@ -344,24 +345,8 @@
     <div
       id="app"
       class="min-h-screen relative overflow-hidden"
-      style="
-        background: linear-gradient(
-          135deg,
-          #080f1f 0%,
-          #0a1628 20%,
-          #0d1b35 40%,
-          #0a1628 60%,
-          #080f1f 80%,
-          #080f1f 100%
-        );
-      "
+      style="background: linear-gradient(135deg, #080f1f 0%, #0a1628 20%, #0d1b35 40%, #0a1628 60%, #080f1f 80%, #080f1f 100%);"
     >
-      <!-- Snow Container -->
-      <div
-        id="snow-container"
-        class="absolute inset-0 overflow-hidden pointer-events-none z-20"
-      ></div>
-
       <!-- Christmas Background Elements -->
       <div class="absolute inset-0 overflow-hidden">
         <!-- Stars -->
@@ -417,7 +402,15 @@
         ></div>
       </div>
 
-      <div class="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <!-- Section 1: Hero Section with Snow -->
+      <section class="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <!-- Snow Container - Only in Hero Section -->
+        <div
+          id="snow-particles"
+          class="absolute inset-0 pointer-events-none z-20"
+          style="width: 100%; height: 100%; overflow: hidden"
+        ></div>
+
         <!-- Header -->
         <div class="text-center mb-12">
           <div class="inline-block mb-6">
@@ -510,11 +503,12 @@
             <!-- Cards will be generated here -->
           </div>
         </div>
+      </section>
 
-        <!-- Steps Section -->
-        <div
-          class="w-full max-w-6xl mx-auto mt-20 sm:mt-24 mb-16 sm:mb-20 px-4 sm:px-6"
-        >
+      <!-- Section 2: Steps Section - No Snow -->
+      <section
+        class="relative z-10 w-full max-w-6xl mx-auto mt-20 sm:mt-24 mb-16 sm:mb-20 px-4 sm:px-6"
+      >
           <div class="text-center mb-16">
             <div class="inline-flex items-center gap-3 mb-6">
               <span class="text-3xl animate-pulse">✨</span>
@@ -794,14 +788,13 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+       
+    </section>
 
-      <!-- Footer -->
-      <footer
-        class="relative z-10 w-full bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900/80 backdrop-blur-sm"
-      >
-        <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-6">
+      <!-- Section 3: Footer Section - Terms & Conditions -->
+      <section class="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+        <footer class="w-full">
+          <div class="w-full max-w-6xl mx-auto py-6 sm:py-6">
           <!-- Terms & Conditions with Integrated Payment Methods -->
           <div class="space-y-10">
             <!-- Terms & Conditions - Simple Clean Design -->
@@ -1038,7 +1031,8 @@
             </div>
           </div>
         </div>
-      </footer>
+        </footer>
+      </section>
     </div>
 
     <!-- Modal -->
@@ -1558,6 +1552,75 @@
         updateHeader();
         renderCalendar();
         // createSnowflakes();
+
+        // Initialize particles.js for snow effect in hero section
+        if (window.particlesJS) {
+          window.particlesJS('snow-particles', {
+            particles: {
+              number: {
+                value: 150,
+                density: {
+                  enable: true,
+                  value_area: 800,
+                },
+              },
+              color: {
+                value: '#ffffff',
+              },
+              shape: {
+                type: 'circle',
+              },
+              opacity: {
+                value: 0.5,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 1,
+                  opacity_min: 0.1,
+                  sync: false,
+                },
+              },
+              size: {
+                value: 3,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 2,
+                  size_min: 0.1,
+                  sync: false,
+                },
+              },
+              line_linked: {
+                enable: false,
+              },
+              move: {
+                enable: true,
+                speed: 1.5,
+                direction: 'bottom',
+                random: true,
+                straight: false,
+                out_mode: 'out',
+                bounce: false,
+                attract: {
+                  enable: false,
+                },
+              },
+            },
+            interactivity: {
+              detect_on: 'canvas',
+              events: {
+                onhover: {
+                  enable: false,
+                },
+                onclick: {
+                  enable: false,
+                },
+                resize: true,
+              },
+            },
+            retina_detect: true,
+          });
+        }
 
         document.getElementById("modal").addEventListener("click", (e) => {
           if (e.target.id === "modal") {

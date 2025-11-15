@@ -129,7 +129,7 @@ export default function Snowflakes() {
       ref={containerRef}
       id="snow-particles"
       className="absolute inset-0 pointer-events-none z-20"
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: '100%', height: '100%', overflow: 'hidden' }}
     />
   );
 }

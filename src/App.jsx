@@ -64,16 +64,12 @@ function App() {
   );
 
   return (
-    <div
+    <div 
       className="min-h-screen relative overflow-hidden"
       style={{
-        background:
-          'linear-gradient(135deg, #080f1f 0%, #0a1628 20%, #0d1b35 40%, #0a1628 60%, #080f1f 80%, #080f1f 100%)',
+        background: 'linear-gradient(135deg, #080f1f 0%, #0a1628 20%, #0d1b35 40%, #0a1628 60%, #080f1f 80%, #080f1f 100%)',
       }}
     >
-      {/* Snow Container */}
-      <Snowflakes />
-
       {/* Christmas Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Stars */}
@@ -113,7 +109,11 @@ function App() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      {/* Section 1: Hero Section with Snow */}
+      <section className="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        {/* Snow Container - Only in Hero Section */}
+        <Snowflakes />
+        
         {/* Header */}
         <Header />
 
@@ -135,13 +135,17 @@ function App() {
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Steps Section */}
+      {/* Section 2: Steps Section - No Snow */}
+      <section className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <Steps />
-      </div>
+      </section>
 
-      {/* Footer */}
-      <Footer />
+      {/* Section 3: Footer Section - Terms & Conditions */}
+      <section className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+        <Footer />
+      </section>
 
       {/* Modal */}
       {selectedDay && (
