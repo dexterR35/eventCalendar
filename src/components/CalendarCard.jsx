@@ -253,12 +253,21 @@ export default function CalendarCard({
   if (index === 0) {
     cardStyleObj['--panorama-x'] = '-0px';
     cardStyleObj['--panorama-rotate'] = '30deg';
+    // Mobile vertical panorama
+    cardStyleObj['--panorama-y'] = '20px';
+    cardStyleObj['--panorama-rotate-vertical'] = '-30deg';
   } else if (index === 1) {
     cardStyleObj['--panorama-x'] = '0px';
     cardStyleObj['--panorama-rotate'] = '0deg';
+    // Mobile vertical panorama
+    cardStyleObj['--panorama-y'] = '0px';
+    cardStyleObj['--panorama-rotate-vertical'] = '0deg';
   } else if (index === 2) {
     cardStyleObj['--panorama-x'] = '20px';
     cardStyleObj['--panorama-rotate'] = '-30deg';
+    // Mobile vertical panorama
+    cardStyleObj['--panorama-y'] = '-20px';
+    cardStyleObj['--panorama-rotate-vertical'] = '30deg';
   }
 
   return (

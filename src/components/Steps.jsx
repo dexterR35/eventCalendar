@@ -55,25 +55,24 @@ export default function Steps() {
           {steps.map((step) => (
             <div key={step.number} className="relative group">
               <div
-                className="relative bg-gradient-to-br from-red-600/30 via-red-500/25 to-red-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-red-400/40 shadow-2xl hover:shadow-red-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
+                className="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl hover:shadow-gray-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(235, 39, 67, 0.25) 0%, rgba(209, 30, 58, 0.2) 50%, rgba(235, 39, 67, 0.25) 100%)",
+                    "linear-gradient(135deg, rgba(42, 45, 58, 0.4) 0%, rgba(31, 34, 48, 0.35) 50%, rgba(37, 40, 54, 0.4) 100%)",
                   boxShadow:
-                    "0 20px 40px -12px rgba(235, 39, 67, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset",
+                    "0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset",
                   maxHeight: "300px",
                 }}
               >
                 {/* Step Number Badge */}
                 <div
-                  className="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500"
+                  className="absolute -top-4 -left-4 w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black text-white transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-1"
                   style={{
-                    boxShadow:
-                      "0 10px 30px rgba(255, 215, 0, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.8)",
+                    background: "linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%)",
+                    boxShadow: "0 8px 24px rgba(235, 39, 67, 0.5), 0 4px 12px rgba(235, 39, 67, 0.3)",
                   }}
                 >
                   <span className="relative z-10">{step.number}</span>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl"></div>
                 </div>
 
                 <div className="text-center mt-6 relative z-10">
