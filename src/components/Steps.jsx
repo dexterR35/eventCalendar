@@ -137,28 +137,12 @@ export default function Steps() {
           </motion.span>
         </div>
         <div className="relative inline-block">
-          <div className="h-1.5 bg-gradient-to-r from-transparent via-red-400/80 to-transparent rounded-full w-40 mx-auto mb-2"></div>
-          <div className="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full w-32 mx-auto"></div>
+          <div className="h-1.5 bg-gradient-to-r from-transparent via-red-400/25 to-transparent rounded-full w-40 mx-auto mb-2"></div>
+          <div className="h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full w-32 mx-auto"></div>
         </div>
       </motion.div>
 
       <div className="relative overflow-visible">
-        {/* Connecting Line (Desktop Only) */}
-        <motion.div
-          className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 z-0"
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-red-500/30 via-red-400/50 to-red-500/30 rounded-full"></div>
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent"
-            animate={{ opacity: [0.4, 0.8, 0.4] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10 pt-8 pb-8"
           style={{ overflow: "visible" }}
@@ -178,13 +162,12 @@ export default function Steps() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <motion.div
-                className="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl card-hover-lift step-card-enhanced"
+                className="relative backdrop-blur-xl rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl card-hover-lift step-card-enhanced"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(42, 45, 58, 0.4) 0%, rgba(31, 34, 48, 0.35) 50%, rgba(37, 40, 54, 0.4) 100%)",
+                    "linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(17, 24, 39, 0.3) 50%, rgba(31, 41, 55, 0.4) 100%)",
                   boxShadow:
-                    "0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset",
-                  maxHeight: "300px",
+                    "0 20px 40px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset",
                   overflow: "visible",
                 }}
                 whileHover={{
@@ -195,7 +178,7 @@ export default function Steps() {
                 {/* Animated Background Glow */}
                 {step.showBackgroundGlow && (
                   <motion.div
-                    className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10"
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-br from-gray-700/10 via-transparent to-gray-800/10"
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}

@@ -197,53 +197,58 @@ export default function Footer() {
                   </motion.span>
                 </div>
                 <div className="relative inline-block">
-                  <div className="h-1.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent rounded-full w-48 mx-auto mb-2"></div>
-                  <div className="h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full w-36 mx-auto"></div>
+                  <div className="h-1.5 bg-gradient-to-r from-transparent via-red-400/20 to-transparent rounded-full w-48 mx-auto mb-2"></div>
+                  <div className="h-0.5 bg-gradient-to-r from-transparent via-white/15 to-transparent rounded-full w-36 mx-auto"></div>
                 </div>
               </motion.div>
 
-              {/* Terms Content */}
-              <motion.div
-                className="space-y-6 max-w-4xl mx-auto"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-              >
-                {termsData.map((term, index) => (
+              {/* Terms Content - New Beautiful Layout */}
+              <div className="max-w-5xl mx-auto">
+                <div className="relative bg-gradient-to-br from-gray-800/40 via-gray-900/30 to-gray-800/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+                  {/* Scrollable Container */}
                   <motion.div
-                    key={index}
-                    className="tnc-card"
-                    variants={termCardVariants}
-                    whileHover={{
-                      y: -2,
-                      scale: 1.01,
-                      transition: { duration: 0.3 },
-                    }}
+                    className="max-h-[600px] overflow-y-auto px-6 sm:px-8 py-8 space-y-8 custom-scrollbar"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
                   >
-                    <div className="flex items-start gap-4">
-                      <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${term.iconBg} flex items-center justify-center border ${term.iconBorder}`}>
-                        <span className="text-2xl">{term.icon}</span>
-                      </div>
-                      <div className="flex-1">
-                        <h4
-                          className="text-xl sm:text-2xl font-black text-white mb-3 flex items-center gap-2"
-                          style={{ fontFamily: "'Inter', sans-serif" }}
-                        >
-                          <span>{term.title}</span>
-                          <span className="text-sm opacity-60">{term.decorativeEmoji}</span>
-                        </h4>
-                        <p
-                          className="text-sm sm:text-base text-white/90 leading-relaxed"
-                          style={{ fontFamily: "'Inter', sans-serif" }}
-                        >
-                          {term.description}
-                        </p>
-                      </div>
-                    </div>
+                    {termsData.map((term, index) => (
+                      <motion.div
+                        key={index}
+                        className="tnc-card"
+                        variants={termCardVariants}
+                        whileHover={{
+                          y: -2,
+                          scale: 1.01,
+                          transition: { duration: 0.3 },
+                        }}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${term.iconBg} flex items-center justify-center border ${term.iconBorder}`}>
+                            <span className="text-2xl">{term.icon}</span>
+                          </div>
+                          <div className="flex-1">
+                            <h4
+                              className="text-xl sm:text-2xl font-black text-white mb-3 flex items-center gap-2"
+                              style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                              <span>{term.title}</span>
+                              <span className="text-sm opacity-60">{term.decorativeEmoji}</span>
+                            </h4>
+                            <p
+                              className="text-sm sm:text-base text-white/90 leading-relaxed"
+                              style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                              {term.description}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </motion.div>
-                ))}
-              </motion.div>
+                </div>
+              </div>
             </div>
 
             {/* Payment Methods - Small and Modern */}

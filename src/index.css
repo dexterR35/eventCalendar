@@ -34,8 +34,8 @@ body {
 
 .panorama-card {
   position: absolute;
-  width: 380px;
-  height: 380px;
+  width: 420px;
+  height: 480px;
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
@@ -78,7 +78,7 @@ body {
     perspective: 1000px;
     perspective-origin: center center;
     height: auto;
-    min-height: 600px;
+    min-height: 700px;
   }
 
   .panorama-slider {
@@ -91,8 +91,8 @@ body {
 
   .panorama-card {
     position: absolute;
-    width: 320px;
-    height: 320px;
+    width: 340px;
+    height: 420px;
   }
 
   .panorama-card:nth-child(1) {

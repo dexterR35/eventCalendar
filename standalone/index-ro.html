@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Christmas Advent Calendar</title>
+    <title>Calendar Advent de Crăciun</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -401,13 +401,13 @@
         content: "";
         position: absolute;
         top: 0;
-        left: -100%;
-        width: 100%;
+        left: -120%;
+        width: 120%;
         height: 100%;
         background: linear-gradient(
-          90deg,
+          280deg,
           transparent,
-          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.2) 10%,
           transparent
         );
         animation: lightSweep 3s infinite;
@@ -1186,7 +1186,7 @@
                 class="hero-subtitle text-lg sm:text-xl md:text-2xl font-bold text-white/90 uppercase tracking-widest"
                 style="text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5)"
               >
-                Daily Casino Bonuses
+                Bonusuri Zilnice de Cazino
               </p>
               <span class="text-sm sm:text-base animate-pulse delay-500"
                 >✨</span
@@ -1196,7 +1196,7 @@
               id="subtitle"
               class="hero-subtitle text-sm sm:text-base text-white/70 font-medium mb-3 sm:mb-4"
             >
-              Claim your exclusive promo code every day! 🎁
+              Revendică codul tău promo exclusiv în fiecare zi! 🎁
             </p>
           </div>
           <div
@@ -1220,7 +1220,7 @@
               <span class="text-lg sm:text-xl">🎄</span>
               <span
                 class="text-white text-sm sm:text-base font-bold uppercase tracking-wider"
-                >Today:</span
+                >Astăzi:</span
               >
               <span
                 id="currentDate"
@@ -1270,7 +1270,7 @@
                 text-shadow: 0 4px 20px rgba(235, 39, 67, 0.4);
               "
             >
-              How It Works
+              Cum Funcționează
             </h2>
             <span class="text-3xl animate-pulse delay-500 float-particle">✨</span>
           </div>
@@ -1315,7 +1315,7 @@
                         text-shadow: 0 2px 10px rgba(235, 39, 67, 0.3);
                       "
                     >
-                      Terms & Conditions
+                      Termeni și Condiții
                     </h3>
                     <span class="text-2xl animate-pulse delay-500 float-particle">📋</span>
                   </div>
@@ -1346,7 +1346,7 @@
                   class="text-center text-white/60 text-xs sm:text-sm mb-4 font-medium"
                   style="font-family: 'Inter', sans-serif"
                 >
-                  Accepted Payment Methods
+                  Metode de Plată Acceptate
                 </p>
                 <div
                   id="payment-methods-container"
@@ -1362,8 +1362,8 @@
                   class="text-white/50 text-[10px] sm:text-xs"
                   style="font-family: 'Inter', sans-serif"
                 >
-                  © 2024 Christmas Promo Calendar. All rights reserved. | 18+
-                  Only | Play Responsibly
+                  © 2024 Calendar Promo de Crăciun. Toate drepturile rezervate. | 18+
+                  Doar | Joacă Responsabil
                 </p>
               </div>
             </div>
@@ -1420,20 +1420,20 @@
       const currentMonth = today.getMonth();
       const currentDay = today.getDate();
 
-        const monthNames = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
+      const monthNames = [
+        "Ianuarie",
+        "Februarie",
+        "Martie",
+        "Aprilie",
+        "Mai",
+        "Iunie",
+        "Iulie",
+        "August",
+        "Septembrie",
+        "Octombrie",
+        "Noiembrie",
+        "Decembrie",
+      ];
 
       const currentMonthName = monthNames[currentMonth];
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -1465,55 +1465,55 @@
 
       // Dynamic promotion titles and descriptions
       const promotionTitles = [
-        "Daily Bonus",
-        "Exclusive Offer",
-        "Special Deal",
+        "Bonus Zilnic",
+        "Ofertă Exclusivă",
+        "Ofertă Specială",
         "Mega Bonus",
-        "Premium Reward",
+        "Recompensă Premium",
         "Super Bonus",
-        "Ultimate Deal",
-        "VIP Offer",
-        "Flash Sale",
-        "Holiday Special",
-        "Weekend Bonus",
-        "Lucky Day",
-        "Champion Deal",
-        "Elite Bonus",
-        "Royal Reward",
-        "Diamond Deal",
-        "Platinum Bonus",
-        "Gold Special",
-        "Silver Offer",
-        "Bronze Bonus",
-        "Crystal Deal",
-        "Star Bonus",
-        "Moon Special",
-        "Sun Offer",
-        "Rainbow Deal",
-        "Thunder Bonus",
-        "Storm Special",
-        "Fire Offer",
-        "Ice Deal",
-        "Wind Bonus",
-        "Earth Special",
+        "Ofertă Ultimate",
+        "Ofertă VIP",
+        "Vânzare Flash",
+        "Special de Sărbători",
+        "Bonus Weekend",
+        "Zi Norocoasă",
+        "Ofertă Campion",
+        "Bonus Elite",
+        "Recompensă Regală",
+        "Ofertă Diamant",
+        "Bonus Platinum",
+        "Special Aur",
+        "Ofertă Argint",
+        "Bonus Bronz",
+        "Ofertă Cristal",
+        "Bonus Stea",
+        "Special Lună",
+        "Ofertă Soare",
+        "Ofertă Curcubeu",
+        "Bonus Tunet",
+        "Special Furtună",
+        "Ofertă Foc",
+        "Ofertă Gheață",
+        "Bonus Vânt",
+        "Special Pământ",
       ];
 
       const promotionDescriptions = [
-        "Exclusive casino bonus for today",
-        "Limited time offer - claim now",
-        "Special promotion just for you",
-        "Amazing bonus waiting for you",
-        "Don't miss this exclusive deal",
-        "Your daily reward is here",
-        "Claim your special bonus today",
-        "Exclusive offer - act fast",
-        "Premium bonus available now",
-        "Special deal of the day",
-        "Limited edition bonus",
-        "Exclusive daily promotion",
-        "Your lucky bonus awaits",
-        "Special reward for you",
-        "Exclusive casino promotion",
+        "Bonus exclusiv de cazino pentru astăzi",
+        "Ofertă limitată - revendică acum",
+        "Promoție specială doar pentru tine",
+        "Bonus uimitor te așteaptă lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Nu rata această ofertă exclusivă lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Recompensa ta zilnică este aici lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Revendică bonusul tău special astăzi lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Ofertă exclusivă - acționează rapid lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Bonus premium disponibil acum lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Ofertă specială a zilei lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Bonus ediție limitată lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Promoție zilnică exclusivă lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Bonusul tău norocos te așteaptă lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Recompensă specială pentru tine lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+        "Promoție exclusivă de cazino lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
       ];
 
       // Generate dynamic discount percentage (10% to 100%)
@@ -1540,9 +1540,9 @@
         
         return {
           day,
-          title: `${promotionTitles[titleIndex]} - Day ${day}`,
-          description: `${promotionDescriptions[descIndex]} on ${currentMonthName} ${day}`,
-          discount: `${discount}% OFF`,
+          title: `${promotionTitles[titleIndex]} - Ziua ${day}`,
+          description: `${promotionDescriptions[descIndex]} pe ${currentMonthName} ${day}`,
+          discount: `${discount} RUNDE GRATUITE <br> FARA DEPUNERE`,
           code: code,
           link: `https://example.com/day${day}`,
         };
@@ -1581,15 +1581,15 @@
                     <div class="text-4xl mb-4">✅</div>
                     <div class="mb-6">
                         <div class="inline-block px-6 py-3 rounded-xl border-2 shadow-lg" style="background-color: #eb2743; border-color: rgba(255, 255, 255, 0.3);">
-                            <span class="text-xl font-bold text-white">Bonus Claimed</span>
+                            <span class="text-xl font-bold text-white">Bonus Revendicat</span>
                         </div>
                     </div>
                     <div class="bg-gradient-to-r from-red-50 to-white rounded-2xl p-6 mb-6 border-2 border-red-300/50 shadow-lg">
-                        <p class="text-sm text-gray-600 mb-2 font-medium uppercase tracking-wider">This bonus was already claimed</p>
-                        <p class="text-xs text-gray-500">You can only claim bonuses on their respective days</p>
+                        <p class="text-sm text-gray-600 mb-2 font-medium uppercase tracking-wider">Acest bonus a fost deja revendicat</p>
+                        <p class="text-xs text-gray-500">Poți revendica bonusuri doar în zilele lor respective</p>
                     </div>
                     <button onclick="closeModal()" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] border-2 border-white/30">
-                        Close
+                        Închide
                     </button>
                 `;
         } else {
@@ -1602,16 +1602,16 @@
                         </div>
                         <div class="flex items-center justify-center gap-2 mb-2">
                             <span class="text-sm">✨</span>
-                            <span class="text-xs font-black text-gray-700 uppercase tracking-widest">Casino Christmas Bonus</span>
+                            <span class="text-xs font-black text-gray-700 uppercase tracking-widest">Bonus Cazino de Crăciun</span>
                             <span class="text-sm">✨</span>
                         </div>
                     </div>
                     <div class="mb-6">
                         <div class="inline-block w-full px-6 py-4 rounded-2xl border-2 shadow-xl text-center" style="background: linear-gradient(135deg, #eb2743 0%, #d11e3a 100%); border-color: rgba(255, 255, 255, 0.3);">
                             <div class="text-3xl sm:text-4xl font-black text-white mb-1" style="text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(30, 58, 138, 0.4);">
-                                ${promotion.discount || "Special Offer"}
+                                ${promotion.discount || "Ofertă Specială"}
                             </div>
-                            <div class="text-xs text-white/90 font-semibold uppercase tracking-wider">Exclusive Bonus</div>
+                            <div class="text-xs text-white/90 font-semibold uppercase tracking-wider">Bonus Exclusiv</div>
                         </div>
                     </div>
                     <div class="mb-6">
@@ -1627,7 +1627,7 @@
                         <div class="relative bg-gradient-to-br from-yellow-900/30 via-yellow-800/20 to-yellow-900/30 rounded-2xl p-6 border-2 border-yellow-500/60 shadow-2xl">
                             <div class="flex items-center justify-center gap-2 mb-4">
                                 <span class="text-lg">🎴</span>
-                                <p class="text-sm text-gray-700 font-bold uppercase tracking-widest">Your Promo Code</p>
+                                <p class="text-sm text-gray-700 font-bold uppercase tracking-widest">Codul Tău Promo</p>
                                 <span class="text-lg">🎴</span>
                             </div>
                             <div class="relative">
@@ -1639,14 +1639,14 @@
                                 <div class="absolute -top-2 -right-2 text-xl animate-pulse">🎁</div>
                                 <div class="absolute -bottom-2 -left-2 text-xl animate-pulse delay-500">💎</div>
                             </div>
-                            <p class="text-xs text-gray-500 text-center mt-2">Click the button below to claim your exclusive bonus</p>
+                            <p class="text-xs text-gray-500 text-center mt-2">Apasă butonul de mai jos pentru a revendica bonusul tău exclusiv</p>
                         </div>
                     </div>
                     <a href="${
                       promotion.link || "#"
                     }" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] border-2 border-white/30 flex items-center justify-center gap-2 no-underline">
                         <span class="text-xl">🎰</span>
-                        <span>Claim Bonus</span>
+                        <span>Revendică Bonus</span>
                         <span class="text-xl">🎁</span>
                     </a>
                 `;
@@ -1733,16 +1733,16 @@
                                 <div class="absolute -bottom-2 -left-2 text-sm opacity-30">⏰</div>
                             </div>
                             <div class="mb-4">
-                                <p class="text-lg sm:text-xl text-white/70 font-black uppercase tracking-widest mb-2" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">Come Tomorrow!</p>
+                                <p class="text-lg sm:text-xl text-white/70 font-black uppercase tracking-widest mb-2" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">Vino Mâine!</p>
                                 <p class="text-xs text-white/50 font-semibold mb-3">${currentMonthName} ${day}</p>
                                 <div class="bg-gradient-to-r from-red-500/20 via-red-400/15 to-red-500/20 rounded-xl p-3 border border-red-400/30 backdrop-blur-sm">
-                                    <p class="text-xs sm:text-sm text-white/90 font-bold mb-1">🎁 Special Offer Awaits You!</p>
-                                    <p class="text-[10px] sm:text-xs text-white/75 leading-tight">Free spins and exclusive bonuses tomorrow!</p>
+                                    <p class="text-xs sm:text-sm text-white/90 font-bold mb-1">🎁 Ofertă Specială Te Așteaptă!</p>
+                                    <p class="text-[10px] sm:text-xs text-white/75 leading-tight">Runde gratuite și bonusuri exclusive mâine!</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2 mt-2">
                                 <span class="text-sm opacity-50 animate-pulse">🎰</span>
-                                <span class="text-xs text-white/60 font-semibold">Come back tomorrow for bonus</span>
+                                <span class="text-xs text-white/60 font-semibold">Revino mâine pentru bonus</span>
                                 <span class="text-sm opacity-50 animate-pulse delay-500">💎</span>
                             </div>
                         </div>
@@ -1761,7 +1761,7 @@
                                     <div class="absolute -top-2 -right-2 text-base opacity-70">✅</div>
                                 </div>
                                 <div class="mb-3">
-                                    <p class="text-sm sm:text-base text-white font-black uppercase tracking-widest mb-1" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">Bonus Claimed</p>
+                                    <p class="text-sm sm:text-base text-white font-black uppercase tracking-widest mb-1" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">Bonus Revendicat</p>
                                     <p class="text-xs text-white/70 font-semibold">${currentMonthName} ${day}</p>
                                 </div>
                             </div>
@@ -1769,7 +1769,7 @@
                                 <div class="bg-gradient-to-r from-red-500/20 via-red-400/15 to-red-500/20 rounded-xl p-4 border border-red-400/30 backdrop-blur-sm">
                                     <p class="text-[9px] uppercase tracking-widest mb-2 text-white/70 font-semibold flex items-center gap-1 justify-center">
                                         <span>🎴</span>
-                                        <span>Was:</span>
+                                        <span>A fost:</span>
                                         <span>🎴</span>
                                     </p>
                                     <div class="mb-2">
@@ -1798,7 +1798,7 @@
                                         <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
                                             <span class="text-xl animate-pulse">🎰</span>
                                         </div>
-                                        <span class="text-xs font-black text-white uppercase tracking-widest">Casino Bonus</span>
+                                        <span class="text-xs font-black text-white uppercase tracking-widest">Bonus Cazino</span>
                                     </div>
                                     <div class="flex gap-1">
                                         <span class="text-sm animate-pulse">✨</span>
@@ -1830,7 +1830,7 @@
                                 <div class="relative">
                                     <p class="text-[9px] uppercase tracking-widest mb-2 text-white/60 font-semibold flex items-center gap-1 justify-center">
                                         <span>🎴</span>
-                                        <span>Promo Code</span>
+                                        <span>Cod Promo</span>
                                         <span>🎴</span>
                                     </p>
                                     <div class="relative group">
@@ -1935,7 +1935,7 @@
       function updateHeader() {
         document.getElementById(
           "subtitle"
-        ).textContent = `Discover exclusive casino bonuses every day in ${currentMonthName}! 🎁`;
+        ).textContent = `Descoperă bonusuri exclusive de cazino în fiecare zi în ${currentMonthName}! 🎁`;
         document.getElementById(
           "currentDate"
         ).textContent = `${currentMonthName} ${currentDay}, ${currentYear}`;
@@ -1949,8 +1949,8 @@
           delayClass: "scroll-delay-100",
           textMotionClass: "text-motion-delay-1",
           emoji: "🎁",
-          title: "Open Daily Card",
-          description: "Click on today's card to reveal your exclusive bonus offer",
+          title: "Deschide Cardul Zilnic",
+          description: "Apasă pe cardul de astăzi pentru a-ți dezvălui oferta exclusivă de bonus",
           hoverColor: "group-hover:text-red-200",
           showBackgroundGlow: false,
         },
@@ -1960,8 +1960,8 @@
           delayClass: "scroll-delay-200",
           textMotionClass: "text-motion-delay-2",
           emoji: "🎴",
-          title: "Get Promo Code",
-          description: "Receive your unique promo code for exclusive casino bonuses",
+          title: "Obține Codul Promo",
+          description: "Primește codul tău promo unic pentru bonusuri exclusive de cazino",
           hoverColor: "group-hover:text-yellow-200",
           showBackgroundGlow: true,
         },
@@ -1971,8 +1971,8 @@
           delayClass: "scroll-delay-300",
           textMotionClass: "text-motion-delay-3",
           emoji: "🎰",
-          title: "Claim Bonus",
-          description: 'Click "Claim Bonus" to use your code and enjoy the rewards',
+          title: "Revendică Bonus",
+          description: 'Apasă "Revendică Bonus" pentru a folosi codul tău și a te bucura de recompense',
           hoverColor: "group-hover:text-yellow-200",
           showBackgroundGlow: true,
         },
@@ -1985,20 +1985,20 @@
           iconBg: "from-red-500/20 to-red-600/20",
           iconBorder: "border-red-400/30",
           icon: "👤",
-          title: "Eligibility",
+          title: "Eligibilitate",
           decorativeEmoji: "✨",
           description:
-            "Available to players 18+ (or legal age). One bonus per day per account.",
+            "Disponibil pentru jucători 18+ (sau vârsta legală). Un bonus pe zi per cont.",
         },
         {
           delay: "scroll-delay-200",
           iconBg: "from-yellow-500/20 to-yellow-600/20",
           iconBorder: "border-yellow-400/30",
           icon: "🎁",
-          title: "Bonus Terms",
+          title: "Termeni Bonus",
           decorativeEmoji: "💎",
           description:
-            "Each promo code valid only on its designated day. Subject to wagering requirements.",
+            "Fiecare cod promo este valabil doar în ziua desemnată. Supus cerințelor de pariere.",
           // Example of long text - you can use longDescription for paragraphs
           // longDescription: "Fiecare cod promo este valabil doar în ziua desemnată.\n\nSupus cerințelor de pariere. Bonusurile trebuie folosite conform termenilor și condițiilor.\n\nToate bonusurile sunt supuse verificării și pot fi anulate dacă se detectează încălcarea termenilor.",
           // Example of list items - you can add listItems array for bullet points
@@ -2014,30 +2014,30 @@
           iconBg: "from-blue-500/20 to-blue-600/20",
           iconBorder: "border-blue-400/30",
           icon: "🎴",
-          title: "Usage",
+          title: "Utilizare",
           decorativeEmoji: "🎰",
           description:
-            "Codes must be used at registration or deposit. Cannot be transferred or combined.",
+            "Codurile trebuie folosite la înregistrare sau depunere. Nu pot fi transferate sau combinate.",
         },
         {
           delay: "scroll-delay-400",
           iconBg: "from-green-500/20 to-green-600/20",
           iconBorder: "border-green-400/30",
           icon: "🛡️",
-          title: "Responsible Gaming",
+          title: "Joc Responsabil",
           decorativeEmoji: "❤️",
           description:
-            "Gamble responsibly. Seek help if needed from responsible gaming organizations.",
+            "Joacă responsabil. Caută ajutor dacă este nevoie de la organizații de jocuri responsabile.",
         },
         {
           delay: "scroll-delay-500",
           iconBg: "from-purple-500/20 to-purple-600/20",
           iconBorder: "border-purple-400/30",
           icon: "⚙️",
-          title: "Changes",
+          title: "Modificări",
           decorativeEmoji: "📝",
           description:
-            "We reserve the right to modify or cancel this promotion. All decisions are final.",
+            "Ne rezervăm dreptul de a modifica sau anula această promoție. Toate deciziile sunt finale.",
         },
       ];
 
@@ -2094,7 +2094,7 @@
           hasGradient: false,
         },
         {
-          title: "Bank Transfer",
+          title: "Transfer Bancar",
           text: "🏦",
           fontWeight: "font-semibold",
           textColor: "text-white/70",
