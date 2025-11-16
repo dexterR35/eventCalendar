@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { getDayState, getPromotion, hasBeenOpened } from '../utils/calendar';
 
 export default function CalendarCard({
@@ -211,10 +212,10 @@ export default function CalendarCard({
               <span>🎴</span>
             </p>
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-white/20 to-yellow-400/30 rounded-xl blur-sm"></div>
-              <div className="relative bg-gradient-to-br from-yellow-50/10 via-white/5 to-yellow-50/10 backdrop-blur-sm rounded-xl p-3 border-2 border-yellow-300/40 shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-blue-400/20 to-blue-600/30 rounded-xl blur-sm"></div>
+              <div className="relative bg-gradient-to-br from-blue-900/20 via-blue-800/10 to-blue-900/20 backdrop-blur-sm rounded-xl p-3 border-2 border-blue-500/40 shadow-lg">
                 <div className="font-mono text-xl sm:text-2xl font-black tracking-widest text-center">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-yellow-200">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300">
                     {promotion.code}
                   </span>
                 </div>
@@ -270,15 +271,127 @@ export default function CalendarCard({
     cardStyleObj['--panorama-rotate-vertical'] = '30deg';
   }
 
+  // Animation variants based on card position
+  const cardVariants = {
+    hidden: (index) => {
+      if (index === 1) {
+        // Center card - appears first
+        return {
+          opacity: 0,
+          scale: 0.8,
+          z: -30,
+        };
+      } else if (index === 0) {
+        // Past card - slides in from left (desktop) or top (mobile)
+        return {
+          opacity: 0,
+          x: -150, // Desktop: from left
+          y: 0,
+          rotateY: 45,
+          rotateX: 0,
+          scale: 0.7,
+        };
+      } else {
+        // Future card - slides in from right (desktop) or bottom (mobile)
+        return {
+          opacity: 0,
+          x: 150, // Desktop: from right
+          y: 0,
+          rotateY: -45,
+          rotateX: 0,
+          scale: 0.7,
+        };
+      }
+    },
+    visible: (index) => {
+      if (index === 1) {
+        return {
+          opacity: 1,
+          scale: 1,
+          z: 0,
+          transition: {
+            duration: 0.6,
+            ease: "easeOut",
+          },
+        };
+      } else {
+        return {
+          opacity: isPast ? 0.85 : 0.85,
+          x: index === 0 ? 20 : -20, // Final position
+          y: 0,
+          rotateY: index === 0 ? 30 : -30,
+          rotateX: 0,
+          scale: 0.9,
+          transition: {
+            duration: 0.8,
+            ease: "easeOut",
+            delay: index === 0 ? 0.4 : 0.6,
+          },
+        };
+      }
+    },
+  };
+
+  const pulseVariants = {
+    animate: {
+      boxShadow: [
+        "0 25px 50px -12px rgba(235, 39, 67, 0.6), 0 0 60px rgba(30, 58, 138, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.1)",
+        "0 35px 70px -12px rgba(235, 39, 67, 0.8), 0 0 80px rgba(30, 58, 138, 0.5), inset 0 0 40px rgba(255, 255, 255, 0.15)",
+        "0 25px 50px -12px rgba(235, 39, 67, 0.6), 0 0 60px rgba(30, 58, 138, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.1)",
+      ],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 0.8,
+      },
+    },
+  };
+
+  // Add animation classes for CSS fallback (for panorama positioning)
+  let finalCardClasses = cardClasses + " card-light-effect";
+  
+  if (index === 1) {
+    // Center card (current day) - appears first
+    finalCardClasses += " panorama-card-center";
+    if (isCurrent) {
+      finalCardClasses += " card-pulse-animation";
+    }
+  } else if (index === 0) {
+    // Past card - slides in from left/top
+    finalCardClasses += " panorama-card-past";
+  } else if (index === 2) {
+    // Future card - slides in from right/bottom
+    finalCardClasses += " panorama-card-future";
+  }
+
   return (
-    <div
-      className={cardClasses}
+    <motion.div
+      className={finalCardClasses}
       style={cardStyleObj}
       onClick={() => onCardClick(day)}
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={{
+        scale: 1.02,
+        z: 50,
+        transition: { duration: 0.4, type: "spring", stiffness: 300, damping: 20 },
+      }}
     >
-      <div className="panorama-card-content group relative rounded-3xl overflow-hidden h-full">
+      <motion.div
+        className="panorama-card-content group relative rounded-3xl overflow-hidden h-full"
+        animate={index === 1 && isCurrent ? pulseVariants.animate : {}}
+      >
         {isCurrent && (
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400" style={{ background: "rgba(245, 77, 95, 0.25)", transition: "opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)" }}></div>
+          <motion.div
+            className="absolute inset-0"
+            style={{ background: "rgba(245, 77, 95, 0.25)" }}
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+          />
         )}
         <div className="absolute top-4 right-4 z-10" style={badgeStyleObj}>
           <span className="relative z-10">{day}</span>
@@ -287,13 +400,13 @@ export default function CalendarCard({
           {content}
         </div>
         {isCurrent && (
-          <div
+          <motion.div
             className="absolute bottom-0 left-0 w-full h-1"
             style={{ background: "rgba(235, 39, 67, 0.5)" }}
-          ></div>
+          />
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

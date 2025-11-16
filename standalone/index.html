@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-      /* body::after {
+      body::after {
         content: "";
         position: absolute;
         top: 0;
@@ -28,40 +28,9 @@
       }
       body {
         position: relative;
-      } */
+      }
 
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.5;
-        }
-      }
-      .animate-pulse {
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-      .delay-500 {
-        animation-delay: 0.5s;
-      }
-      .delay-1000 {
-        animation-delay: 1s;
-      }
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(-25%);
-          animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-        }
-        50% {
-          transform: translateY(0);
-          animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-        }
-      }
-      .animate-bounce {
-        animation: bounce 1s infinite;
-      }
+      /* Removed duplicate Tailwind animations - pulse, bounce, and delay utilities are provided by Tailwind CDN */
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -89,6 +58,7 @@
       .line-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
@@ -197,8 +167,9 @@
 
       .panorama-card:hover {
         transform: translateX(var(--panorama-x, 0)) translateZ(50px)
-          rotateY(var(--panorama-rotate, 0deg)) scale(1.05) !important;
+          rotateY(var(--panorama-rotate, 0deg)) scale(1.02) !important;
         z-index: 5 !important;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       }
 
       .panorama-card-content {
@@ -260,8 +231,9 @@
 
         .panorama-card:hover {
           transform: translateY(var(--panorama-y, 0)) translateZ(50px)
-            rotateX(var(--panorama-rotate-vertical, 0deg)) scale(1.05) !important;
+            rotateX(var(--panorama-rotate-vertical, 0deg)) scale(1.02) !important;
           z-index: 5 !important;
+          transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
       }
 
@@ -287,7 +259,7 @@
           transform: translateY(0) scale(1) rotateY(0deg);
         }
         100% {
-          transform: translateY(-12px) scale(1.03) rotateY(2deg);
+          transform: translateY(-8px) scale(1.01) rotateY(2deg);
         }
       }
 
@@ -299,10 +271,11 @@
       }
 
       .card-hover-lift:hover {
-        transform: translateY(-12px) scale(1.03) rotateY(2deg);
+        transform: translateY(-8px) scale(1.01) rotateY(2deg);
         box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
           0 0 0 1px rgba(255, 255, 255, 0.1) inset;
         z-index: 2;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       .card-hover-lift:not(:hover) {
@@ -368,9 +341,8 @@
       }
 
       .neu-bonus-badge {
-        /* border-radius: 20px;
-            background: linear-gradient(225deg, #bc1b34, #e0203e);
-            box-shadow: -14px 14px 27px #b21a31, 14px -14px 27px #f02343; */
+        /* Reserved for future neumorphism bonus badge styles */
+        display: block;
       }
 
       .neu-promo-code {
@@ -387,25 +359,440 @@
           }
         }
       }
-.snowcap{
-  position: relative;
-  width: 100%;
 
-}
-      /* .snowcap::after{
-        content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 47vw;
-    height: 100%;
-    background-image: url(./img1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1;
-    transform: translate(-50%, -105%);
-      } */
+      /* Enhanced Card Lighting Effects */
+      @keyframes cardShimmer {
+        0% {
+          background-position: -200% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      @keyframes cardPulse {
+        0%, 100% {
+          box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.6),
+            0 0 60px rgba(30, 58, 138, 0.3),
+            inset 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+        50% {
+          box-shadow: 0 35px 70px -12px rgba(235, 39, 67, 0.8),
+            0 0 80px rgba(30, 58, 138, 0.5),
+            inset 0 0 40px rgba(255, 255, 255, 0.15);
+        }
+      }
+
+      @keyframes lightSweep {
+        0% {
+          transform: translateX(-100%) skewX(-15deg);
+        }
+        100% {
+          transform: translateX(200%) skewX(-15deg);
+        }
+      }
+
+      .card-light-effect {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-light-effect::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: lightSweep 3s infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .panorama-card.card-light-effect::before {
+        animation-delay: 0.5s;
+      }
+
+      .panorama-card:nth-child(2).card-light-effect::before {
+        animation-delay: 1s;
+      }
+
+      .panorama-card:nth-child(3).card-light-effect::before {
+        animation-delay: 1.5s;
+      }
+
+      .card-pulse-animation {
+        animation: cardPulse 3s ease-in-out infinite;
+      }
+
+      /* Scroll Animation Classes */
+      .scroll-fade-in {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .scroll-fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .scroll-slide-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .scroll-slide-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .scroll-slide-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .scroll-slide-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .scroll-scale-in {
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .scroll-scale-in.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Staggered animation delays */
+      .scroll-delay-100 {
+        transition-delay: 0.1s;
+      }
+
+      .scroll-delay-200 {
+        transition-delay: 0.2s;
+      }
+
+      .scroll-delay-300 {
+        transition-delay: 0.3s;
+      }
+
+      .scroll-delay-400 {
+        transition-delay: 0.4s;
+      }
+
+      .scroll-delay-500 {
+        transition-delay: 0.5s;
+      }
+
+      /* Enhanced Steps Card Animations */
+      .step-card-enhanced {
+        position: relative;
+        overflow: visible;
+      }
+      
+      /* Ensure step cards container allows overflow */
+      #steps-section {
+        overflow: visible;
+      }
+      
+      #steps-section > div {
+        overflow: visible;
+      }
+
+      .step-card-enhanced::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 215, 0, 0.1) 0%,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+
+      .step-card-enhanced:hover::after {
+        opacity: 1;
+      }
+
+      /* Enhanced T&C Section */
+      .tnc-item {
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .tnc-item::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: rgba(235, 39, 67, 0.6);
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .tnc-card {
+        background: linear-gradient(
+          135deg,
+          rgba(42, 45, 58, 0.3) 0%,
+          rgba(31, 34, 48, 0.25) 50%,
+          rgba(37, 40, 54, 0.3) 100%
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .tnc-card:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(42, 45, 58, 0.4) 0%,
+          rgba(31, 34, 48, 0.35) 50%,
+          rgba(37, 40, 54, 0.4) 100%
+        );
+        border-color: rgba(235, 39, 67, 0.3);
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      /* Responsive Enhancements */
+      @media (max-width: 640px) {
+        .panorama-card {
+          width: 280px !important;
+          height: 280px !important;
+        }
+
+        .step-card-enhanced {
+          padding: 1.5rem !important;
+        }
+
+        .tnc-card {
+          padding: 1rem !important;
+        }
+      }
+
+      @media (min-width: 641px) and (max-width: 768px) {
+        .panorama-card {
+          width: 300px !important;
+          height: 300px !important;
+        }
+      }
+
+      /* Floating particles animation */
+      @keyframes floatParticle {
+        0%, 100% {
+          transform: translateY(0) translateX(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-20px) translateX(10px) rotate(90deg);
+        }
+        50% {
+          transform: translateY(-40px) translateX(-10px) rotate(180deg);
+        }
+        75% {
+          transform: translateY(-20px) translateX(10px) rotate(270deg);
+        }
+      }
+
+      .float-particle {
+        animation: floatParticle 6s ease-in-out infinite;
+      }
+
+      /* Text Motion Animations */
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes textGlow {
+        0%, 100% {
+          text-shadow: 0 0 20px rgba(235, 39, 67, 0.5),
+                       0 0 40px rgba(235, 39, 67, 0.3);
+        }
+        50% {
+          text-shadow: 0 0 30px rgba(235, 39, 67, 0.8),
+                       0 0 60px rgba(235, 39, 67, 0.6);
+        }
+      }
+
+      /* Hero Text Animations */
+      .hero-title {
+        animation: slideInDown 0.8s ease-out,
+                   fadeInScale 1s ease-out 0.2s both,
+                   textGlow 3s ease-in-out infinite 1.5s;
+      }
+
+      .hero-subtitle {
+        animation: slideInUp 0.8s ease-out 0.3s both;
+      }
+
+      .hero-date-badge {
+        animation: fadeInScale 0.8s ease-out 0.5s both;
+      }
+
+      /* Center Card Animation - Appears First */
+      @keyframes centerCardAppear {
+        from {
+          opacity: 0;
+          transform: translateX(0) translateY(0) translateZ(-30px) rotateY(0deg) scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) translateY(0) translateZ(0) rotateY(0deg) scale(1);
+        }
+      }
+
+      /* Past Card Animation - Slides in from left (Desktop) */
+      @keyframes pastCardSlideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-150px) translateZ(-50px) rotateY(45deg) scale(0.7);
+        }
+        to {
+          opacity: 0.85;
+          transform: translateX(20px) translateZ(20px) rotateY(30deg) scale(0.9);
+        }
+      }
+
+      /* Future Card Animation - Slides in from right (Desktop) */
+      @keyframes futureCardSlideIn {
+        from {
+          opacity: 0;
+          transform: translateX(150px) translateZ(-50px) rotateY(-45deg) scale(0.7);
+        }
+        to {
+          opacity: 0.85;
+          transform: translateX(-20px) translateZ(20px) rotateY(-30deg) scale(0.9);
+        }
+      }
+
+      /* Mobile: Past Card Animation - Slides in from top */
+      @keyframes pastCardSlideInMobile {
+        from {
+          opacity: 0;
+          transform: translateY(-150px) translateZ(-50px) rotateX(-45deg) scale(0.7);
+        }
+        to {
+          opacity: 0.85;
+          transform: translateY(20px) translateZ(20px) rotateX(-30deg) scale(0.9);
+        }
+      }
+
+      /* Mobile: Future Card Animation - Slides in from bottom */
+      @keyframes futureCardSlideInMobile {
+        from {
+          opacity: 0;
+          transform: translateY(150px) translateZ(-50px) rotateX(45deg) scale(0.7);
+        }
+        to {
+          opacity: 0.85;
+          transform: translateY(-20px) translateZ(20px) rotateX(30deg) scale(0.9);
+        }
+      }
+
+      /* Card subtle pulse animation after initial load */
+      @keyframes cardPulseSubtle {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.98;
+        }
+      }
+
+      /* Center card appears first */
+      .panorama-card-center {
+        animation: centerCardAppear 0.6s ease-out both,
+                   cardPulseSubtle 3s ease-in-out infinite 0.8s;
+      }
+
+      /* Past card slides in after center */
+      .panorama-card-past {
+        animation: pastCardSlideIn 0.8s ease-out 0.4s both;
+      }
+
+      /* Future card slides in last */
+      .panorama-card-future {
+        animation: futureCardSlideIn 0.8s ease-out 0.6s both;
+      }
+
+      /* Mobile animations */
+      @media (max-width: 768px) {
+        .panorama-card-past {
+          animation: pastCardSlideInMobile 0.8s ease-out 0.4s both;
+        }
+
+        .panorama-card-future {
+          animation: futureCardSlideInMobile 0.8s ease-out 0.6s both;
+        }
+      }
+
+      /* Text Motion Effects */
+      .text-motion {
+        display: inline-block;
+        animation: slideInUp 0.6s ease-out both;
+      }
+
+      .text-motion-delay-1 {
+        animation-delay: 0.1s;
+      }
+
+      .text-motion-delay-2 {
+        animation-delay: 0.2s;
+      }
+
+      .text-motion-delay-3 {
+        animation-delay: 0.3s;
+      }
     </style>
   </head>
   <body>
@@ -489,16 +876,17 @@
         ></div>
 
         <!-- Header -->
-        <div class="text-center mb-12">
-          <div class="inline-block mb-6">
-            <div class="flex items-center justify-center gap-2 sm:gap-3 mb-4">
+        <div class="text-center mb-8 sm:mb-12">
+          <div class="inline-block mb-4 sm:mb-6">
+            <div class="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
               <span class="text-4xl sm:text-5xl animate-bounce">🎄</span>
               <h1
-                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 relative text-white"
+                class="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-2 sm:mb-3 relative text-white"
                 style="
                   font-family: 'Inter', sans-serif;
                   letter-spacing: -0.02em;
                   font-weight: 800;
+                  line-height: 1.1;
                 "
               >
                 #Promo Christmas
@@ -521,11 +909,11 @@
               </div>
             </div>
           </div>
-          <div class="mb-6">
-            <div class="inline-flex items-center gap-2 mb-3">
+          <div class="mb-4 sm:mb-6">
+            <div class="inline-flex items-center gap-2 mb-2 sm:mb-3">
               <span class="text-sm sm:text-base animate-pulse">✨</span>
               <p
-                class="text-lg sm:text-xl md:text-2xl font-bold text-white/90 uppercase tracking-widest"
+                class="hero-subtitle text-lg sm:text-xl md:text-2xl font-bold text-white/90 uppercase tracking-widest"
                 style="text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5)"
               >
                 Daily Casino Bonuses
@@ -536,14 +924,14 @@
             </div>
             <p
               id="subtitle"
-              class="text-sm sm:text-base text-white/70 font-medium mb-4"
+              class="hero-subtitle text-sm sm:text-base text-white/70 font-medium mb-3 sm:mb-4"
             >
               Claim your exclusive promo code every day! 🎁
             </p>
           </div>
           <div
             id="dateInfo"
-            class="inline-flex items-center gap-3 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border-2 shadow-xl relative overflow-hidden"
+            class="hero-date-badge inline-flex items-center gap-3 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border-2 shadow-xl relative overflow-hidden"
             style="
               background: linear-gradient(
                 135deg,
@@ -575,8 +963,21 @@
         </div>
 
         <!-- 3D Panorama Slider Container -->
-        <div class="panorama-container">
-          <div id="calendarGrid" class="panorama-slider">
+        <div class="panorama-container relative mt-6 sm:mt-8">
+          <!-- Decorative floating elements around cards -->
+          <div class="absolute top-1/4 left-1/4 text-white/30 text-xl float-particle pointer-events-none hidden sm:block" style="z-index: 0;">
+            ✨
+          </div>
+          <div class="absolute top-1/3 right-1/4 text-white/30 text-lg float-particle delay-500 pointer-events-none hidden sm:block" style="z-index: 0;">
+            ❄
+          </div>
+          <div class="absolute bottom-1/4 left-1/3 text-white/30 text-xl float-particle delay-300 pointer-events-none hidden sm:block" style="z-index: 0;">
+            💎
+          </div>
+          <div class="absolute bottom-1/3 right-1/3 text-white/30 text-lg float-particle delay-700 pointer-events-none hidden sm:block" style="z-index: 0;">
+            ✨
+          </div>
+          <div id="calendarGrid" class="panorama-slider relative z-10">
             <!-- Cards will be generated here -->
           </div>
         </div>
@@ -584,13 +985,14 @@
 
       <!-- Section 2: Steps Section - No Snow -->
       <section
-        class="relative snowcap z-10 w-full max-w-6xl mx-auto mt-20 sm:mt-24 mb-16 sm:mb-20 px-4 sm:px-6"
+        id="steps-section"
+        class="relative z-10 w-full max-w-6xl mx-auto mt-20 sm:mt-24 mb-16 sm:mb-20 px-4 sm:px-6"
       >
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 scroll-fade-in">
           <div class="inline-flex items-center gap-3 mb-6">
-            <span class="text-3xl animate-pulse">✨</span>
+            <span class="text-3xl animate-pulse float-particle">✨</span>
             <h2
-              class="text-3xl sm:text-4xl md:text-5xl font-black text-white"
+              class="text-motion text-3xl sm:text-4xl md:text-5xl font-black text-white"
               style="
                 font-family: 'Inter', sans-serif;
                 letter-spacing: -0.02em;
@@ -600,7 +1002,7 @@
             >
               How It Works
             </h2>
-            <span class="text-3xl animate-pulse delay-500">✨</span>
+            <span class="text-3xl animate-pulse delay-500 float-particle">✨</span>
           </div>
           <div class="relative inline-block">
             <div
@@ -612,10 +1014,10 @@
           </div>
         </div>
 
-        <div class="relative">
+        <div class="relative overflow-visible">
           <!-- Connecting Line (Desktop Only) -->
           <div
-            class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 z-0"
+            class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 z-0 scroll-fade-in"
           >
             <div
               class="absolute inset-0 bg-gradient-to-r from-red-500/30 via-red-400/50 to-red-500/30 rounded-full"
@@ -626,350 +1028,57 @@
           </div>
 
           <div
-            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10"
+            id="steps-container"
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10 pt-8 pb-8"
+            style="overflow: visible;"
           >
-            <!-- Step 1 -->
-            <div class="relative group">
-              <div
-                class="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl hover:shadow-gray-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    rgba(42, 45, 58, 0.4) 0%,
-                    rgba(31, 34, 48, 0.35) 50%,
-                    rgba(37, 40, 54, 0.4) 100%
-                  );
-                  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
-                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-                  max-height: 300px;
-                "
-              >
-                <!-- Animated Background Glow -->
-                <!-- <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> -->
-
-                <!-- Step Number Badge -->
-                <div
-                  class="absolute -top-4 -left-4 w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black text-white transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-1"
-                  style="
-                    background: linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%);
-                    box-shadow: 0 8px 24px rgba(235, 39, 67, 0.5), 0 4px 12px rgba(235, 39, 67, 0.3);
-                  "
-                >
-                  <span class="relative z-10">1</span>
-                </div>
-
-                <div class="text-center mt-6 relative z-10">
-                  <div class="relative inline-block mb-6">
-                    <div
-                      class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
-                    >
-                      🎁
-                    </div>
-                    <div
-                      class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
-                    >
-                      ✨
-                    </div>
-                  </div>
-                  <h3
-                    class="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-red-200 transition-colors duration-300"
-                    style="
-                      font-family: 'Inter', sans-serif;
-                      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-                    "
-                  >
-                    Open Daily Card
-                  </h3>
-                  <p
-                    class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
-                    style="font-family: 'Inter', sans-serif"
-                  >
-                    Click on today's card to reveal your exclusive bonus offer
-                  </p>
-                </div>
-
-                <!-- Decorative Elements -->
-                <div
-                  class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
-                >
-                  🎄
-                </div>
-                <div
-                  class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
-                >
-                  ❄
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="relative group">
-              <div
-                class="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl hover:shadow-gray-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    rgba(42, 45, 58, 0.4) 0%,
-                    rgba(31, 34, 48, 0.35) 50%,
-                    rgba(37, 40, 54, 0.4) 100%
-                  );
-                  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
-                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-                  max-height: 300px;
-                "
-              >
-                <!-- Animated Background Glow -->
-                <div
-                  class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                ></div>
-
-                <!-- Step Number Badge -->
-                <div
-                  class="absolute -top-4 -left-4 w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black text-white transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-1"
-                  style="
-                    background: linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%);
-                    box-shadow: 0 8px 24px rgba(235, 39, 67, 0.5), 0 4px 12px rgba(235, 39, 67, 0.3);
-                  "
-                >
-                  <span class="relative z-10">2</span>
-                </div>
-
-                <div class="text-center mt-6 relative z-10">
-                  <div class="relative inline-block mb-6">
-                    <div
-                      class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
-                    >
-                      🎴
-                    </div>
-                    <div
-                      class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
-                    >
-                      ✨
-                    </div>
-                  </div>
-                  <h3
-                    class="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-yellow-200 transition-colors duration-300"
-                    style="
-                      font-family: 'Inter', sans-serif;
-                      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-                    "
-                  >
-                    Get Promo Code
-                  </h3>
-                  <p
-                    class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
-                    style="font-family: 'Inter', sans-serif"
-                  >
-                    Receive your unique promo code for exclusive casino bonuses
-                  </p>
-                </div>
-
-                <!-- Decorative Elements -->
-                <div
-                  class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
-                >
-                  🎄
-                </div>
-                <div
-                  class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
-                >
-                  ❄
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="relative group">
-              <div
-                class="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl hover:shadow-gray-500/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2 card-hover-lift"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    rgba(42, 45, 58, 0.4) 0%,
-                    rgba(31, 34, 48, 0.35) 50%,
-                    rgba(37, 40, 54, 0.4) 100%
-                  );
-                  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
-                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-                  max-height: 300px;
-                "
-              >
-                <!-- Animated Background Glow -->
-                <div
-                  class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                ></div>
-
-                <!-- Step Number Badge -->
-                <div
-                  class="absolute -top-4 -left-4 w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black text-white transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-1"
-                  style="
-                    background: linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%);
-                    box-shadow: 0 8px 24px rgba(235, 39, 67, 0.5), 0 4px 12px rgba(235, 39, 67, 0.3);
-                  "
-                >
-                  <span class="relative z-10">3</span>
-                </div>
-
-                <div class="text-center mt-6 relative z-10">
-                  <div class="relative inline-block mb-6">
-                    <div
-                      class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
-                    >
-                      🎰
-                    </div>
-                    <div
-                      class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
-                    >
-                      ✨
-                    </div>
-                  </div>
-                  <h3
-                    class="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-yellow-200 transition-colors duration-300"
-                    style="
-                      font-family: 'Inter', sans-serif;
-                      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-                    "
-                  >
-                    Claim Bonus
-                  </h3>
-                  <p
-                    class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
-                    style="font-family: 'Inter', sans-serif"
-                  >
-                    Click "Claim Bonus" to use your code and enjoy the rewards
-                  </p>
-                </div>
-
-                <!-- Decorative Elements -->
-                <div
-                  class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
-                >
-                  🎄
-                </div>
-                <div
-                  class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
-                >
-                  ❄
-                </div>
-              </div>
-            </div>
+            <!-- Steps will be generated here by JavaScript -->
           </div>
         </div>
       </section>
 
       <!-- Section 3: Footer Section - Terms & Conditions -->
-      <section class="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+      <section id="tnc-section" class="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <footer class="w-full">
           <div class="w-full max-w-6xl mx-auto py-6 sm:py-6">
             <!-- Terms & Conditions with Integrated Payment Methods -->
             <div class="space-y-10">
-              <!-- Terms & Conditions - Simple Clean Design -->
+              <!-- Terms & Conditions - Enhanced Design -->
               <div class="relative">
                 <!-- Header -->
-                <div class="text-center mb-12">
-                  <h3
-                    class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
-                    style="
-                      font-family: 'Inter', sans-serif;
-                      letter-spacing: -0.01em;
-                      text-shadow: 0 2px 10px rgba(235, 39, 67, 0.3);
-                    "
-                  >
-                    Terms & Conditions
-                  </h3>
+                <div class="text-center mb-12 scroll-fade-in">
+                  <div class="inline-flex items-center gap-3 mb-4">
+                    <span class="text-2xl animate-pulse float-particle">📋</span>
+                    <h3
+                      class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        letter-spacing: -0.01em;
+                        text-shadow: 0 2px 10px rgba(235, 39, 67, 0.3);
+                      "
+                    >
+                      Terms & Conditions
+                    </h3>
+                    <span class="text-2xl animate-pulse delay-500 float-particle">📋</span>
+                  </div>
+                  <div class="relative inline-block">
+                    <div
+                      class="h-1.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent rounded-full w-48 mx-auto mb-2"
+                    ></div>
+                    <div
+                      class="h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full w-36 mx-auto"
+                    ></div>
+                  </div>
                 </div>
 
                 <!-- Terms Content -->
-                <div class="space-y-8 max-w-4xl mx-auto">
-                  <!-- Eligibility -->
-                  <div>
-                    <h4
-                      class="text-2xl sm:text-3xl font-black text-white mb-4"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Eligibility
-                    </h4>
-                    <p
-                      class="text-base sm:text-lg text-white/90 leading-relaxed"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Available to players 18+ (or legal age). One bonus per day
-                      per account.
-                    </p>
-                  </div>
-
-                  <!-- Bonus Terms -->
-                  <div>
-                    <h4
-                      class="text-2xl sm:text-3xl font-black text-white mb-4"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Bonus Terms
-                    </h4>
-                    <p
-                      class="text-base sm:text-lg text-white/90 leading-relaxed"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Each promo code valid only on its designated day. Subject
-                      to wagering requirements.
-                    </p>
-                  </div>
-
-                  <!-- Usage -->
-                  <div>
-                    <h4
-                      class="text-2xl sm:text-3xl font-black text-white mb-4"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Usage
-                    </h4>
-                    <p
-                      class="text-base sm:text-lg text-white/90 leading-relaxed"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Codes must be used at registration or deposit. Cannot be
-                      transferred or combined.
-                    </p>
-                  </div>
-
-                  <!-- Responsible Gaming -->
-                  <div>
-                    <h4
-                      class="text-2xl sm:text-3xl font-black text-white mb-4"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Responsible Gaming
-                    </h4>
-                    <p
-                      class="text-base sm:text-lg text-white/90 leading-relaxed"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Gamble responsibly. Seek help if needed from responsible
-                      gaming organizations.
-                    </p>
-                  </div>
-
-                  <!-- Changes -->
-                  <div>
-                    <h4
-                      class="text-2xl sm:text-3xl font-black text-white mb-4"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Changes
-                    </h4>
-                    <p
-                      class="text-base sm:text-lg text-white/90 leading-relaxed"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      We reserve the right to modify or cancel this promotion.
-                      All decisions are final.
-                    </p>
-                  </div>
+                <div id="terms-container" class="space-y-6 max-w-4xl mx-auto">
+                  <!-- Terms cards will be generated here by JavaScript -->
                 </div>
               </div>
 
               <!-- Payment Methods - Small and Modern -->
-              <div class="pt-4">
+              <div class="pt-4 scroll-fade-in scroll-delay-300">
                 <p
                   class="text-center text-white/60 text-xs sm:text-sm mb-4 font-medium"
                   style="font-family: 'Inter', sans-serif"
@@ -977,111 +1086,10 @@
                   Accepted Payment Methods
                 </p>
                 <div
+                  id="payment-methods-container"
                   class="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
                 >
-                  <!-- Small Payment Icons -->
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Visa"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-bold text-blue-600"
-                      style="
-                        font-family: 'Inter', sans-serif;
-                        letter-spacing: 0.05em;
-                      "
-                    >
-                      VISA
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Mastercard"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-bold"
-                      style="
-                        font-family: 'Inter', sans-serif;
-                        letter-spacing: 0.05em;
-                        background: linear-gradient(
-                          135deg,
-                          #eb001b 0%,
-                          #f79e1b 100%
-                        );
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        background-clip: text;
-                      "
-                    >
-                      MC
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="PayPal"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-semibold text-blue-500"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      PP
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Skrill"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-semibold text-orange-500"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      SK
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Neteller"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-semibold text-green-500"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      NT
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Bitcoin"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-semibold text-orange-400"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      ₿
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Ethereum"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-semibold text-blue-400"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      Ξ
-                    </div>
-                  </div>
-                  <div
-                    class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                    title="Bank Transfer"
-                  >
-                    <div
-                      class="text-[10px] sm:text-xs font-semibold text-white/70"
-                      style="font-family: 'Inter', sans-serif"
-                    >
-                      🏦
-                    </div>
-                  </div>
+                  <!-- Payment icons will be generated here by JavaScript -->
                 </div>
               </div>
 
@@ -1104,7 +1112,8 @@
     <!-- Modal -->
     <div
       id="modal"
-      class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300"
+      class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm items-center justify-center z-50 p-4 animate-in fade-in duration-300"
+      style="display: none;"
     >
       <div
         class="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-2xl max-w-lg w-full p-8 sm:p-10 relative zoom-in-95 border border-white/20"
@@ -1134,52 +1143,7 @@
     </div>
 
     <script>
-      // Configuration - You can customize promotions here
-      // Each day should have: day, title, description, discount, code, and link
-      const promotions = [
-        {
-          day: 1,
-          title: "Winter Sale",
-          description: "Get cozy with our winter collection",
-          discount: "20% OFF",
-          code: "WINTER20",
-          link: "https://example.com/day1",
-        },
-        {
-          day: 2,
-          title: "Holiday Special",
-          description: "Perfect gifts for everyone",
-          discount: "15% OFF",
-          code: "HOLIDAY15",
-          link: "https://example.com/day2",
-        },
-        {
-          day: 3,
-          title: "Flash Deal",
-          description: "Limited time offer",
-          discount: "30% OFF",
-          code: "FLASH30",
-          link: "https://example.com/day3",
-        },
-        {
-          day: 4,
-          title: "Mega Bonus",
-          description: "Exclusive casino bonus",
-          discount: "50% OFF",
-          code: "MEGA50",
-          link: "https://example.com/day4",
-        },
-        {
-          day: 5,
-          title: "Weekend Special",
-          description: "Weekend exclusive offer",
-          discount: "25% OFF",
-          code: "WEEKEND25",
-          link: "https://example.com/day5",
-        },
-        // Add more promotions for each day of the month
-        // Each promotion must have a unique link for that day
-      ];
+      // Dynamic Promotion Generation - All promotions are generated automatically
 
       // State
       let openedDays = new Set();
@@ -1236,18 +1200,89 @@
         return "future";
       }
 
+      // Dynamic promotion titles and descriptions
+      const promotionTitles = [
+        "Daily Bonus",
+        "Exclusive Offer",
+        "Special Deal",
+        "Mega Bonus",
+        "Premium Reward",
+        "Super Bonus",
+        "Ultimate Deal",
+        "VIP Offer",
+        "Flash Sale",
+        "Holiday Special",
+        "Weekend Bonus",
+        "Lucky Day",
+        "Champion Deal",
+        "Elite Bonus",
+        "Royal Reward",
+        "Diamond Deal",
+        "Platinum Bonus",
+        "Gold Special",
+        "Silver Offer",
+        "Bronze Bonus",
+        "Crystal Deal",
+        "Star Bonus",
+        "Moon Special",
+        "Sun Offer",
+        "Rainbow Deal",
+        "Thunder Bonus",
+        "Storm Special",
+        "Fire Offer",
+        "Ice Deal",
+        "Wind Bonus",
+        "Earth Special",
+      ];
+
+      const promotionDescriptions = [
+        "Exclusive casino bonus for today",
+        "Limited time offer - claim now",
+        "Special promotion just for you",
+        "Amazing bonus waiting for you",
+        "Don't miss this exclusive deal",
+        "Your daily reward is here",
+        "Claim your special bonus today",
+        "Exclusive offer - act fast",
+        "Premium bonus available now",
+        "Special deal of the day",
+        "Limited edition bonus",
+        "Exclusive daily promotion",
+        "Your lucky bonus awaits",
+        "Special reward for you",
+        "Exclusive casino promotion",
+      ];
+
+      // Generate dynamic discount percentage (10% to 100%)
+      function getDynamicDiscount(day) {
+        // Use day number to create variation, but keep it reasonable
+        const baseDiscount = 15 + (day % 20) * 2; // 15% to 55% range
+        const specialDays = [7, 14, 21, 28]; // Special days get higher discounts
+        if (specialDays.includes(day)) {
+          return Math.min(50 + (day % 20) * 2, 100); // 50% to 100% for special days
+        }
+        return Math.min(baseDiscount, 100);
+      }
+
       function getPromotion(day) {
         const monthAbbr = currentMonthName.substring(0, 3).toUpperCase();
-        return (
-          promotions.find((p) => p.day === day) || {
-            day,
-            title: `Day ${day} Special`,
-            description: `Exclusive offer for ${currentMonthName} ${day}`,
-            discount: "15% OFF",
-            code: `${monthAbbr}${String(day).padStart(2, "0")}${currentYear}`,
-            link: `https://example.com/day${day}`,
-          }
-        );
+        
+        // Generate dynamic promotion data based on day number
+        const titleIndex = (day - 1) % promotionTitles.length;
+        const descIndex = (day * 3) % promotionDescriptions.length;
+        const discount = getDynamicDiscount(day);
+        
+        // Generate unique code based on day, month, and year
+        const code = `${monthAbbr}${String(day).padStart(2, "0")}${currentYear}`;
+        
+        return {
+          day,
+          title: `${promotionTitles[titleIndex]} - Day ${day}`,
+          description: `${promotionDescriptions[descIndex]} on ${currentMonthName} ${day}`,
+          discount: `${discount}% OFF`,
+          code: code,
+          link: `https://example.com/day${day}`,
+        };
       }
       function handleCardClick(day) {
         const state = getDayState(day);
@@ -1290,7 +1325,7 @@
                         <p class="text-sm text-gray-600 mb-2 font-medium uppercase tracking-wider">This bonus was already claimed</p>
                         <p class="text-xs text-gray-500">You can only claim bonuses on their respective days</p>
                     </div>
-                    <button onclick="closeModal()" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-white/30">
+                    <button onclick="closeModal()" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] border-2 border-white/30">
                         Close
                     </button>
                 `;
@@ -1310,7 +1345,7 @@
                     </div>
                     <div class="mb-6">
                         <div class="inline-block w-full px-6 py-4 rounded-2xl border-2 shadow-xl text-center" style="background: linear-gradient(135deg, #eb2743 0%, #d11e3a 100%); border-color: rgba(255, 255, 255, 0.3);">
-                            <div class="text-3xl sm:text-4xl font-black text-white mb-1" style="text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);">
+                            <div class="text-3xl sm:text-4xl font-black text-white mb-1" style="text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(30, 58, 138, 0.4);">
                                 ${promotion.discount || "Special Offer"}
                             </div>
                             <div class="text-xs text-white/90 font-semibold uppercase tracking-wider">Exclusive Bonus</div>
@@ -1325,8 +1360,8 @@
                         }</p>
                     </div>
                     <div class="relative mb-6">
-                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-white/10 to-yellow-400/20 rounded-2xl blur-md"></div>
-                        <div class="relative bg-gradient-to-br from-yellow-50/90 via-white to-yellow-50/90 rounded-2xl p-6 border-2 border-yellow-300/60 shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-blue-400/10 to-blue-600/20 rounded-2xl blur-md"></div>
+                        <div class="relative bg-gradient-to-br from-blue-900/30 via-blue-800/20 to-blue-900/30 rounded-2xl p-6 border-2 border-blue-500/60 shadow-2xl">
                             <div class="flex items-center justify-center gap-2 mb-4">
                                 <span class="text-lg">🎴</span>
                                 <p class="text-sm text-gray-700 font-bold uppercase tracking-widest">Your Promo Code</p>
@@ -1334,7 +1369,7 @@
                             </div>
                             <div class="relative">
                                 <div class="text-5xl sm:text-6xl font-black text-center mb-3">
-                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-red-600 to-yellow-600 font-mono tracking-wider" style="text-shadow: 0 0 20px rgba(255, 215, 0, 0.4); letter-spacing: 0.1em;">
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 font-mono tracking-wider" style="text-shadow: 0 0 20px rgba(30, 58, 138, 0.5); letter-spacing: 0.1em;">
                                         ${promotion.code}
                                     </span>
                                 </div>
@@ -1346,7 +1381,7 @@
                     </div>
                     <a href="${
                       promotion.link || "#"
-                    }" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-white/30 flex items-center justify-center gap-2 no-underline">
+                    }" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] border-2 border-white/30 flex items-center justify-center gap-2 no-underline">
                         <span class="text-xl">🎰</span>
                         <span>Claim Bonus</span>
                         <span class="text-xl">🎁</span>
@@ -1355,12 +1390,14 @@
         }
 
         modal.classList.remove("hidden");
+        modal.style.display = "flex";
       }
 
       // Close modal
       function closeModal() {
         const modal = document.getElementById("modal");
         modal.classList.add("hidden");
+        modal.style.display = "none";
         selectedDay = null;
       }
 
@@ -1395,7 +1432,7 @@
           if (isCurrent) {
             cardClasses += "cursor-pointer";
             cardStyle =
-              "background: linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%); box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.6), 0 0 60px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2);";
+              "background: linear-gradient(135deg, #d11e3a 0%, #eb2743 50%, #c91a35 100%); box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.6), 0 0 60px rgba(30, 58, 138, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2);";
           } else if (isPast) {
             cardClasses += "cursor-pointer";
             cardStyle =
@@ -1519,10 +1556,10 @@
                                     <span>🎴</span>
                                 </p>
                                 <div class="relative group">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-white/20 to-yellow-400/30 rounded-xl blur-sm"></div>
-                                    <div class="relative bg-gradient-to-br from-yellow-50/10 via-white/5 to-yellow-50/10 backdrop-blur-sm rounded-xl p-3 border-2 border-yellow-300/40 shadow-lg">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-blue-400/20 to-blue-600/30 rounded-xl blur-sm"></div>
+                                    <div class="relative bg-gradient-to-br from-blue-900/20 via-blue-800/10 to-blue-900/20 backdrop-blur-sm rounded-xl p-3 border-2 border-blue-500/40 shadow-lg">
                                         <div class="font-mono text-xl sm:text-2xl font-black tracking-widest text-center">
-                                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-yellow-200">
+                                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300">
                                                 ${promotion.code}
                                             </span>
                                         </div>
@@ -1536,7 +1573,21 @@
           }
 
           const card = document.createElement("div");
-          card.className = cardClasses;
+          let finalCardClasses = cardClasses + " card-light-effect";
+          
+          // Add animation classes based on card position
+          if (cardIndex === 1) {
+            // Center card (current day) - appears first
+            finalCardClasses += " panorama-card-center card-pulse-animation";
+          } else if (cardIndex === 0) {
+            // Past card - slides in from left/top
+            finalCardClasses += " panorama-card-past";
+          } else if (cardIndex === 2) {
+            // Future card - slides in from right/bottom
+            finalCardClasses += " panorama-card-future";
+          }
+          
+          card.className = finalCardClasses;
           card.style.cssText =
             cardStyle +
             " border-radius: 24px; overflow: hidden; position: relative;";
@@ -1597,28 +1648,335 @@
         ).textContent = `${currentMonthName} ${currentDay}, ${currentYear}`;
       }
 
-      // Create snowflakes
-      function createSnowflakes() {
-        const snowContainer = document.getElementById("snow-container");
-        const snowflakeSymbols = ["❄", "❅", "❆", "*"];
+      // Step Cards Data
+      const stepsData = [
+        {
+          number: 1,
+          animationClass: "scroll-slide-left",
+          delayClass: "scroll-delay-100",
+          textMotionClass: "text-motion-delay-1",
+          emoji: "🎁",
+          title: "Open Daily Card",
+          description: "Click on today's card to reveal your exclusive bonus offer",
+          hoverColor: "group-hover:text-red-200",
+          showBackgroundGlow: false,
+        },
+        {
+          number: 2,
+          animationClass: "scroll-scale-in",
+          delayClass: "scroll-delay-200",
+          textMotionClass: "text-motion-delay-2",
+          emoji: "🎴",
+          title: "Get Promo Code",
+          description: "Receive your unique promo code for exclusive casino bonuses",
+          hoverColor: "group-hover:text-yellow-200",
+          showBackgroundGlow: true,
+        },
+        {
+          number: 3,
+          animationClass: "scroll-slide-right",
+          delayClass: "scroll-delay-300",
+          textMotionClass: "text-motion-delay-3",
+          emoji: "🎰",
+          title: "Claim Bonus",
+          description: 'Click "Claim Bonus" to use your code and enjoy the rewards',
+          hoverColor: "group-hover:text-yellow-200",
+          showBackgroundGlow: true,
+        },
+      ];
 
-        for (let i = 0; i < 50; i++) {
-          const snowflake = document.createElement("div");
-          snowflake.className = "snowflake";
-          snowflake.textContent =
-            snowflakeSymbols[
-              Math.floor(Math.random() * snowflakeSymbols.length)
-            ];
-          snowflake.style.left = Math.random() * 100 + "%";
-          snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
-          snowflake.style.animationDelay = Math.random() * 2 + "s";
-          snowflake.style.opacity = Math.random() * 0.5 + 0.5;
-          snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
-          snowflake.style.setProperty(
-            "--snow-x",
-            Math.random() * 200 - 100 + "px"
-          );
-          snowContainer.appendChild(snowflake);
+      // Terms & Conditions Data
+      const termsData = [
+        {
+          delay: "scroll-delay-100",
+          iconBg: "from-red-500/20 to-red-600/20",
+          iconBorder: "border-red-400/30",
+          icon: "👤",
+          title: "Eligibility",
+          decorativeEmoji: "✨",
+          description:
+            "Available to players 18+ (or legal age). One bonus per day per account.",
+        },
+        {
+          delay: "scroll-delay-200",
+          iconBg: "from-yellow-500/20 to-yellow-600/20",
+          iconBorder: "border-yellow-400/30",
+          icon: "🎁",
+          title: "Bonus Terms",
+          decorativeEmoji: "💎",
+          description:
+            "Each promo code valid only on its designated day. Subject to wagering requirements.",
+        },
+        {
+          delay: "scroll-delay-300",
+          iconBg: "from-blue-500/20 to-blue-600/20",
+          iconBorder: "border-blue-400/30",
+          icon: "🎴",
+          title: "Usage",
+          decorativeEmoji: "🎰",
+          description:
+            "Codes must be used at registration or deposit. Cannot be transferred or combined.",
+        },
+        {
+          delay: "scroll-delay-400",
+          iconBg: "from-green-500/20 to-green-600/20",
+          iconBorder: "border-green-400/30",
+          icon: "🛡️",
+          title: "Responsible Gaming",
+          decorativeEmoji: "❤️",
+          description:
+            "Gamble responsibly. Seek help if needed from responsible gaming organizations.",
+        },
+        {
+          delay: "scroll-delay-500",
+          iconBg: "from-purple-500/20 to-purple-600/20",
+          iconBorder: "border-purple-400/30",
+          icon: "⚙️",
+          title: "Changes",
+          decorativeEmoji: "📝",
+          description:
+            "We reserve the right to modify or cancel this promotion. All decisions are final.",
+        },
+      ];
+
+      // Payment Methods Data
+      const paymentMethodsData = [
+        {
+          title: "Visa",
+          text: "VISA",
+          fontWeight: "font-bold",
+          textColor: "text-blue-600",
+          hasGradient: false,
+        },
+        {
+          title: "Mastercard",
+          text: "MC",
+          fontWeight: "font-bold",
+          textColor: "",
+          hasGradient: true,
+          gradient: "linear-gradient(135deg, #eb001b 0%, #f79e1b 100%)",
+        },
+        {
+          title: "PayPal",
+          text: "PP",
+          fontWeight: "font-semibold",
+          textColor: "text-blue-500",
+          hasGradient: false,
+        },
+        {
+          title: "Skrill",
+          text: "SK",
+          fontWeight: "font-semibold",
+          textColor: "text-orange-500",
+          hasGradient: false,
+        },
+        {
+          title: "Neteller",
+          text: "NT",
+          fontWeight: "font-semibold",
+          textColor: "text-green-500",
+          hasGradient: false,
+        },
+        {
+          title: "Bitcoin",
+          text: "₿",
+          fontWeight: "font-semibold",
+          textColor: "text-orange-400",
+          hasGradient: false,
+        },
+        {
+          title: "Ethereum",
+          text: "Ξ",
+          fontWeight: "font-semibold",
+          textColor: "text-blue-400",
+          hasGradient: false,
+        },
+        {
+          title: "Bank Transfer",
+          text: "🏦",
+          fontWeight: "font-semibold",
+          textColor: "text-white/70",
+          hasGradient: false,
+        },
+      ];
+
+      // Render Step Card
+      function renderStepCard(stepData, index) {
+        const backgroundGlow = stepData.showBackgroundGlow
+          ? '<div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>'
+          : '<!-- <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> -->';
+
+        return `
+            <div class="relative group ${stepData.animationClass} ${stepData.delayClass} text-motion ${stepData.textMotionClass}" style="overflow: visible;">
+              <div
+                class="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl hover:shadow-gray-500/30 transition-all duration-500 card-hover-lift step-card-enhanced"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgba(42, 45, 58, 0.4) 0%,
+                    rgba(31, 34, 48, 0.35) 50%,
+                    rgba(37, 40, 54, 0.4) 100%
+                  );
+                  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
+                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+                  max-height: 300px;
+                  overflow: visible;
+                "
+              >
+                ${backgroundGlow}
+
+                <!-- Step Number Badge - Outside the card -->
+                <div
+                  class="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500 z-20"
+                  style="
+                    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5),
+                      inset 0 2px 10px rgba(255, 255, 255, 0.8);
+                  "
+                >
+                  <span class="relative z-10">${stepData.number}</span>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl"
+                  ></div>
+                </div>
+
+                <div class="text-center mt-6 relative z-10">
+                  <div class="relative inline-block mb-6">
+                    <div
+                      class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
+                    >
+                      ${stepData.emoji}
+                    </div>
+                    <div
+                      class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
+                    >
+                      ✨
+                    </div>
+                  </div>
+                  <h3
+                    class="text-2xl sm:text-3xl font-black text-white mb-4 ${stepData.hoverColor} transition-colors duration-300"
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                    "
+                  >
+                    ${stepData.title}
+                  </h3>
+                  <p
+                    class="text-base sm:text-lg text-white/90 leading-relaxed font-medium"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    ${stepData.description}
+                  </p>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div
+                  class="absolute bottom-4 right-4 text-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                >
+                  🎄
+                </div>
+                <div
+                  class="absolute top-4 right-4 text-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"
+                >
+                  ❄
+                </div>
+              </div>
+            </div>
+        `;
+      }
+
+      // Render Terms Card
+      function renderTermsCard(termData, index) {
+        return `
+            <div class="tnc-card scroll-fade-in ${termData.delay}">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${termData.iconBg} flex items-center justify-center border ${termData.iconBorder}">
+                  <span class="text-2xl">${termData.icon}</span>
+                </div>
+                <div class="flex-1">
+                  <h4
+                    class="text-xl sm:text-2xl font-black text-white mb-3 flex items-center gap-2"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    <span>${termData.title}</span>
+                    <span class="text-sm opacity-60">${termData.decorativeEmoji}</span>
+                  </h4>
+                  <p
+                    class="text-sm sm:text-base text-white/90 leading-relaxed"
+                    style="font-family: 'Inter', sans-serif"
+                  >
+                    ${termData.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+        `;
+      }
+
+      // Render Payment Icon
+      function renderPaymentIcon(paymentData) {
+        const textStyle = paymentData.hasGradient
+          ? `style="
+                font-family: 'Inter', sans-serif;
+                letter-spacing: 0.05em;
+                background: ${paymentData.gradient};
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+              "`
+          : paymentData.text === "VISA"
+          ? `style="
+                font-family: 'Inter', sans-serif;
+                letter-spacing: 0.05em;
+              "`
+          : `style="font-family: 'Inter', sans-serif"`;
+
+        const textClasses = paymentData.textColor
+          ? `text-[10px] sm:text-xs ${paymentData.fontWeight} ${paymentData.textColor}`
+          : `text-[10px] sm:text-xs ${paymentData.fontWeight}`;
+
+        return `
+            <div
+              class="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+              title="${paymentData.title}"
+            >
+              <div
+                class="${textClasses}"
+                ${textStyle}
+              >
+                ${paymentData.text}
+              </div>
+            </div>
+        `;
+      }
+
+      // Render Steps
+      function renderSteps() {
+        const container = document.getElementById("steps-container");
+        if (container) {
+          container.innerHTML = stepsData
+            .map((step, index) => renderStepCard(step, index))
+            .join("");
+        }
+      }
+
+      // Render Terms
+      function renderTerms() {
+        const container = document.getElementById("terms-container");
+        if (container) {
+          container.innerHTML = termsData
+            .map((term, index) => renderTermsCard(term, index))
+            .join("");
+        }
+      }
+
+      // Render Payment Methods
+      function renderPaymentMethods() {
+        const container = document.getElementById("payment-methods-container");
+        if (container) {
+          container.innerHTML = paymentMethodsData.map((payment) =>
+            renderPaymentIcon(payment)
+          ).join("");
         }
       }
 
@@ -1626,7 +1984,9 @@
         loadOpenedDays();
         updateHeader();
         renderCalendar();
-        // createSnowflakes();
+        renderSteps();
+        renderTerms();
+        renderPaymentMethods();
 
         // Initialize particles.js for snow effect in hero section
         if (window.particlesJS) {
@@ -1709,8 +2069,37 @@
           .addEventListener("click", closeModal);
       }
 
+      // Intersection Observer for Scroll Animations
+      function initScrollAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        }, observerOptions);
+
+        // Observe all elements with scroll animation classes
+        const animatedElements = document.querySelectorAll(
+          ".scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-in"
+        );
+        animatedElements.forEach((el) => observer.observe(el));
+      }
+
       // Start the app
       init();
+      
+      // Initialize scroll animations after DOM is ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initScrollAnimations);
+      } else {
+        initScrollAnimations();
+      }
     </script>
   </body>
 </html>

@@ -5,6 +5,7 @@ import Modal from './components/Modal';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
 import Snowflakes from './components/Snowflakes';
+import WindParticles from './components/WindParticles';
 import {
   getCurrentDate,
   monthNames,
@@ -72,41 +73,80 @@ function App() {
     >
       {/* Christmas Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Stars */}
-        <div className="absolute top-10 left-10 text-white text-2xl twinkle">
+        {/* Wind Particles */}
+        <WindParticles />
+        
+        {/* Stars with enhanced motion */}
+        <div className="absolute top-10 left-10 text-white text-2xl twinkle-motion">
           ⭐
         </div>
-        <div className="absolute top-20 right-20 text-white text-xl twinkle delay-500">
+        <div className="absolute top-20 right-20 text-white text-xl twinkle-motion delay-500">
           ✨
         </div>
-        <div className="absolute top-32 left-1/4 text-white text-lg twinkle delay-1000">
+        <div className="absolute top-32 left-1/4 text-white text-lg twinkle-motion delay-1000">
           ⭐
         </div>
-        <div className="absolute top-16 right-1/3 text-white text-xl twinkle">
+        <div className="absolute top-16 right-1/3 text-white text-xl twinkle-motion delay-300">
           ✨
         </div>
-        <div className="absolute top-40 left-3/4 text-white text-lg twinkle delay-500">
+        <div className="absolute top-40 left-3/4 text-white text-lg twinkle-motion delay-700">
+          ⭐
+        </div>
+        <div className="absolute top-60 right-1/2 text-white text-lg twinkle-motion delay-200">
+          ✨
+        </div>
+        <div className="absolute top-80 left-1/3 text-white text-xl twinkle-motion delay-600">
           ⭐
         </div>
 
-        {/* Christmas Ornaments - Red only */}
-        <div className="absolute bottom-20 left-10 text-red-600 text-3xl float">
+        {/* Flying Elements */}
+        <div className="absolute top-1/4 left-0 text-white text-2xl fly-across delay-100">
+          🎄
+        </div>
+        <div className="absolute top-1/3 right-0 text-white text-xl fly-across delay-500" style={{ animationDirection: 'reverse' }}>
+          ❄
+        </div>
+        <div className="absolute top-1/2 left-0 text-white text-lg fly-across delay-800">
+          ✨
+        </div>
+
+        {/* Christmas Ornaments with wind effects */}
+        <div className="absolute bottom-20 left-10 text-red-600 text-3xl float-enhanced wind-float">
           🔴
         </div>
-        <div className="absolute bottom-32 right-16 text-red-500 text-3xl float delay-500">
+        <div className="absolute bottom-32 right-16 text-red-500 text-3xl float-enhanced wind-float delay-500">
           🔴
         </div>
-        <div className="absolute bottom-24 left-1/4 text-red-600 text-2xl float delay-1000">
+        <div className="absolute bottom-24 left-1/4 text-red-600 text-2xl float-enhanced wind-float delay-1000">
           🔴
         </div>
-        <div className="absolute bottom-40 right-1/3 text-red-500 text-2xl float">
+        <div className="absolute bottom-40 right-1/3 text-red-500 text-2xl float-enhanced wind-float delay-300">
+          🔴
+        </div>
+        <div className="absolute bottom-60 left-1/3 text-red-500 text-2xl float-enhanced wind-float delay-700">
           🔴
         </div>
 
-        {/* Animated background glow - Blue Christmas */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+        {/* Floating particles */}
+        <div className="absolute top-1/4 right-1/4 text-white text-sm float-up delay-200">
+          ❄
+        </div>
+        <div className="absolute top-1/3 left-1/4 text-white text-xs float-up delay-600">
+          ✨
+        </div>
+        <div className="absolute top-1/2 right-1/3 text-white text-sm float-up delay-400">
+          ❄
+        </div>
+        <div className="absolute top-2/3 left-1/3 text-white text-xs float-up delay-800">
+          ✨
+        </div>
+
+        {/* Animated background glow with enhanced lighting */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse glow-blue"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl animate-pulse delay-1000 glow-blue"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-500 glow-blue"></div>
+        <div className="absolute top-1/4 right-1/3 w-72 h-72 bg-red-500/15 rounded-full blur-3xl animate-pulse delay-300 glow-red"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl animate-pulse delay-700 glow-gold"></div>
       </div>
 
       {/* Section 1: Hero Section with Snow */}
@@ -118,7 +158,7 @@ function App() {
         <Header />
 
         {/* 3D Panorama Slider Container */}
-        <div className="panorama-container">
+        <div className="panorama-container slide-in-up">
           <div className="panorama-slider">
             {daysToShow.map((day, index) => (
               <CalendarCard

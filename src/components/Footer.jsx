@@ -1,159 +1,320 @@
+import { motion } from 'framer-motion';
+
 export default function Footer() {
-  const paymentMethods = [
-    { name: "Visa", code: "VISA", color: "text-blue-600" },
-    { name: "Mastercard", code: "MC", color: "bg-gradient-to-r from-[#eb001b] to-[#f79e1b] bg-clip-text text-transparent" },
-    { name: "PayPal", code: "PP", color: "text-blue-500" },
-    { name: "Skrill", code: "SK", color: "text-orange-500" },
-    { name: "Neteller", code: "NT", color: "text-green-500" },
-    { name: "Bitcoin", code: "₿", color: "text-orange-400" },
-    { name: "Ethereum", code: "Ξ", color: "text-blue-400" },
-    { name: "Bank Transfer", code: "🏦", color: "text-white/70" },
+  // Terms & Conditions Data - matches standalone version
+  const termsData = [
+    {
+      delay: "scroll-delay-100",
+      iconBg: "from-red-500/20 to-red-600/20",
+      iconBorder: "border-red-400/30",
+      icon: "👤",
+      title: "Eligibility",
+      decorativeEmoji: "✨",
+      description:
+        "Available to players 18+ (or legal age). One bonus per day per account.",
+    },
+    {
+      delay: "scroll-delay-200",
+      iconBg: "from-yellow-500/20 to-yellow-600/20",
+      iconBorder: "border-yellow-400/30",
+      icon: "🎁",
+      title: "Bonus Terms",
+      decorativeEmoji: "💎",
+      description:
+        "Each promo code valid only on its designated day. Subject to wagering requirements.",
+    },
+    {
+      delay: "scroll-delay-300",
+      iconBg: "from-blue-500/20 to-blue-600/20",
+      iconBorder: "border-blue-400/30",
+      icon: "🎴",
+      title: "Usage",
+      decorativeEmoji: "🎰",
+      description:
+        "Codes must be used at registration or deposit. Cannot be transferred or combined.",
+    },
+    {
+      delay: "scroll-delay-400",
+      iconBg: "from-green-500/20 to-green-600/20",
+      iconBorder: "border-green-400/30",
+      icon: "🛡️",
+      title: "Responsible Gaming",
+      decorativeEmoji: "❤️",
+      description:
+        "Gamble responsibly. Seek help if needed from responsible gaming organizations.",
+    },
+    {
+      delay: "scroll-delay-500",
+      iconBg: "from-purple-500/20 to-purple-600/20",
+      iconBorder: "border-purple-400/30",
+      icon: "⚙️",
+      title: "Changes",
+      decorativeEmoji: "📝",
+      description:
+        "We reserve the right to modify or cancel this promotion. All decisions are final.",
+    },
   ];
 
+  // Payment Methods Data - matches standalone version
+  const paymentMethodsData = [
+    {
+      title: "Visa",
+      text: "VISA",
+      fontWeight: "font-bold",
+      textColor: "text-blue-600",
+      hasGradient: false,
+    },
+    {
+      title: "Mastercard",
+      text: "MC",
+      fontWeight: "font-bold",
+      textColor: "",
+      hasGradient: true,
+      gradient: "linear-gradient(135deg, #eb001b 0%, #f79e1b 100%)",
+    },
+    {
+      title: "PayPal",
+      text: "PP",
+      fontWeight: "font-semibold",
+      textColor: "text-blue-500",
+      hasGradient: false,
+    },
+    {
+      title: "Skrill",
+      text: "SK",
+      fontWeight: "font-semibold",
+      textColor: "text-orange-500",
+      hasGradient: false,
+    },
+    {
+      title: "Neteller",
+      text: "NT",
+      fontWeight: "font-semibold",
+      textColor: "text-green-500",
+      hasGradient: false,
+    },
+    {
+      title: "Bitcoin",
+      text: "₿",
+      fontWeight: "font-semibold",
+      textColor: "text-orange-400",
+      hasGradient: false,
+    },
+    {
+      title: "Ethereum",
+      text: "Ξ",
+      fontWeight: "font-semibold",
+      textColor: "text-blue-400",
+      hasGradient: false,
+    },
+    {
+      title: "Bank Transfer",
+      text: "🏦",
+      fontWeight: "font-semibold",
+      textColor: "text-white/70",
+      hasGradient: false,
+    },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const termCardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <footer className="w-full">
-      <div className="w-full max-w-6xl mx-auto py-6 sm:py-6">
-        <div className="space-y-10">
-          {/* Terms & Conditions */}
-          <div className="relative">
-            <div className="text-center mb-12">
-              <h3
-                className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  letterSpacing: "-0.01em",
-                  textShadow: "0 2px 10px rgba(235, 39, 67, 0.3)",
-                }}
+    <section id="tnc-section" className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+      <footer className="w-full">
+        <div className="w-full max-w-6xl mx-auto py-6 sm:py-6">
+          {/* Terms & Conditions with Integrated Payment Methods */}
+          <div className="space-y-10">
+            {/* Terms & Conditions - Enhanced Design */}
+            <div className="relative">
+              {/* Header */}
+              <motion.div
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                Terms & Conditions
-              </h3>
-            </div>
-
-            <div className="space-y-8 max-w-4xl mx-auto">
-              <div>
-                <h4
-                  className="text-2xl sm:text-3xl font-black text-white mb-4"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Eligibility
-                </h4>
-                <p
-                  className="text-base sm:text-lg text-white/90 leading-relaxed"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Available to players 18+ (or legal age). One bonus per day per
-                  account.
-                </p>
-              </div>
-
-              <div>
-                <h4
-                  className="text-2xl sm:text-3xl font-black text-white mb-4"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Bonus Terms
-                </h4>
-                <p
-                  className="text-base sm:text-lg text-white/90 leading-relaxed"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Each promo code valid only on its designated day. Subject to
-                  wagering requirements.
-                </p>
-              </div>
-
-              <div>
-                <h4
-                  className="text-2xl sm:text-3xl font-black text-white mb-4"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Usage
-                </h4>
-                <p
-                  className="text-base sm:text-lg text-white/90 leading-relaxed"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Codes must be used at registration or deposit. Cannot be
-                  transferred or combined.
-                </p>
-              </div>
-
-              <div>
-                <h4
-                  className="text-2xl sm:text-3xl font-black text-white mb-4"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Responsible Gaming
-                </h4>
-                <p
-                  className="text-base sm:text-lg text-white/90 leading-relaxed"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Gamble responsibly. Seek help if needed from responsible
-                  gaming organizations.
-                </p>
-              </div>
-
-              <div>
-                <h4
-                  className="text-2xl sm:text-3xl font-black text-white mb-4"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  Changes
-                </h4>
-                <p
-                  className="text-base sm:text-lg text-white/90 leading-relaxed"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  We reserve the right to modify or cancel this promotion. All
-                  decisions are final.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Payment Methods */}
-          <div className="pt-4">
-            <p
-              className="text-center text-white/60 text-xs sm:text-sm mb-4 font-medium"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              Accepted Payment Methods
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-              {paymentMethods.map((method) => (
-                <div
-                  key={method.name}
-                  className="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
-                  title={method.name}
-                >
-                  <div
-                    className={`text-[10px] sm:text-xs font-bold ${method.color}`}
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      letterSpacing: "0.05em",
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <motion.span
+                    className="text-2xl"
+                    animate={{
+                      y: [0, -20, 0],
+                      rotate: [0, 90, 180, 270, 360],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
                     }}
                   >
-                    {method.code}
-                  </div>
+                    📋
+                  </motion.span>
+                  <h3
+                    className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      letterSpacing: "-0.01em",
+                      textShadow: "0 2px 10px rgba(235, 39, 67, 0.3)",
+                    }}
+                  >
+                    Terms & Conditions
+                  </h3>
+                  <motion.span
+                    className="text-2xl"
+                    animate={{
+                      y: [0, -20, 0],
+                      rotate: [0, 90, 180, 270, 360],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5,
+                    }}
+                  >
+                    📋
+                  </motion.span>
                 </div>
-              ))}
-            </div>
-          </div>
+                <div className="relative inline-block">
+                  <div className="h-1.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent rounded-full w-48 mx-auto mb-2"></div>
+                  <div className="h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full w-36 mx-auto"></div>
+                </div>
+              </motion.div>
 
-          {/* Copyright */}
-          <div className="pt-6 text-center">
-            <p
-              className="text-white/50 text-[10px] sm:text-xs"
-              style={{ fontFamily: "'Inter', sans-serif" }}
+              {/* Terms Content */}
+              <motion.div
+                className="space-y-6 max-w-4xl mx-auto"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+              >
+                {termsData.map((term, index) => (
+                  <motion.div
+                    key={index}
+                    className="tnc-card"
+                    variants={termCardVariants}
+                    whileHover={{
+                      y: -2,
+                      scale: 1.01,
+                      transition: { duration: 0.3 },
+                    }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${term.iconBg} flex items-center justify-center border ${term.iconBorder}`}>
+                        <span className="text-2xl">{term.icon}</span>
+                      </div>
+                      <div className="flex-1">
+                        <h4
+                          className="text-xl sm:text-2xl font-black text-white mb-3 flex items-center gap-2"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          <span>{term.title}</span>
+                          <span className="text-sm opacity-60">{term.decorativeEmoji}</span>
+                        </h4>
+                        <p
+                          className="text-sm sm:text-base text-white/90 leading-relaxed"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {term.description}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Payment Methods - Small and Modern */}
+            <motion.div
+              className="pt-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             >
-              © 2024 Christmas Promo Calendar. All rights reserved. | 18+ Only
-              | Play Responsibly
-            </p>
+              <p
+                className="text-center text-white/60 text-xs sm:text-sm mb-4 font-medium"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Accepted Payment Methods
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                {paymentMethodsData.map((payment, index) => {
+                  const textStyle = payment.hasGradient
+                    ? {
+                        fontFamily: "'Inter', sans-serif",
+                        letterSpacing: "0.05em",
+                        background: payment.gradient,
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }
+                    : payment.text === "VISA"
+                    ? {
+                        fontFamily: "'Inter', sans-serif",
+                        letterSpacing: "0.05em",
+                      }
+                    : { fontFamily: "'Inter', sans-serif" };
+
+                  const textClasses = payment.textColor
+                    ? `text-[10px] sm:text-xs ${payment.fontWeight} ${payment.textColor}`
+                    : `text-[10px] sm:text-xs ${payment.fontWeight}`;
+
+                  return (
+                    <div
+                      key={index}
+                      className="bg-white/10 backdrop-blur-sm rounded px-2 py-1.5 hover:bg-white/15 transition-all duration-200"
+                      title={payment.title}
+                    >
+                      <div className={textClasses} style={textStyle}>
+                        {payment.text}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+            {/* Copyright - Minimal */}
+            <motion.div
+              className="pt-6 text-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <p
+                className="text-white/50 text-[10px] sm:text-xs"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                © 2024 Christmas Promo Calendar. All rights reserved. | 18+ Only | Play Responsibly
+              </p>
+            </motion.div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </section>
   );
 }
-

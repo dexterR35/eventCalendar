@@ -1,22 +1,59 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import { getDayState, getPromotion } from '../utils/calendar';
 
 export default function Modal({ selectedDay, currentDay, currentMonthName, currentYear, onClose }) {
-  if (!selectedDay) return null;
-
-  const state = getDayState(selectedDay, currentDay);
-  const promotion = getPromotion(selectedDay, currentMonthName, currentYear);
+  const state = selectedDay ? getDayState(selectedDay, currentDay) : null;
+  const promotion = selectedDay ? getPromotion(selectedDay, currentMonthName, currentYear) : null;
   const isPast = state === "past";
 
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
   return (
-    <div
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }}
-    >
-      <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-2xl max-w-lg w-full p-8 sm:p-10 relative zoom-in-95 border border-white/20">
+    <AnimatePresence mode="wait">
+      {selectedDay && (
+        <motion.div
+          key="modal"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          variants={backdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              onClose();
+            }
+          }}
+        >
+          <motion.div
+            className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-2xl max-w-lg w-full p-8 sm:p-10 relative border border-white/20"
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-full"
@@ -35,10 +72,22 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
             />
           </svg>
         </button>
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
           {isPast ? (
             <>
-              <div className="text-4xl mb-4">✅</div>
+              <motion.div
+                className="text-4xl mb-4"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              >
+                ✅
+              </motion.div>
               <div className="mb-6">
                 <div
                   className="inline-block px-6 py-3 rounded-xl border-2 shadow-lg"
@@ -60,20 +109,55 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
                   You can only claim bonuses on their respective days
                 </p>
               </div>
-              <button
+              <motion.button
                 onClick={onClose}
-                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-white/30"
+                className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg border-2 border-white/30"
+                whileHover={{
+                  background: "linear-gradient(to right, #dc2626, #b91c1c)",
+                  scale: 1.02,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2 }}
               >
                 Close
-              </button>
+              </motion.button>
             </>
           ) : (
             <>
-              <div className="relative mb-6">
+              <motion.div
+                className="relative mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <span className="text-5xl animate-pulse">🎰</span>
-                  <span className="text-6xl animate-bounce">🎁</span>
-                  <span className="text-5xl animate-pulse delay-500">💎</span>
+                  <motion.span
+                    className="text-5xl"
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    🎰
+                  </motion.span>
+                  <motion.span
+                    className="text-6xl"
+                    animate={{ y: [0, -15, 0] }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    🎁
+                  </motion.span>
+                  <motion.span
+                    className="text-5xl"
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5,
+                    }}
+                  >
+                    💎
+                  </motion.span>
                 </div>
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <span className="text-sm">✨</span>
@@ -82,7 +166,7 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
                   </span>
                   <span className="text-sm">✨</span>
                 </div>
-              </div>
+              </motion.div>
               <div className="mb-6">
                 <div
                   className="inline-block w-full px-6 py-4 rounded-2xl border-2 shadow-xl text-center"
@@ -99,7 +183,7 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
                         "0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 215, 0, 0.3)",
                     }}
                   >
-                    {promotion.discount || "Special Offer"}
+                    {promotion?.discount || "Special Offer"}
                   </div>
                   <div className="text-xs text-white/90 font-semibold uppercase tracking-wider">
                     Exclusive Bonus
@@ -108,15 +192,15 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
               </div>
               <div className="mb-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2 text-center">
-                  {promotion.title}
+                  {promotion?.title || "Special Bonus"}
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-center text-sm">
-                  {promotion.description}
+                  {promotion?.description || "Claim your exclusive bonus today!"}
                 </p>
               </div>
               <div className="relative mb-6">
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-white/10 to-yellow-400/20 rounded-2xl blur-md"></div>
-                <div className="relative bg-gradient-to-br from-yellow-50/90 via-white to-yellow-50/90 rounded-2xl p-6 border-2 border-yellow-300/60 shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-blue-400/10 to-blue-600/20 rounded-2xl blur-md"></div>
+                <div className="relative bg-gradient-to-br from-blue-900/30 via-blue-800/20 to-blue-900/30 rounded-2xl p-6 border-2 border-blue-500/60 shadow-2xl">
                   <div className="flex items-center justify-center gap-2 mb-4">
                     <span className="text-lg">🎴</span>
                     <p className="text-sm text-gray-700 font-bold uppercase tracking-widest">
@@ -127,13 +211,13 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
                   <div className="relative">
                     <div className="text-5xl sm:text-6xl font-black text-center mb-3">
                       <span
-                        className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-red-600 to-yellow-600 font-mono tracking-wider"
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 font-mono tracking-wider"
                         style={{
-                          textShadow: "0 0 20px rgba(255, 215, 0, 0.4)",
+                          textShadow: "0 0 20px rgba(30, 58, 138, 0.5)",
                           letterSpacing: "0.1em",
                         }}
                       >
-                        {promotion.code}
+                        {promotion?.code || "N/A"}
                       </span>
                     </div>
                     <div className="absolute -top-2 -right-2 text-xl animate-pulse">
@@ -148,21 +232,30 @@ export default function Modal({ selectedDay, currentDay, currentMonthName, curre
                   </p>
                 </div>
               </div>
-              <a
-                href={promotion.link || "#"}
+              <motion.a
+                href={promotion?.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-white/30 flex items-center justify-center gap-2 no-underline"
+                className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg border-2 border-white/30 flex items-center justify-center gap-2 no-underline"
+                whileHover={{
+                  background: "linear-gradient(to right, #dc2626, #b91c1c)",
+                  scale: 1.02,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2 }}
               >
                 <span className="text-xl">🎰</span>
                 <span>Claim Bonus</span>
                 <span className="text-xl">🎁</span>
-              </a>
+              </motion.a>
             </>
           )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+        </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

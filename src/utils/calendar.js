@@ -1,47 +1,68 @@
-// Configuration - You can customize promotions here
-export const promotions = [
-  {
-    day: 1,
-    title: "Winter Sale",
-    description: "Get cozy with our winter collection",
-    discount: "20% OFF",
-    code: "WINTER20",
-    link: "https://example.com/day1",
-  },
-  {
-    day: 2,
-    title: "Holiday Special",
-    description: "Perfect gifts for everyone",
-    discount: "15% OFF",
-    code: "HOLIDAY15",
-    link: "https://example.com/day2",
-  },
-  {
-    day: 3,
-    title: "Flash Deal",
-    description: "Limited time offer",
-    discount: "30% OFF",
-    code: "FLASH30",
-    link: "https://example.com/day3",
-  },
-  {
-    day: 4,
-    title: "Mega Bonus",
-    description: "Exclusive casino bonus",
-    discount: "50% OFF",
-    code: "MEGA50",
-    link: "https://example.com/day4",
-  },
-  {
-    day: 5,
-    title: "Weekend Special",
-    description: "Weekend exclusive offer",
-    discount: "25% OFF",
-    code: "WEEKEND25",
-    link: "https://example.com/day5",
-  },
-  // Add more promotions for each day of the month
+// Dynamic Promotion Generation - All promotions are generated automatically
+
+// Dynamic promotion titles and descriptions
+const promotionTitles = [
+  "Daily Bonus",
+  "Exclusive Offer",
+  "Special Deal",
+  "Mega Bonus",
+  "Premium Reward",
+  "Super Bonus",
+  "Ultimate Deal",
+  "VIP Offer",
+  "Flash Sale",
+  "Holiday Special",
+  "Weekend Bonus",
+  "Lucky Day",
+  "Champion Deal",
+  "Elite Bonus",
+  "Royal Reward",
+  "Diamond Deal",
+  "Platinum Bonus",
+  "Gold Special",
+  "Silver Offer",
+  "Bronze Bonus",
+  "Crystal Deal",
+  "Star Bonus",
+  "Moon Special",
+  "Sun Offer",
+  "Rainbow Deal",
+  "Thunder Bonus",
+  "Storm Special",
+  "Fire Offer",
+  "Ice Deal",
+  "Wind Bonus",
+  "Earth Special",
 ];
+
+const promotionDescriptions = [
+  "Exclusive casino bonus for today",
+  "Limited time offer - claim now",
+  "Special promotion just for you",
+  "Amazing bonus waiting for you",
+  "Don't miss this exclusive deal",
+  "Your daily reward is here",
+  "Claim your special bonus today",
+  "Exclusive offer - act fast",
+  "Premium bonus available now",
+  "Special deal of the day",
+  "Limited edition bonus",
+  "Exclusive daily promotion",
+  "Your lucky bonus awaits",
+  "Special reward for you",
+  "Exclusive casino promotion",
+];
+
+// Generate dynamic discount percentage (10% to 100%)
+function getDynamicDiscount(day) {
+  // Use day number to create variation, but keep it reasonable
+  const baseDiscount = 15 + (day % 20) * 2; // 15% to 55% range
+  const specialDays = [7, 14, 21, 28]; // Special days get higher discounts
+  if (specialDays.includes(day)) {
+    return Math.min(50 + (day % 20) * 2, 100); // 50% to 100% for special days
+  }
+  return Math.min(baseDiscount, 100);
+}
 
 export const monthNames = [
   "January",
@@ -72,16 +93,23 @@ export function getDayState(day, currentDay) {
 
 export function getPromotion(day, currentMonthName, currentYear) {
   const monthAbbr = currentMonthName.substring(0, 3).toUpperCase();
-  return (
-    promotions.find((p) => p.day === day) || {
-      day,
-      title: `Day ${day} Special`,
-      description: `Exclusive offer for ${currentMonthName} ${day}`,
-      discount: "15% OFF",
-      code: `${monthAbbr}${String(day).padStart(2, "0")}${currentYear}`,
-      link: `https://example.com/day${day}`,
-    }
-  );
+  
+  // Generate dynamic promotion data based on day number
+  const titleIndex = (day - 1) % promotionTitles.length;
+  const descIndex = (day * 3) % promotionDescriptions.length;
+  const discount = getDynamicDiscount(day);
+  
+  // Generate unique code based on day, month, and year
+  const code = `${monthAbbr}${String(day).padStart(2, "0")}${currentYear}`;
+  
+  return {
+    day,
+    title: `${promotionTitles[titleIndex]} - Day ${day}`,
+    description: `${promotionDescriptions[descIndex]} on ${currentMonthName} ${day}`,
+    discount: `${discount}% OFF`,
+    code: code,
+    link: `https://example.com/day${day}`,
+  };
 }
 
 export function loadOpenedDays() {
