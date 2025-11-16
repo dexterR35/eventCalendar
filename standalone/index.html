@@ -793,6 +793,142 @@
       .text-motion-delay-3 {
         animation-delay: 0.3s;
       }
+
+      /* Step Card Motion Animations */
+      @keyframes stepCardSlideLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes stepCardSlideRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes stepCardScaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes stepCardHoverLift {
+        0% {
+          transform: translateY(0) scale(1);
+        }
+        100% {
+          transform: translateY(-8px) scale(1.01);
+        }
+      }
+
+      @keyframes stepCardGlow {
+        0%, 100% {
+          box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+        50% {
+          box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+      }
+
+      @keyframes stepBadgeRotate {
+        from {
+          transform: rotate(-5deg);
+        }
+        to {
+          transform: rotate(0deg);
+        }
+      }
+
+      @keyframes stepEmojiScale {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
+
+      @keyframes stepSparkleFloat {
+        0%, 100% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Step card motion classes */
+      .step-card-motion-left {
+        animation: stepCardSlideLeft 0.8s ease-out both;
+      }
+
+      .step-card-motion-right {
+        animation: stepCardSlideRight 0.8s ease-out both;
+      }
+
+      .step-card-motion-scale {
+        animation: stepCardScaleIn 0.8s ease-out both;
+      }
+
+      .step-card-motion-delay-1 {
+        animation-delay: 0.1s;
+      }
+
+      .step-card-motion-delay-2 {
+        animation-delay: 0.3s;
+      }
+
+      .step-card-motion-delay-3 {
+        animation-delay: 0.5s;
+      }
+
+      /* Step card hover effects */
+      .step-card-wrapper:hover .step-card-inner {
+        animation: stepCardHoverLift 0.4s ease-out forwards;
+      }
+
+      .step-card-wrapper:hover .step-card-inner {
+        box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
+                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      }
+
+      .step-card-wrapper:hover .step-badge {
+        animation: stepBadgeRotate 0.5s ease-out forwards;
+      }
+
+      .step-card-wrapper:hover .step-emoji {
+        animation: stepEmojiScale 0.5s ease-out forwards;
+      }
+
+      .step-card-wrapper:hover .step-sparkle {
+        animation: stepSparkleFloat 0.6s ease-in-out infinite;
+      }
+
+      /* Step card visible state */
+      .step-card-visible {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
     </style>
   </head>
   <body>
@@ -1018,12 +1154,14 @@
           <!-- Connecting Line (Desktop Only) -->
           <div
             class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2 z-0 scroll-fade-in"
+            id="steps-connecting-line"
           >
             <div
               class="absolute inset-0 bg-gradient-to-r from-red-500/30 via-red-400/50 to-red-500/30 rounded-full"
             ></div>
             <div
               class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent animate-pulse"
+              id="steps-line-glow"
             ></div>
           </div>
 
@@ -1802,14 +1940,28 @@
 
       // Render Step Card
       function renderStepCard(stepData, index) {
+        // Determine animation class based on index
+        let motionClass = '';
+        let motionDelay = '';
+        if (index === 0) {
+          motionClass = 'step-card-motion-left';
+          motionDelay = 'step-card-motion-delay-1';
+        } else if (index === 1) {
+          motionClass = 'step-card-motion-scale';
+          motionDelay = 'step-card-motion-delay-2';
+        } else {
+          motionClass = 'step-card-motion-right';
+          motionDelay = 'step-card-motion-delay-3';
+        }
+
         const backgroundGlow = stepData.showBackgroundGlow
           ? '<div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>'
-          : '<!-- <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400/10 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> -->';
+          : '';
 
         return `
-            <div class="relative group ${stepData.animationClass} ${stepData.delayClass} text-motion ${stepData.textMotionClass}" style="overflow: visible;">
+            <div class="step-card-wrapper relative group ${motionClass} ${motionDelay}" style="overflow: visible;" data-step-index="${index}">
               <div
-                class="relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl hover:shadow-gray-500/30 transition-all duration-500 card-hover-lift step-card-enhanced"
+                class="step-card-inner relative bg-gradient-to-br from-gray-700/30 via-gray-600/25 to-gray-700/30 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-2 border-gray-500/40 shadow-2xl transition-all duration-500 card-hover-lift step-card-enhanced"
                 style="
                   background: linear-gradient(
                     135deg,
@@ -1827,7 +1979,7 @@
 
                 <!-- Step Number Badge - Outside the card -->
                 <div
-                  class="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500 z-20"
+                  class="step-badge absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-red-700 shadow-2xl border-4 border-white/60 transform rotate-[-5deg] transition-transform duration-500 z-20"
                   style="
                     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5),
                       inset 0 2px 10px rgba(255, 255, 255, 0.8);
@@ -1842,12 +1994,12 @@
                 <div class="text-center mt-6 relative z-10">
                   <div class="relative inline-block mb-6">
                     <div
-                      class="text-5xl sm:text-6xl mb-2 transform group-hover:scale-110 transition-transform duration-500"
+                      class="step-emoji text-5xl sm:text-6xl mb-2 transition-transform duration-500"
                     >
                       ${stepData.emoji}
                     </div>
                     <div
-                      class="absolute -top-2 -right-2 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-bounce"
+                      class="step-sparkle absolute -top-2 -right-2 text-2xl opacity-0 transition-opacity duration-500"
                     >
                       ✨
                     </div>
@@ -1980,6 +2132,52 @@
         }
       }
 
+      // Initialize step card motion animations
+      function initStepCardAnimations() {
+        const stepCards = document.querySelectorAll('.step-card-wrapper');
+        const connectingLine = document.getElementById('steps-connecting-line');
+        
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px',
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('step-card-visible');
+              // Trigger sparkle animation on visible
+              const sparkle = entry.target.querySelector('.step-sparkle');
+              if (sparkle) {
+                sparkle.style.opacity = '1';
+              }
+            }
+          });
+        }, observerOptions);
+
+        stepCards.forEach((card) => {
+          observer.observe(card);
+        });
+
+        // Animate connecting line when steps section is visible
+        if (connectingLine) {
+          const lineObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'scaleX(1)';
+              }
+            });
+          }, { threshold: 0.1 });
+
+          lineObserver.observe(connectingLine);
+          // Set initial state
+          connectingLine.style.opacity = '0';
+          connectingLine.style.transform = 'scaleX(0)';
+          connectingLine.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+        }
+      }
+
       function init() {
         loadOpenedDays();
         updateHeader();
@@ -1987,6 +2185,11 @@
         renderSteps();
         renderTerms();
         renderPaymentMethods();
+        
+        // Initialize step card animations after rendering
+        setTimeout(() => {
+          initStepCardAnimations();
+        }, 100);
 
         // Initialize particles.js for snow effect in hero section
         if (window.particlesJS) {
