@@ -314,63 +314,98 @@
         );
       }
 
-      /* New Terms Layout Styles */
-      .term-section {
-        position: relative;
-        padding: 1.5rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      /* New Terms Layout Styles - One Card Per Row */
+      #terms-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
       }
 
-      .term-section:last-child {
-        border-bottom: none;
+      .term-section {
+        position: relative;
+        padding: 2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(31, 41, 55, 0.5) 0%,
+          rgba(17, 24, 39, 0.4) 50%,
+          rgba(31, 41, 55, 0.5) 100%
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.5rem;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+      }
+
+      .term-section:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -12px rgba(235, 39, 67, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+        border-color: rgba(235, 39, 67, 0.4);
       }
 
       .term-section-number {
         position: absolute;
-        left: 0;
-        top: 1.5rem;
-        width: 32px;
-        height: 32px;
+        top: -12px;
+        left: 2rem;
+        width: 40px;
+        height: 40px;
         background: linear-gradient(
           135deg,
-          rgba(235, 39, 67, 0.3),
-          rgba(209, 30, 58, 0.3)
+          rgba(235, 39, 67, 0.9),
+          rgba(209, 30, 58, 0.9)
         );
-        border: 1px solid rgba(235, 39, 67, 0.4);
-        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 800;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.9);
+        font-weight: 900;
+        font-size: 16px;
+        color: white;
+        box-shadow: 0 4px 15px rgba(235, 39, 67, 0.4);
+        z-index: 10;
+        flex-shrink: 0;
       }
 
       .term-content {
-        margin-left: 3rem;
+        margin-left: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
       }
 
       .term-title {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: 800;
         color: white;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
+        padding-top: 0.5rem;
+      }
+
+      .term-title span:first-child {
+        font-size: 2rem;
       }
 
       .term-description {
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.7;
         color: rgba(255, 255, 255, 0.85);
         margin-bottom: 0.5rem;
+        flex: 1;
       }
 
       .term-list {
         list-style: none;
         padding-left: 0;
-        margin-top: 0.75rem;
+        margin-top: 1rem;
       }
 
       .term-list-item {
@@ -378,15 +413,16 @@
         position: relative;
         color: rgba(255, 255, 255, 0.8);
         line-height: 1.6;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
       }
 
       .term-list-item::before {
         content: "▸";
         position: absolute;
         left: 0;
-        color: rgba(235, 39, 67, 0.7);
-        font-size: 1rem;
+        color: rgba(235, 39, 67, 0.8);
+        font-size: 1.1rem;
+        font-weight: bold;
       }
 
       /* Responsive Enhancements */
@@ -404,27 +440,35 @@
           padding: 1rem !important;
         }
 
-        .term-content {
-          margin-left: 2.5rem;
-        }
-
-        .term-section-number {
-          width: 28px;
-          height: 28px;
-          font-size: 12px;
-        }
-
         #terms-container {
-          max-height: 500px;
+          gap: 1.25rem;
           padding: 1rem 1.25rem;
         }
 
+        .term-section {
+          padding: 1.5rem;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .term-section-number {
+          width: 36px;
+          height: 36px;
+          font-size: 14px;
+          top: -10px;
+          left: 1.25rem;
+        }
+
         .term-title {
-          font-size: 1.1rem;
+          font-size: 1.25rem;
+        }
+
+        .term-title span:first-child {
+          font-size: 1.75rem;
         }
 
         .term-description {
-          font-size: 0.875rem;
+          font-size: 0.9rem;
         }
       }
 
@@ -752,13 +796,13 @@
         transform: translateX(0) scale(1);
       }
 
-      .bg-img {
+      /* .bg-img {
         background-image: url("./bg2.png");
         background-image: url("./background.png");
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-      }
+      } */
     </style>
   </head>
   <body>
@@ -999,7 +1043,7 @@
         <div class="relative overflow-visible">
           <div
             id="steps-container"
-            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10 pt-8 pb-8"
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10 pt-8 pb-8 items-stretch"
             style="overflow: visible"
           >
             <!-- Steps will be generated here by JavaScript -->
@@ -1013,7 +1057,7 @@
         class="relative z-10 w-full px-4 sm:px-6 lg:px-8"
       >
         <footer class="w-full">
-          <div class="w-full max-w-6xl mx-auto py-6 sm:py-6">
+          <div class="w-full max-w-7xl mx-auto py-6 sm:py-6">
             <!-- Terms & Conditions with Integrated Payment Methods -->
             <div class="space-y-10">
               <!-- Terms & Conditions - Enhanced Design -->
@@ -1047,14 +1091,14 @@
                 </div>
 
                 <!-- Terms Content - New Beautiful Layout -->
-                <div class="max-w-5xl mx-auto">
+                <div class="max-w-7xl mx-auto">
                   <div
                     class="relative bg-gradient-to-br from-gray-800/40 via-gray-900/30 to-gray-800/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
                   >
                     <!-- Terms Container -->
                     <div
                       id="terms-container"
-                      class="px-6 sm:px-8 py-8 space-y-8"
+                      class="px-6 sm:px-8 lg:px-12 py-8 sm:py-10 lg:py-12"
                     >
                       <!-- Terms content will be generated here by JavaScript -->
                     </div>
@@ -1684,7 +1728,7 @@
           animationClass: "scroll-scale-in",
           delayClass: "scroll-delay-200",
           textMotionClass: "text-motion-delay-2",
-          emoji: "🎴",
+          emoji: "🎰",
           title: "Obține Codul Promo",
           description:
             "Primește codul tău promo unic pentru bonusuri exclusive de cazino",
@@ -1756,6 +1800,36 @@
           decorativeEmoji: "📝",
           description:
             "Ne rezervăm dreptul de a modifica sau anula această promoție. Toate deciziile sunt finale.",
+        },
+        {
+          delay: "scroll-delay-100",
+          iconBg: "from-orange-500/20 to-orange-600/20",
+          iconBorder: "border-orange-400/30",
+          icon: "⏰",
+          title: "Valabilitate",
+          decorativeEmoji: "🕐",
+          description:
+            "Fiecare bonus este valabil doar în ziua respectivă. Bonusurile expiră la sfârșitul zilei și nu pot fi revendicate ulterior.",
+        },
+        {
+          delay: "scroll-delay-200",
+          iconBg: "from-pink-500/20 to-pink-600/20",
+          iconBorder: "border-pink-400/30",
+          icon: "💰",
+          title: "Retragere",
+          decorativeEmoji: "💳",
+          description:
+            "Toate câștigurile obținute folosind bonusurile sunt supuse cerințelor de pariere standard. Verifică termenii și condițiile complete pentru detalii.",
+        },
+        {
+          delay: "scroll-delay-300",
+          iconBg: "from-cyan-500/20 to-cyan-600/20",
+          iconBorder: "border-cyan-400/30",
+          icon: "🔒",
+          title: "Securitate",
+          decorativeEmoji: "🛡️",
+          description:
+            "Toate datele tale sunt protejate și procesate în siguranță. Nu partajăm informațiile tale cu terți fără consimțământul tău.",
         },
       ];
 
@@ -1841,9 +1915,9 @@
           : "";
 
         return `
-            <div class="step-card-wrapper relative group ${motionClass} ${motionDelay}" style="overflow: visible;" data-step-index="${index}">
+            <div class="step-card-wrapper relative group ${motionClass} ${motionDelay} h-full" style="overflow: visible;" data-step-index="${index}">
               <div
-                class="step-card-inner relative backdrop-blur-xl rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl transition-all duration-500 card-hover-lift step-card-enhanced"
+                class="step-card-inner relative backdrop-blur-xl rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl transition-all duration-500 card-hover-lift step-card-enhanced h-full flex flex-col"
                 style="
                   background: linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(17, 24, 39, 0.3) 50%, rgba(31, 41, 55, 0.4) 100%);
                   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
@@ -1866,7 +1940,7 @@
                   ></div>
                 </div>
 
-                <div class="text-center mt-6 relative z-10">
+                <div class="text-center mt-6 relative z-10 flex-1 flex flex-col justify-center">
                   <div class="relative inline-block mb-6">
                     <div
                       class="step-emoji text-5xl sm:text-6xl mb-2 transition-transform duration-500"
@@ -1956,7 +2030,7 @@
                   <span>${termData.title}</span>
                   ${
                     termData.decorativeEmoji
-                      ? `<span class="text-sm opacity-60">${termData.decorativeEmoji}</span>`
+                      ? `<span class="text-lg opacity-70 ml-1">${termData.decorativeEmoji}</span>`
                       : ""
                   }
                 </h4>
