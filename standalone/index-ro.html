@@ -30,93 +30,6 @@
         position: relative;
       }
 
-      /* Removed duplicate Tailwind animations - pulse, bounce, and delay utilities are provided by Tailwind CDN */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      @keyframes zoomIn {
-        from {
-          opacity: 0;
-          transform: scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      .animate-in {
-        animation: fadeIn 0.3s ease-out;
-      }
-      .zoom-in-95 {
-        animation: zoomIn 0.3s ease-out;
-      }
-      .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      /* Snow Animation */
-      @keyframes snow {
-        0% {
-          transform: translateY(0) translateX(0) rotate(0deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(100vh) translateX(var(--snow-x, 0))
-            rotate(360deg);
-          opacity: 0;
-        }
-      }
-
-      .snowflake {
-        position: absolute;
-        top: -10px;
-        color: white;
-        font-size: 1em;
-        font-family: Arial, sans-serif;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        animation: snow linear infinite;
-        pointer-events: none;
-      }
-
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.5;
-          transform: scale(1.1);
-        }
-      }
-
-      .twinkle {
-        animation: twinkle 2s ease-in-out infinite;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-
-      .float {
-        animation: float 3s ease-in-out infinite;
-      }
-
       /* 3D Panorama Slider Styles */
       .panorama-container {
         perspective: 1200px;
@@ -145,31 +58,21 @@
         transform-style: preserve-3d;
         transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         cursor: pointer;
+        opacity: 1;
+        z-index: 1;
       }
 
       .panorama-card:nth-child(1) {
         transform: translateX(20px) translateZ(20px) rotateY(30deg) scale(0.9);
-        opacity: 0.85;
-        z-index: 1;
       }
 
       .panorama-card:nth-child(2) {
         transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
-        opacity: 1;
         z-index: 3;
       }
 
       .panorama-card:nth-child(3) {
         transform: translateX(-20px) translateZ(20px) rotateY(-30deg) scale(0.9);
-        opacity: 0.85;
-        z-index: 1;
-      }
-
-      .panorama-card:hover {
-        transform: translateX(var(--panorama-x, 0)) translateZ(50px)
-          rotateY(var(--panorama-rotate, 0deg)) scale(1.02) !important;
-        z-index: 5 !important;
-        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       }
 
       .panorama-card-content {
@@ -177,15 +80,6 @@
         height: 100%;
         transform-style: preserve-3d;
         backface-visibility: hidden;
-      }
-
-      @keyframes panoramaRotate {
-        0% {
-          transform: rotateY(0deg);
-        }
-        100% {
-          transform: rotateY(360deg);
-        }
       }
 
       /* Mobile: Column direction with vertical panorama */
@@ -212,165 +106,25 @@
         }
 
         .panorama-card:nth-child(1) {
-          transform: translateY(20px) translateZ(20px) rotateX(-30deg) scale(0.9);
-          opacity: 0.85;
-          z-index: 1;
+          transform: translateY(20px) translateZ(20px) rotateX(-30deg)
+            scale(0.9);
         }
 
         .panorama-card:nth-child(2) {
           transform: translateY(0) translateZ(0) rotateX(0deg) scale(1);
-          opacity: 1;
+
           z-index: 3;
         }
 
         .panorama-card:nth-child(3) {
-          transform: translateY(-20px) translateZ(20px) rotateX(30deg) scale(0.9);
-          opacity: 0.85;
-          z-index: 1;
-        }
-
-        .panorama-card:hover {
-          transform: translateY(var(--panorama-y, 0)) translateZ(50px)
-            rotateX(var(--panorama-rotate-vertical, 0deg)) scale(1.02) !important;
-          z-index: 5 !important;
-          transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-      }
-
-      /* Modern Card Animations */
-      @keyframes glow {
-        0%,
-        100% {
-          box-shadow: 0 0 20px rgba(235, 39, 67, 0.4),
-            0 0 40px rgba(235, 39, 67, 0.3), 0 0 60px rgba(235, 39, 67, 0.2);
-        }
-        50% {
-          box-shadow: 0 0 30px rgba(235, 39, 67, 0.6),
-            0 0 60px rgba(235, 39, 67, 0.5), 0 0 80px rgba(235, 39, 67, 0.3);
-        }
-      }
-
-      .card-glow {
-        animation: glow 2s ease-in-out infinite;
-      }
-
-      @keyframes cardLift {
-        0% {
-          transform: translateY(0) scale(1) rotateY(0deg);
-        }
-        100% {
-          transform: translateY(-8px) scale(1.01) rotateY(2deg);
-        }
-      }
-
-      .card-hover-lift {
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        transform-style: preserve-3d;
-        position: relative;
-        z-index: 1;
-      }
-
-      .card-hover-lift:hover {
-        transform: translateY(-8px) scale(1.01) rotateY(2deg);
-        box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
-          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        z-index: 2;
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
-      .card-hover-lift:not(:hover) {
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
-      @keyframes hoverGlow {
-        0%,
-        100% {
-          box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.5);
-        }
-        50% {
-          box-shadow: 0 35px 70px -12px rgba(235, 39, 67, 0.7),
-            0 0 40px rgba(235, 39, 67, 0.4);
-        }
-      }
-
-      .card-hover-lift:hover .card-glow {
-        animation: hoverGlow 1.5s ease-in-out infinite;
-      }
-
-      /* Ensure card content stays above shadow */
-      .card-hover-lift > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Past cards hover effect */
-      .card-hover-lift:hover {
-        opacity: 0.95 !important;
-      }
-
-      .card-hover-lift:hover[style*="border-white/20"] {
-        border-color: rgba(255, 255, 255, 0.4) !important;
-      }
-
-      /* Smooth content transitions - exclude text elements */
-      .card-hover-lift
-        *:not(p):not(h3):not(span):not(div[class*="text"]):not(.font-mono) {
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-          opacity 0.4s ease;
-      }
-
-      /* Prevent text animations */
-      .card-hover-lift p,
-      .card-hover-lift h3,
-      .card-hover-lift span:not([class*="absolute"]):not([class*="badge"]),
-      .card-hover-lift .font-mono {
-        transition: none !important;
-        animation: none !important;
-      }
-
-      .card-hover-lift:hover .relative {
-        transform: translateY(-2px);
-      }
-
-      /* Neumorphism Styles */
-      .neu-number {
-        /* border-radius: 20px; */
-        /* background: linear-gradient(225deg, #bc1b34, #e0203e); */
-        /* box-shadow: -14px 14px 27px #b21a31, 14px -14px 27px #f02343; */
-        color: white;
-      }
-
-      .neu-bonus-badge {
-        /* Reserved for future neumorphism bonus badge styles */
-        display: block;
-      }
-
-      .neu-promo-code {
-        border-radius: 10px;
-        background: linear-gradient(145deg, #e0203e, #bc1b34);
-        box-shadow: 20px 20px 60px #831326, -20px -20px 60px #da203f;
-        color: white;
-      }
-
-      .group-hover\:text-red-200 {
-        &:is(:where(.group):hover *) {
-          @media (hover: hover) {
-            color: crimson !important /* oklch(88.5% 0.062 18.334) */;
-          }
+          transform: translateY(-20px) translateZ(20px) rotateX(30deg)
+            scale(0.9);
         }
       }
 
       /* Enhanced Card Lighting Effects */
-      @keyframes cardShimmer {
-        0% {
-          background-position: -200% center;
-        }
-        100% {
-          background-position: 200% center;
-        }
-      }
 
-      @keyframes cardPulse {
+      /* @keyframes cardPulse {
         0%, 100% {
           box-shadow: 0 25px 50px -12px rgba(235, 39, 67, 0.6),
             0 0 60px rgba(30, 58, 138, 0.3),
@@ -381,7 +135,7 @@
             0 0 80px rgba(30, 58, 138, 0.5),
             inset 0 0 40px rgba(255, 255, 255, 0.15);
         }
-      }
+      } */
 
       @keyframes lightSweep {
         0% {
@@ -427,9 +181,9 @@
         animation-delay: 1.5s;
       }
 
-      .card-pulse-animation {
+      /* .card-pulse-animation {
         animation: cardPulse 3s ease-in-out infinite;
-      }
+      } */
 
       /* Scroll Animation Classes */
       .scroll-fade-in {
@@ -476,7 +230,6 @@
         transform: scale(1);
       }
 
-      /* Staggered animation delays */
       .scroll-delay-100 {
         transition-delay: 0.1s;
       }
@@ -502,12 +255,12 @@
         position: relative;
         overflow: visible;
       }
-      
+
       /* Ensure step cards container allows overflow */
       #steps-section {
         overflow: visible;
       }
-      
+
       #steps-section > div {
         overflow: visible;
       }
@@ -521,7 +274,7 @@
         height: 200%;
         background: radial-gradient(
           circle,
-          rgba(255, 215, 0, 0.1) 0%,
+          rgba(255, 2, 2, 0.1) 0%,
           transparent 70%
         );
         opacity: 0;
@@ -531,49 +284,6 @@
 
       .step-card-enhanced:hover::after {
         opacity: 1;
-      }
-
-      /* Enhanced T&C Section */
-      .tnc-item {
-        position: relative;
-        padding-left: 1.5rem;
-      }
-
-      .tnc-item::before {
-        content: "▸";
-        position: absolute;
-        left: 0;
-        top: 0;
-        color: rgba(235, 39, 67, 0.6);
-        font-size: 1.5rem;
-        line-height: 1.2;
-      }
-
-      .tnc-card {
-        background: linear-gradient(
-          135deg,
-          rgba(42, 45, 58, 0.3) 0%,
-          rgba(31, 34, 48, 0.25) 50%,
-          rgba(37, 40, 54, 0.3) 100%
-        );
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 1rem;
-        padding: 1.5rem;
-        transition: all 0.3s ease;
-      }
-
-      .tnc-card:hover {
-        background: linear-gradient(
-          135deg,
-          rgba(42, 45, 58, 0.4) 0%,
-          rgba(31, 34, 48, 0.35) 50%,
-          rgba(37, 40, 54, 0.4) 100%
-        );
-        border-color: rgba(235, 39, 67, 0.3);
-        transform: translateY(-2px) scale(1.01);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease;
       }
 
       /* Custom Scrollbar for Terms Container */
@@ -587,13 +297,21 @@
       }
 
       .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, rgba(235, 39, 67, 0.6), rgba(209, 30, 58, 0.6));
+        background: linear-gradient(
+          135deg,
+          rgba(235, 39, 67, 0.6),
+          rgba(209, 30, 58, 0.6)
+        );
         border-radius: 10px;
         border: 2px solid rgba(255, 255, 255, 0.1);
       }
 
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, rgba(235, 39, 67, 0.8), rgba(209, 30, 58, 0.8));
+        background: linear-gradient(
+          135deg,
+          rgba(235, 39, 67, 0.8),
+          rgba(209, 30, 58, 0.8)
+        );
       }
 
       /* New Terms Layout Styles */
@@ -613,7 +331,11 @@
         top: 1.5rem;
         width: 32px;
         height: 32px;
-        background: linear-gradient(135deg, rgba(235, 39, 67, 0.3), rgba(209, 30, 58, 0.3));
+        background: linear-gradient(
+          135deg,
+          rgba(235, 39, 67, 0.3),
+          rgba(209, 30, 58, 0.3)
+        );
         border: 1px solid rgba(235, 39, 67, 0.4);
         border-radius: 8px;
         display: flex;
@@ -715,7 +437,8 @@
 
       /* Floating particles animation */
       @keyframes floatParticle {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0) translateX(0) rotate(0deg);
         }
         25% {
@@ -768,21 +491,21 @@
       }
 
       @keyframes textGlow {
-        0%, 100% {
+        0%,
+        100% {
           text-shadow: 0 0 20px rgba(235, 39, 67, 0.5),
-                       0 0 40px rgba(235, 39, 67, 0.3);
+            0 0 40px rgba(235, 39, 67, 0.3);
         }
         50% {
           text-shadow: 0 0 30px rgba(235, 39, 67, 0.8),
-                       0 0 60px rgba(235, 39, 67, 0.6);
+            0 0 60px rgba(235, 39, 67, 0.6);
         }
       }
 
       /* Hero Text Animations */
       .hero-title {
-        animation: slideInDown 0.8s ease-out,
-                   fadeInScale 1s ease-out 0.2s both,
-                   textGlow 3s ease-in-out infinite 1.5s;
+        animation: slideInDown 0.8s ease-out, fadeInScale 1s ease-out 0.2s both,
+          textGlow 3s ease-in-out infinite 1.5s;
       }
 
       .hero-subtitle {
@@ -797,11 +520,13 @@
       @keyframes centerCardAppear {
         from {
           opacity: 0;
-          transform: translateX(0) translateY(0) translateZ(-30px) rotateY(0deg) scale(0.8);
+          transform: translateX(0) translateY(0) translateZ(-30px) rotateY(0deg)
+            scale(0.8);
         }
         to {
           opacity: 1;
-          transform: translateX(0) translateY(0) translateZ(0) rotateY(0deg) scale(1);
+          transform: translateX(0) translateY(0) translateZ(0) rotateY(0deg)
+            scale(1);
         }
       }
 
@@ -809,7 +534,8 @@
       @keyframes pastCardSlideIn {
         from {
           opacity: 0;
-          transform: translateX(-150px) translateZ(-50px) rotateY(45deg) scale(0.7);
+          transform: translateX(-150px) translateZ(-50px) rotateY(45deg)
+            scale(0.7);
         }
         to {
           opacity: 0.85;
@@ -821,11 +547,13 @@
       @keyframes futureCardSlideIn {
         from {
           opacity: 0;
-          transform: translateX(150px) translateZ(-50px) rotateY(-45deg) scale(0.7);
+          transform: translateX(150px) translateZ(-50px) rotateY(-45deg)
+            scale(0.7);
         }
         to {
           opacity: 0.85;
-          transform: translateX(-20px) translateZ(20px) rotateY(-30deg) scale(0.9);
+          transform: translateX(-20px) translateZ(20px) rotateY(-30deg)
+            scale(0.9);
         }
       }
 
@@ -833,11 +561,13 @@
       @keyframes pastCardSlideInMobile {
         from {
           opacity: 0;
-          transform: translateY(-150px) translateZ(-50px) rotateX(-45deg) scale(0.7);
+          transform: translateY(-150px) translateZ(-50px) rotateX(-45deg)
+            scale(0.7);
         }
         to {
           opacity: 0.85;
-          transform: translateY(20px) translateZ(20px) rotateX(-30deg) scale(0.9);
+          transform: translateY(20px) translateZ(20px) rotateX(-30deg)
+            scale(0.9);
         }
       }
 
@@ -845,17 +575,20 @@
       @keyframes futureCardSlideInMobile {
         from {
           opacity: 0;
-          transform: translateY(150px) translateZ(-50px) rotateX(45deg) scale(0.7);
+          transform: translateY(150px) translateZ(-50px) rotateX(45deg)
+            scale(0.7);
         }
         to {
           opacity: 0.85;
-          transform: translateY(-20px) translateZ(20px) rotateX(30deg) scale(0.9);
+          transform: translateY(-20px) translateZ(20px) rotateX(30deg)
+            scale(0.9);
         }
       }
 
       /* Card subtle pulse animation after initial load */
       @keyframes cardPulseSubtle {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 1;
         }
         50% {
@@ -866,28 +599,11 @@
       /* Center card appears first */
       .panorama-card-center {
         animation: centerCardAppear 0.6s ease-out both,
-                   cardPulseSubtle 3s ease-in-out infinite 0.8s;
+          cardPulseSubtle 3s ease-in-out infinite 0.8s;
       }
 
-      /* Shimmer Animation for Cards */
-      @keyframes shimmer {
-        0% {
-          background-position: -200% 0;
-        }
-        100% {
-          background-position: 200% 0;
-        }
-      }
 
-      /* Enhanced Card Glow Effects */
-      @keyframes cardGlowPulse {
-        0%, 100% {
-          box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.7), 0 0 80px rgba(235, 39, 67, 0.4);
-        }
-        50% {
-          box-shadow: 0 35px 70px -12px rgba(235, 39, 67, 0.9), 0 0 100px rgba(235, 39, 67, 0.6);
-        }
-      }
+
 
       /* Past card slides in after center */
       .panorama-card-past {
@@ -971,26 +687,8 @@
         }
       }
 
-      @keyframes stepCardGlow {
-        0%, 100% {
-          box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
-                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        }
-        50% {
-          box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
-                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        }
-      }
 
-      @keyframes stepBadgeRotate {
-        from {
-          transform: rotate(-5deg);
-        }
-        to {
-          transform: rotate(0deg);
-        }
-      }
-
+  
       @keyframes stepEmojiScale {
         from {
           transform: scale(1);
@@ -1000,17 +698,7 @@
         }
       }
 
-      @keyframes stepSparkleFloat {
-        0%, 100% {
-          opacity: 0;
-          transform: translateY(0);
-        }
-        50% {
-          opacity: 1;
-          transform: translateY(-10px);
-        }
-      }
-
+ 
       /* Step card motion classes */
       .step-card-motion-left {
         animation: stepCardSlideLeft 0.8s ease-out both;
@@ -1043,7 +731,7 @@
 
       .step-card-wrapper:hover .step-card-inner {
         box-shadow: 0 30px 60px -12px rgba(235, 39, 67, 0.6),
-                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
       }
 
       .step-card-wrapper:hover .step-badge {
@@ -1062,6 +750,14 @@
       .step-card-visible {
         opacity: 1;
         transform: translateX(0) scale(1);
+      }
+
+      .bg-img {
+        background-image: url("./bg2.png");
+        background-image: url("./background.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     </style>
   </head>
@@ -1137,7 +833,7 @@
       </div>
 
       <!-- Section 1: Hero Section with Snow -->
-      <section class="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <section class="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-img">
         <!-- Snow Container - Only in Hero Section -->
         <div
           id="snow-particles"
@@ -1148,7 +844,9 @@
         <!-- Header -->
         <div class="text-center mb-8 sm:mb-12">
           <div class="inline-block mb-4 sm:mb-6">
-            <div class="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <div
+              class="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4"
+            >
               <span class="text-4xl sm:text-5xl animate-bounce">🎄</span>
               <h1
                 class="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-2 sm:mb-3 relative text-white"
@@ -1235,16 +933,28 @@
         <!-- 3D Panorama Slider Container -->
         <div class="panorama-container relative mt-6 sm:mt-8">
           <!-- Decorative floating elements around cards -->
-          <div class="absolute top-1/4 left-1/4 text-white/30 text-xl float-particle pointer-events-none hidden sm:block" style="z-index: 0;">
+          <div
+            class="absolute top-1/4 left-1/4 text-white/30 text-xl float-particle pointer-events-none hidden sm:block"
+            style="z-index: 0"
+          >
             ✨
           </div>
-          <div class="absolute top-1/3 right-1/4 text-white/30 text-lg float-particle delay-500 pointer-events-none hidden sm:block" style="z-index: 0;">
+          <div
+            class="absolute top-1/3 right-1/4 text-white/30 text-lg float-particle delay-500 pointer-events-none hidden sm:block"
+            style="z-index: 0"
+          >
             ❄
           </div>
-          <div class="absolute bottom-1/4 left-1/3 text-white/30 text-xl float-particle delay-300 pointer-events-none hidden sm:block" style="z-index: 0;">
+          <div
+            class="absolute bottom-1/4 left-1/3 text-white/30 text-xl float-particle delay-300 pointer-events-none hidden sm:block"
+            style="z-index: 0"
+          >
             💎
           </div>
-          <div class="absolute bottom-1/3 right-1/3 text-white/30 text-lg float-particle delay-700 pointer-events-none hidden sm:block" style="z-index: 0;">
+          <div
+            class="absolute bottom-1/3 right-1/3 text-white/30 text-lg float-particle delay-700 pointer-events-none hidden sm:block"
+            style="z-index: 0"
+          >
             ✨
           </div>
           <div id="calendarGrid" class="panorama-slider relative z-10">
@@ -1272,7 +982,9 @@
             >
               Cum Funcționează
             </h2>
-            <span class="text-3xl animate-pulse delay-500 float-particle">✨</span>
+            <span class="text-3xl animate-pulse delay-500 float-particle"
+              >✨</span
+            >
           </div>
           <div class="relative inline-block">
             <div
@@ -1288,7 +1000,7 @@
           <div
             id="steps-container"
             class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 relative z-10 pt-8 pb-8"
-            style="overflow: visible;"
+            style="overflow: visible"
           >
             <!-- Steps will be generated here by JavaScript -->
           </div>
@@ -1296,7 +1008,10 @@
       </section>
 
       <!-- Section 3: Footer Section - Terms & Conditions -->
-      <section id="tnc-section" class="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+      <section
+        id="tnc-section"
+        class="relative z-10 w-full px-4 sm:px-6 lg:px-8"
+      >
         <footer class="w-full">
           <div class="w-full max-w-6xl mx-auto py-6 sm:py-6">
             <!-- Terms & Conditions with Integrated Payment Methods -->
@@ -1306,7 +1021,8 @@
                 <!-- Header -->
                 <div class="text-center mb-12 scroll-fade-in">
                   <div class="inline-flex items-center gap-3 mb-4">
-                    <span class="text-2xl animate-pulse float-particle">📋</span>
+                   
+                    >
                     <h3
                       class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
                       style="
@@ -1317,7 +1033,8 @@
                     >
                       Termeni și Condiții
                     </h3>
-                    <span class="text-2xl animate-pulse delay-500 float-particle">📋</span>
+               
+                    >
                   </div>
                   <div class="relative inline-block">
                     <div
@@ -1331,9 +1048,14 @@
 
                 <!-- Terms Content - New Beautiful Layout -->
                 <div class="max-w-5xl mx-auto">
-                  <div class="relative bg-gradient-to-br from-gray-800/40 via-gray-900/30 to-gray-800/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-                    <!-- Scrollable Container -->
-                    <div id="terms-container" class="max-h-[600px] overflow-y-auto px-6 sm:px-8 py-8 space-y-8 custom-scrollbar">
+                  <div
+                    class="relative bg-gradient-to-br from-gray-800/40 via-gray-900/30 to-gray-800/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+                  >
+                    <!-- Terms Container -->
+                    <div
+                      id="terms-container"
+                      class="px-6 sm:px-8 py-8 space-y-8"
+                    >
                       <!-- Terms content will be generated here by JavaScript -->
                     </div>
                   </div>
@@ -1362,8 +1084,8 @@
                   class="text-white/50 text-[10px] sm:text-xs"
                   style="font-family: 'Inter', sans-serif"
                 >
-                  © 2024 Calendar Promo de Crăciun. Toate drepturile rezervate. | 18+
-                  Doar | Joacă Responsabil
+                  © 2024 Calendar Promo de Crăciun. Toate drepturile rezervate.
+                  | 18+ Doar | Joacă Responsabil
                 </p>
               </div>
             </div>
@@ -1376,7 +1098,7 @@
     <div
       id="modal"
       class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm items-center justify-center z-50 p-4 animate-in fade-in duration-300"
-      style="display: none;"
+      style="display: none"
     >
       <div
         class="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-2xl max-w-lg w-full p-8 sm:p-10 relative zoom-in-95 border border-white/20"
@@ -1455,7 +1177,6 @@
           JSON.stringify(Array.from(openedDays))
         );
       }
-
       // Get day state
       function getDayState(day) {
         if (day < currentDay) return "past";
@@ -1529,15 +1250,18 @@
 
       function getPromotion(day) {
         const monthAbbr = currentMonthName.substring(0, 3).toUpperCase();
-        
+
         // Generate dynamic promotion data based on day number
         const titleIndex = (day - 1) % promotionTitles.length;
         const descIndex = (day * 3) % promotionDescriptions.length;
         const discount = getDynamicDiscount(day);
-        
+
         // Generate unique code based on day, month, and year
-        const code = `${monthAbbr}${String(day).padStart(2, "0")}${currentYear}`;
-        
+        const code = `${monthAbbr}${String(day).padStart(
+          2,
+          "0"
+        )}${currentYear}`;
+
         return {
           day,
           title: `${promotionTitles[titleIndex]} - Ziua ${day}`,
@@ -1853,7 +1577,7 @@
 
           const card = document.createElement("div");
           let finalCardClasses = cardClasses + " card-light-effect";
-          
+
           // Add animation classes based on card position
           if (cardIndex === 1) {
             // Center card (current day) - appears first
@@ -1865,7 +1589,7 @@
             // Future card - slides in from right/bottom
             finalCardClasses += " panorama-card-future";
           }
-          
+
           card.className = finalCardClasses;
           card.style.cssText =
             cardStyle +
@@ -1950,7 +1674,8 @@
           textMotionClass: "text-motion-delay-1",
           emoji: "🎁",
           title: "Deschide Cardul Zilnic",
-          description: "Apasă pe cardul de astăzi pentru a-ți dezvălui oferta exclusivă de bonus",
+          description:
+            "Apasă pe cardul de astăzi pentru a-ți dezvălui oferta exclusivă de bonus",
           hoverColor: "group-hover:text-red-200",
           showBackgroundGlow: false,
         },
@@ -1961,7 +1686,8 @@
           textMotionClass: "text-motion-delay-2",
           emoji: "🎴",
           title: "Obține Codul Promo",
-          description: "Primește codul tău promo unic pentru bonusuri exclusive de cazino",
+          description:
+            "Primește codul tău promo unic pentru bonusuri exclusive de cazino",
           hoverColor: "group-hover:text-yellow-200",
           showBackgroundGlow: true,
         },
@@ -1972,7 +1698,8 @@
           textMotionClass: "text-motion-delay-3",
           emoji: "🎰",
           title: "Revendică Bonus",
-          description: 'Apasă "Revendică Bonus" pentru a folosi codul tău și a te bucura de recompense',
+          description:
+            'Apasă "Revendică Bonus" pentru a folosi codul tău și a te bucura de recompense',
           hoverColor: "group-hover:text-yellow-200",
           showBackgroundGlow: true,
         },
@@ -1999,15 +1726,6 @@
           decorativeEmoji: "💎",
           description:
             "Fiecare cod promo este valabil doar în ziua desemnată. Supus cerințelor de pariere.",
-          // Example of long text - you can use longDescription for paragraphs
-          // longDescription: "Fiecare cod promo este valabil doar în ziua desemnată.\n\nSupus cerințelor de pariere. Bonusurile trebuie folosite conform termenilor și condițiilor.\n\nToate bonusurile sunt supuse verificării și pot fi anulate dacă se detectează încălcarea termenilor.",
-          // Example of list items - you can add listItems array for bullet points
-          // listItems: [
-          //   "Codurile promo sunt valabile doar pentru jucători noi",
-          //   "Fiecare cod poate fi folosit o singură dată",
-          //   "Bonusurile sunt supuse cerințelor de pariere de 35x",
-          //   "Timpul limită pentru utilizare este de 30 de zile"
-          // ]
         },
         {
           delay: "scroll-delay-300",
@@ -2105,22 +1823,22 @@
       // Render Step Card
       function renderStepCard(stepData, index) {
         // Determine animation class based on index
-        let motionClass = '';
-        let motionDelay = '';
+        let motionClass = "";
+        let motionDelay = "";
         if (index === 0) {
-          motionClass = 'step-card-motion-left';
-          motionDelay = 'step-card-motion-delay-1';
+          motionClass = "step-card-motion-left";
+          motionDelay = "step-card-motion-delay-1";
         } else if (index === 1) {
-          motionClass = 'step-card-motion-scale';
-          motionDelay = 'step-card-motion-delay-2';
+          motionClass = "step-card-motion-scale";
+          motionDelay = "step-card-motion-delay-2";
         } else {
-          motionClass = 'step-card-motion-right';
-          motionDelay = 'step-card-motion-delay-3';
+          motionClass = "step-card-motion-right";
+          motionDelay = "step-card-motion-delay-3";
         }
 
         const backgroundGlow = stepData.showBackgroundGlow
           ? '<div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-gray-700/10 via-transparent to-gray-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>'
-          : '';
+          : "";
 
         return `
             <div class="step-card-wrapper relative group ${motionClass} ${motionDelay}" style="overflow: visible;" data-step-index="${index}">
@@ -2199,14 +1917,19 @@
         // Support for both simple description and detailed content
         const hasList = termData.listItems && termData.listItems.length > 0;
         const hasLongText = termData.longDescription;
-        
-        let contentHTML = '';
+
+        let contentHTML = "";
         if (hasLongText) {
           // Split long text into paragraphs
-          const paragraphs = termData.longDescription.split('\n').filter(p => p.trim());
-          contentHTML = paragraphs.map(p => 
-            `<p class="term-description" style="font-family: 'Inter', sans-serif">${p.trim()}</p>`
-          ).join('');
+          const paragraphs = termData.longDescription
+            .split("\n")
+            .filter((p) => p.trim());
+          contentHTML = paragraphs
+            .map(
+              (p) =>
+                `<p class="term-description" style="font-family: 'Inter', sans-serif">${p.trim()}</p>`
+            )
+            .join("");
         } else {
           contentHTML = `<p class="term-description" style="font-family: 'Inter', sans-serif">${termData.description}</p>`;
         }
@@ -2214,9 +1937,12 @@
         if (hasList) {
           contentHTML += `
             <ul class="term-list">
-              ${termData.listItems.map(item => 
-                `<li class="term-list-item" style="font-family: 'Inter', sans-serif">${item}</li>`
-              ).join('')}
+              ${termData.listItems
+                .map(
+                  (item) =>
+                    `<li class="term-list-item" style="font-family: 'Inter', sans-serif">${item}</li>`
+                )
+                .join("")}
             </ul>
           `;
         }
@@ -2228,7 +1954,11 @@
                 <h4 class="term-title" style="font-family: 'Inter', sans-serif">
                   <span>${termData.icon}</span>
                   <span>${termData.title}</span>
-                  ${termData.decorativeEmoji ? `<span class="text-sm opacity-60">${termData.decorativeEmoji}</span>` : ''}
+                  ${
+                    termData.decorativeEmoji
+                      ? `<span class="text-sm opacity-60">${termData.decorativeEmoji}</span>`
+                      : ""
+                  }
                 </h4>
                 ${contentHTML}
               </div>
@@ -2297,29 +2027,29 @@
       function renderPaymentMethods() {
         const container = document.getElementById("payment-methods-container");
         if (container) {
-          container.innerHTML = paymentMethodsData.map((payment) =>
-            renderPaymentIcon(payment)
-          ).join("");
+          container.innerHTML = paymentMethodsData
+            .map((payment) => renderPaymentIcon(payment))
+            .join("");
         }
       }
 
       // Initialize step card motion animations
       function initStepCardAnimations() {
-        const stepCards = document.querySelectorAll('.step-card-wrapper');
-        
+        const stepCards = document.querySelectorAll(".step-card-wrapper");
+
         const observerOptions = {
           threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px',
+          rootMargin: "0px 0px -50px 0px",
         };
 
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('step-card-visible');
+              entry.target.classList.add("step-card-visible");
               // Trigger sparkle animation on visible
-              const sparkle = entry.target.querySelector('.step-sparkle');
+              const sparkle = entry.target.querySelector(".step-sparkle");
               if (sparkle) {
-                sparkle.style.opacity = '1';
+                sparkle.style.opacity = "1";
               }
             }
           });
@@ -2337,7 +2067,7 @@
         renderSteps();
         renderTerms();
         renderPaymentMethods();
-        
+
         // Initialize step card animations after rendering
         setTimeout(() => {
           initStepCardAnimations();
@@ -2448,7 +2178,7 @@
 
       // Start the app
       init();
-      
+
       // Initialize scroll animations after DOM is ready
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", initScrollAnimations);

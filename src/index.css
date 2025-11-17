@@ -269,32 +269,100 @@ body {
   opacity: 1;
 }
 
-/* Enhanced T&C Section */
-.tnc-card {
-  background: linear-gradient(
-    135deg,
-    rgba(42, 45, 58, 0.3) 0%,
-    rgba(31, 34, 48, 0.25) 50%,
-    rgba(37, 40, 54, 0.3) 100%
-  );
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+/* Enhanced T&C Section - New Beautiful Layout */
+.term-section {
+  position: relative;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.tnc-card:hover {
+.term-section:last-child {
+  border-bottom: none;
+}
+
+.term-section-number {
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  width: 32px;
+  height: 32px;
   background: linear-gradient(
     135deg,
-    rgba(42, 45, 58, 0.4) 0%,
-    rgba(31, 34, 48, 0.35) 50%,
-    rgba(37, 40, 54, 0.4) 100%
+    rgba(235, 39, 67, 0.3),
+    rgba(209, 30, 58, 0.3)
   );
-  border-color: rgba(235, 39, 67, 0.3);
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(235, 39, 67, 0.4);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.term-content {
+  margin-left: 3rem;
+}
+
+.term-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.term-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.5rem;
+}
+
+.term-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.75rem;
+}
+
+.term-list-item {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.term-list-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: rgba(235, 39, 67, 0.8);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 640px) {
+  .term-content {
+    margin-left: 2.5rem;
+  }
+
+  .term-section-number {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .term-title {
+    font-size: 1.1rem;
+  }
+
+  .term-description {
+    font-size: 0.875rem;
+  }
 }
 
 /* Floating particles animation */
@@ -315,6 +383,10 @@ body {
 
 .float-particle {
   animation: floatParticle 6s ease-in-out infinite;
+}
+
+.float-particle.delay-500 {
+  animation-delay: 0.5s;
 }
 
 /* Text Motion Animations */

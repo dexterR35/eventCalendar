@@ -1,57 +1,57 @@
 import { motion } from 'framer-motion';
 
 export default function Footer() {
-  // Terms & Conditions Data - matches standalone version
+  // Terms & Conditions Data - matches standalone version (Romanian)
   const termsData = [
     {
       delay: "scroll-delay-100",
       iconBg: "from-red-500/20 to-red-600/20",
       iconBorder: "border-red-400/30",
       icon: "👤",
-      title: "Eligibility",
+      title: "Eligibilitate",
       decorativeEmoji: "✨",
       description:
-        "Available to players 18+ (or legal age). One bonus per day per account.",
+        "Disponibil pentru jucători 18+ (sau vârsta legală). Un bonus pe zi per cont.",
     },
     {
       delay: "scroll-delay-200",
       iconBg: "from-yellow-500/20 to-yellow-600/20",
       iconBorder: "border-yellow-400/30",
       icon: "🎁",
-      title: "Bonus Terms",
+      title: "Termeni Bonus",
       decorativeEmoji: "💎",
       description:
-        "Each promo code valid only on its designated day. Subject to wagering requirements.",
+        "Fiecare cod promo este valabil doar în ziua desemnată. Supus cerințelor de pariere.",
     },
     {
       delay: "scroll-delay-300",
       iconBg: "from-blue-500/20 to-blue-600/20",
       iconBorder: "border-blue-400/30",
       icon: "🎴",
-      title: "Usage",
+      title: "Utilizare",
       decorativeEmoji: "🎰",
       description:
-        "Codes must be used at registration or deposit. Cannot be transferred or combined.",
+        "Codurile trebuie folosite la înregistrare sau depunere. Nu pot fi transferate sau combinate.",
     },
     {
       delay: "scroll-delay-400",
       iconBg: "from-green-500/20 to-green-600/20",
       iconBorder: "border-green-400/30",
       icon: "🛡️",
-      title: "Responsible Gaming",
+      title: "Joc Responsabil",
       decorativeEmoji: "❤️",
       description:
-        "Gamble responsibly. Seek help if needed from responsible gaming organizations.",
+        "Joacă responsabil. Caută ajutor dacă este nevoie de la organizații de jocuri responsabile.",
     },
     {
       delay: "scroll-delay-500",
       iconBg: "from-purple-500/20 to-purple-600/20",
       iconBorder: "border-purple-400/30",
       icon: "⚙️",
-      title: "Changes",
+      title: "Modificări",
       decorativeEmoji: "📝",
       description:
-        "We reserve the right to modify or cancel this promotion. All decisions are final.",
+        "Ne rezervăm dreptul de a modifica sau anula această promoție. Toate deciziile sunt finale.",
     },
   ];
 
@@ -108,7 +108,7 @@ export default function Footer() {
       hasGradient: false,
     },
     {
-      title: "Bank Transfer",
+      title: "Transfer Bancar",
       text: "🏦",
       fontWeight: "font-semibold",
       textColor: "text-white/70",
@@ -156,20 +156,7 @@ export default function Footer() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <div className="inline-flex items-center gap-3 mb-4">
-                  <motion.span
-                    className="text-2xl"
-                    animate={{
-                      y: [0, -20, 0],
-                      rotate: [0, 90, 180, 270, 360],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    📋
-                  </motion.span>
+                  <span className="text-2xl animate-pulse float-particle">📋</span>
                   <h3
                     className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6"
                     style={{
@@ -178,23 +165,9 @@ export default function Footer() {
                       textShadow: "0 2px 10px rgba(235, 39, 67, 0.3)",
                     }}
                   >
-                    Terms & Conditions
+                    Termeni și Condiții
                   </h3>
-                  <motion.span
-                    className="text-2xl"
-                    animate={{
-                      y: [0, -20, 0],
-                      rotate: [0, 90, 180, 270, 360],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 0.5,
-                    }}
-                  >
-                    📋
-                  </motion.span>
+                  <span className="text-2xl animate-pulse delay-500 float-particle">📋</span>
                 </div>
                 <div className="relative inline-block">
                   <div className="h-1.5 bg-gradient-to-r from-transparent via-red-400/20 to-transparent rounded-full w-48 mx-auto mb-2"></div>
@@ -205,9 +178,9 @@ export default function Footer() {
               {/* Terms Content - New Beautiful Layout */}
               <div className="max-w-5xl mx-auto">
                 <div className="relative bg-gradient-to-br from-gray-800/40 via-gray-900/30 to-gray-800/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-                  {/* Scrollable Container */}
+                  {/* Terms Container */}
                   <motion.div
-                    className="max-h-[600px] overflow-y-auto px-6 sm:px-8 py-8 space-y-8 custom-scrollbar"
+                    className="px-6 sm:px-8 py-8 space-y-8"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -216,33 +189,27 @@ export default function Footer() {
                     {termsData.map((term, index) => (
                       <motion.div
                         key={index}
-                        className="tnc-card"
+                        className="term-section"
                         variants={termCardVariants}
-                        whileHover={{
-                          y: -2,
-                          scale: 1.01,
-                          transition: { duration: 0.3 },
-                        }}
                       >
-                        <div className="flex items-start gap-4">
-                          <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${term.iconBg} flex items-center justify-center border ${term.iconBorder}`}>
-                            <span className="text-2xl">{term.icon}</span>
-                          </div>
-                          <div className="flex-1">
-                            <h4
-                              className="text-xl sm:text-2xl font-black text-white mb-3 flex items-center gap-2"
-                              style={{ fontFamily: "'Inter', sans-serif" }}
-                            >
-                              <span>{term.title}</span>
+                        <div className="term-section-number">{index + 1}</div>
+                        <div className="term-content">
+                          <h4
+                            className="term-title"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                          >
+                            <span>{term.icon}</span>
+                            <span>{term.title}</span>
+                            {term.decorativeEmoji && (
                               <span className="text-sm opacity-60">{term.decorativeEmoji}</span>
-                            </h4>
-                            <p
-                              className="text-sm sm:text-base text-white/90 leading-relaxed"
-                              style={{ fontFamily: "'Inter', sans-serif" }}
-                            >
-                              {term.description}
-                            </p>
-                          </div>
+                            )}
+                          </h4>
+                          <p
+                            className="term-description"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                          >
+                            {term.description}
+                          </p>
                         </div>
                       </motion.div>
                     ))}
@@ -263,7 +230,7 @@ export default function Footer() {
                 className="text-center text-white/60 text-xs sm:text-sm mb-4 font-medium"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
-                Accepted Payment Methods
+                Metode de Plată Acceptate
               </p>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
                 {paymentMethodsData.map((payment, index) => {
@@ -314,7 +281,7 @@ export default function Footer() {
                 className="text-white/50 text-[10px] sm:text-xs"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
-                © 2024 Christmas Promo Calendar. All rights reserved. | 18+ Only | Play Responsibly
+                © 2024 Calendar Promo de Crăciun. Toate drepturile rezervate. | 18+ Doar | Joacă Responsabil
               </p>
             </motion.div>
           </div>
